@@ -1,0 +1,21 @@
+<li class="vm_item {{#if top}}vm_top{{/if}}" style="margin-left:{{margin}}px">
+
+    <div class="vm_desc">
+        {{obj.desc}}
+        {{#unless top}}>{{/unless}}
+    </div>
+    <div class="vm_container">
+        {{#if obj.text}}
+            <div class="vm_text">
+                {{obj.text}}
+            </div>
+        {{/if}}
+
+        {{#if obj.ol}}
+            <ol class="vm_hook"></ol>
+        {{/if}}
+        {{#if obj.ul}}
+            <ul class="vm_hook"></ul>
+        {{/if}}
+    </div>
+</li>

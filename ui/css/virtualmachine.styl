@@ -1,0 +1,105 @@
+
+.vm_page
+    overflow auto
+    display none
+    .vm_container
+        width 1200px
+        padding 15px 0
+        margin auto
+        border-left 1px solid #acacac
+        border-right 1px solid #acacac
+        position relative
+        //border-radius 5px
+        background-color #fafafa
+        //background linear-gradient(center top, #fafafa, #dedede)
+        //background linear-gradient(top, #ffffff, 5% #f5f5f5, 95% #f1f1f1);
+        .vm_title
+            width 575px
+            height 150px
+            border 1px solid black
+            margin auto
+            border-radius 5px
+        .vm_developer
+            absolute left 50px top 200px
+            .vm_icon, .vm_button
+                background linear-gradient(top, rgba(104,167,216,1), rgba(0,70,127,1))
+        .vm_admin
+            absolute right 50px top 200px
+            .vm_icon, .vm_button
+                background linear-gradient(top, rgba(224, 125, 140, 1) , rgba(153, 13, 34, 1))
+
+
+        .vm_developer, .vm_admin
+            width 500px
+            border 1px solid #777
+            border-radius 25px
+            box-shadow 0 3px 5px rgba(0,0,0,.4);
+            .vm_button
+                width 200px
+                border-radius 25px
+                box-shadow 0 3px 5px rgba(0, 0, 0, .4)
+                &.vm_highlight
+                    box-shadow 0 3px 5px rgba(0, 0, 0, .7)
+            .vm_icon
+                border-radius 25px 25px 0 0
+            .vm_label
+                margin auto
+                border 1px solid #acacac
+                padding 20px 0
+                //width 125px
+                text-align center
+                font-size 24px
+                color #f7f7f7
+                text-shadow #555 2px 2px
+                cursor pointer
+                user-select none
+                &.vm_highlight
+                    border-color #666666
+                    text-shadow #111 2px 2px
+            .vm_info
+                border-radius 5px
+                //padding 20px 20px
+                width 400px
+                font-size 16px
+                margin auto
+                margin-bottom 25px
+                ul
+                    list-style inherit
+                    li
+                        margin-top 15px
+
+.vm_tutorial
+    absolute top 0 left 0
+    border-right 1px solid #777
+    overflow auto
+    background linear-gradient(left, #fff, #ddd)
+    &> li.vm_item.vm_top
+
+        list-style none
+        &> .vm_desc
+            margin auto
+            display block
+            font-size 26px
+            text-align center
+        &> ol.vm_hook
+            display block
+            margin-left 5px
+
+    .vm_item:not(.vm_top)
+        margin 7px 0
+        .vm_desc
+            font-weight bold
+        .vm_container
+            display none
+        .vm_text
+            margin-left 30px
+            ul,ol
+                margin-left 20px
+    .vm_item
+        strong
+            font-size 12px
+        ul
+            list-style disc outside
+        ol
+            list-style decimal outside
+
