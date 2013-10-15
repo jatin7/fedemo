@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Sets up the users local directory for testing VM related projects
+# Dont forget to run cleanup.sh after this is run
+
+# Pass in the trunk directory of your source code to link up VM for testing
+# IE ./localsetup.sh /home/funuser/development/default/trunk
+
+WORKSPACE="$1/src/www"
+
+ln -s ui/virtualmachine.html $WORKSPACE/virtualmachine.html
+ln -s ui/hue.html $WORKSPACE/hue.html
+ln -s ui/mapr_prod_vm.js $WORKSPACE/js/mapr_prod_vm.js
+ln -s ui/mapr_vm_main.js $WORKSPACE/js/mapr_vm_main.js
+ln -s ui/css/virtualmachine.styl $WORKSPACE/css/virtualmachine.styl
+ln -s ui/js/text/Tutorial.js $WORKSPACE/js/text/Tutorial.js
+ln -s ui/js/tmpl/tutorial $WORKSPACE/js/tmpl/src/tutorial
+ln -s ui/js/views/tutorial $WORKSPACE/js/views/tutorial
+ln -s ui/js/views/virtualmachine $WORKSPACE/js/views/virtualmachine
+

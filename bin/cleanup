@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Removes all symbolic links from workspace given
+
+WORKSPACE="$1/src/www"
+
+rm $WORKSPACE/virtualmachine.html
+rm $WORKSPACE/hue.html
+rm $WORKSPACE/js/mapr_prod_vm.js
+rm $WORKSPACE/js/mapr_vm_main.js
+rm $WORKSPACE/css/virtualmachine.styl
+rm $WORKSPACE/js/text/Tutorial.js
+rm $WORKSPACE/js/tmpl/src/tutorial
+rm $WORKSPACE/js/views/tutorial
+rm $WORKSPACE/js/views/virtualmachine
+
