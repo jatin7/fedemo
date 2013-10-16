@@ -17,8 +17,7 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
             var initWidth = 300;
             _.bindAll(this, "resize", "render", "_render");
             MAPR.page.model.set("left", initWidth);
-            //PageManager.set("leftArea", initWidth);
-            //PageManager.on("pageresize", this.resize);
+            MAPR.page.on("pageresize", this.resize);
 
             this.$el.width(initWidth);
             this.render();

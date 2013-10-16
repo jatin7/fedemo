@@ -59,8 +59,8 @@
         'js/widgets/Tabs.js',
         'js/widgets/Info.js',
         'js/widgets/Dashboard.js',
+        'js/init/Page.js',
         'js/widgets/Tutorial.js'
-        'js/init/Page.js'
     ];
 
     for (i=0;i<mapr_scripts.length;i++) {
