@@ -29,18 +29,20 @@ ln -s $SRC/www/mapr_vm_main.js $WORKSPACE/js/mapr_vm_main.js
 checkReturn
 ln -s $SRC/www/css/virtualmachine.styl $WORKSPACE/css/virtualmachine.styl
 checkReturn
+ln -s $SRC/www/css/virtualmachine.css $WORKSPACE/css/virtualmachine.css
+checkReturn
 ln -s $SRC/www/js/text/Tutorial.js $WORKSPACE/js/text/Tutorial.js
 checkReturn
 ln -s $SRC/www/js/tmpl/tutorial $WORKSPACE/js/tmpl/src/tutorial
 checkReturn
-ln -s $SRC/www/js/views/tutorial $WORKSPACE/js/views/tutorial
+ln -s $SRC/www/js/widgets/Tutorial.js $WORKSPACE/js/widgets/Tutorial.js
 checkReturn
-ln -s $SRC/www/js/views/virtualmachine $WORKSPACE/js/views/virtualmachine
+ln -s $SRC/www/js/virtualmachine $WORKSPACE/js/virtualmachine
 checkReturn
 
-mv $WORKSPACE/css/mapr_prod.styl $WORKSPACE/css/mapr_prod.bk.styl
+mv $WORKSPACE/css/mapr_prod.css $WORKSPACE/css/mapr_prod.bk.css
 checkReturn
-cp $SRC/www/css/mapr_prod.styl $WORKSPACE/css
+cp $SRC/www/css/mapr_prod.css $WORKSPACE/css
 checkReturn
 
 mv $WORKSPACE/js/mapr_prod_core.js $WORKSPACE/js/mapr_prod_core.bk.js

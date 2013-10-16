@@ -1,0 +1,12 @@
+/* EXT stylesheets */
+@import url(v2/ext-all-notheme.css);
+@import url(v2/xtheme-gray.css);
+
+/* Theme-specific stylesheet, including styles for all of our custom widgets */
+@import url(v2/mapr-theme.css);
+@import url(v2/emc-theme.css);
+
+/* New MapR Styles */
+@import url(jquery-ui-1.10.2.custom.css);
+@import url(zelda.css);
+@import url(virtualmachine.css)
