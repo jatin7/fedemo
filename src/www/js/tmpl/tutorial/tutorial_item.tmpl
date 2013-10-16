@@ -2,7 +2,9 @@
 
     <div class="vm_desc">
         {{obj.desc}}
-        {{#unless top}}>{{/unless}}
+        {{#unless top}}
+            <span class="ui-icon ui-icon-triangle-1-e"></span>
+        {{/unless}}
     </div>
     <div class="vm_container">
         {{#if obj.text}}

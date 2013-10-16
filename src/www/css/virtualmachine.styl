@@ -88,7 +88,14 @@
     .vm_item:not(.vm_top)
         margin 7px 0
         .vm_desc
+            user-select none
+            cursor pointer
             font-weight bold
+            &.vm_highlight
+                background-color #c1c1c1
+            .ui-icon
+                display    inline-block
+                relative   top 2px
         .vm_container
             display none
         .vm_text

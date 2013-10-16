@@ -19,7 +19,9 @@ define(function (require) {
         init = Backbone.View.extend({
             el: "div.vm_tutorial",
             events: {
-                "click .vm_item": "toggle"
+                "click .vm_desc": "toggle",
+                "mouseover .vm_desc": "mouseover",
+                "mouseout .vm_desc": "mouseout"
 
             },
             initialize: function () {
@@ -69,13 +71,33 @@ define(function (require) {
 
             },
             toggle: function (e) {
-                var ct = $(e.currentTarget);
-                if (!ct.hasClass("vm_level_1")) {
-                    ct.children(".vm_container").toggle("slow");
+                var ct = $(e.currentTarget),
+                    parent = ct.parent(),
+                    icon = ct.children(".ui-icon"),
+                    cont = parent.children(".vm_container"),
+                    type;
+                if (!parent.hasClass("vm_top")) {
+                    icon.addClass("ui-icon-triangle-1-s").removeClass("ui-icon-triangle-1-e")
+                    cont.clearQueue().stop().toggle("blind", function () {
+                        type = cont.is(":hidden");
+                        icon.toggleClass("ui-icon-triangle-1-e", type).toggleClass("ui-icon-triangle-1-s", !type);
+
+                    });
 
                     e.stopPropagation();
                     e.stopImmediatePropagation();
                 }
+            },
+            mouseover: function (e) {
+                var ct = $(e.currentTarget);
+
+                ct.addClass("vm_highlight");
+
+            },
+            mouseout: function (e) {
+                var ct = $(e.currentTarget);
+
+                ct.removeClass("vm_highlight");
             }
 
         });
