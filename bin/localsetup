@@ -49,4 +49,12 @@ mv $WORKSPACE/js/mapr_prod_core.js $WORKSPACE/js/mapr_prod_core.bk.js
 checkReturn
 cp $SRC/www/js/mapr_prod_core.js $WORKSPACE/js
 checkReturn
+
+mv $WORKSPACE/compile_templates.hb $WORKSPACE/compile_templates.bk.hb
+checkReturn
+cp $SRC/www/compile_templates.hb $WORKSPACE
+checkReturn
+
+
+
 echo "WARNING src/www/css/mapr_prod.styl and srx/www/js/mapr_prod_core.js have been replaced. DO NOT COMMIT these files"
