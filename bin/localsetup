@@ -6,15 +6,45 @@
 # Pass in the trunk directory of your source code to link up VM for testing
 # IE ./localsetup.sh /home/funuser/development/default/trunk
 
+function checkReturn() {
+    if [ $? -ne 0 ]; then
+        echo "Failed, exiting early"
+        exit 1
+    fi
+}
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SRC="`dirname $DIR`/src"
+ADMIN="$1/src/adminuiapp/src/main/webapp"
 WORKSPACE="$1/src/www"
 
-ln -s ui/virtualmachine.html $WORKSPACE/virtualmachine.html
-ln -s ui/hue.html $WORKSPACE/hue.html
-ln -s ui/mapr_prod_vm.js $WORKSPACE/js/mapr_prod_vm.js
-ln -s ui/mapr_vm_main.js $WORKSPACE/js/mapr_vm_main.js
-ln -s ui/css/virtualmachine.styl $WORKSPACE/css/virtualmachine.styl
-ln -s ui/js/text/Tutorial.js $WORKSPACE/js/text/Tutorial.js
-ln -s ui/js/tmpl/tutorial $WORKSPACE/js/tmpl/src/tutorial
-ln -s ui/js/views/tutorial $WORKSPACE/js/views/tutorial
-ln -s ui/js/views/virtualmachine $WORKSPACE/js/views/virtualmachine
 
+ln -s $SRC/adminuiapp/src/main/webapp/virtualmachine.jsp $ADMIN/virtualmachine.jsp
+checkReturn
+ln -s $SRC/www/virtualmachine.html $WORKSPACE/virtualmachine.html
+checkReturn
+ln -s $SRC/www/hue.html $WORKSPACE/hue.html
+checkReturn
+ln -s $SRC/www/mapr_vm_main.js $WORKSPACE/js/mapr_vm_main.js
+checkReturn
+ln -s $SRC/www/css/virtualmachine.styl $WORKSPACE/css/virtualmachine.styl
+checkReturn
+ln -s $SRC/www/js/text/Tutorial.js $WORKSPACE/js/text/Tutorial.js
+checkReturn
+ln -s $SRC/www/js/tmpl/tutorial $WORKSPACE/js/tmpl/src/tutorial
+checkReturn
+ln -s $SRC/www/js/views/tutorial $WORKSPACE/js/views/tutorial
+checkReturn
+ln -s $SRC/www/js/views/virtualmachine $WORKSPACE/js/views/virtualmachine
+checkReturn
+
+mv $WORKSPACE/css/mapr_prod.styl $WORKSPACE/css/mapr_prod.bk.styl
+checkReturn
+cp $SRC/www/css/mapr_prod.styl $WORKSPACE/css
+checkReturn
+
+mv $WORKSPACE/js/mapr_prod_core.js $WORKSPACE/js/mapr_prod_core.bk.js
+checkReturn
+cp $SRC/www/js/mapr_prod_core.js $WORKSPACE/js
+checkReturn
+echo "WARNING src/www/css/mapr_prod.styl and srx/www/js/mapr_prod_core.js have been replaced. DO NOT COMMIT these files"

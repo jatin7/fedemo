@@ -3,10 +3,11 @@
 # Removes all symbolic links from workspace given
 
 WORKSPACE="$1/src/www"
+ADMIN="$1/src/adminuiapp/src/main/webapp"
 
+rm $ADMIN/virtualmachine.jsp
 rm $WORKSPACE/virtualmachine.html
 rm $WORKSPACE/hue.html
-rm $WORKSPACE/js/mapr_prod_vm.js
 rm $WORKSPACE/js/mapr_vm_main.js
 rm $WORKSPACE/css/virtualmachine.styl
 rm $WORKSPACE/js/text/Tutorial.js
@@ -14,3 +15,5 @@ rm $WORKSPACE/js/tmpl/src/tutorial
 rm $WORKSPACE/js/views/tutorial
 rm $WORKSPACE/js/views/virtualmachine
 
+mv $WORKSPACE/css/mapr_prod.bk.styl $WORKSPACE/css/mapr_prod.styl
+mv $WORKSPACE/js/mapr_prod_core.bk.js $WORKSPACE/js/mapr_prod_core.js
