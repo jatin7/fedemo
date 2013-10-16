@@ -14,7 +14,7 @@ rm $WORKSPACE/css/virtualmachine.css
 rm $WORKSPACE/js/text/Tutorial.js
 rm $WORKSPACE/js/tmpl/src/tutorial
 rm $WORKSPACE/js/widgets/Tutorial.js
-rm $WORKSPACE/js/views/virtualmachine
+rm $WORKSPACE/js/virtualmachine
 
-mv $WORKSPACE/css/mapr_prod.bk.styl $WORKSPACE/css/mapr_prod.styl
+mv $WORKSPACE/css/mapr_prod.bk.css $WORKSPACE/css/mapr_prod.css
 mv $WORKSPACE/js/mapr_prod_core.bk.js $WORKSPACE/js/mapr_prod_core.js
