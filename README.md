@@ -8,3 +8,7 @@
 		            /_/                                             
 
 The MapR VM Demo is used to provide a tutorial layer ontop of MCS and Hue.
+
+
+Run bin/localsetup in order to install it locally for debugging purposes. This symbolically links all the files to the source files in this project, so any changes you make will be reflected in both locations.
+You can also run bin/cleanup in order to remove all sym links
