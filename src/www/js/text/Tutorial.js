@@ -3,10 +3,9 @@
  strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:true, jquery:true*/
 /*global define:true*/
 
-define(function (require) {
-    "use strict";
-
-    return {
+(function () {
+    "use strict"
+    MAPR.Text.Tutorial = {
         desc: "MapR MCS Tutorial",
         ol: [
             {
@@ -209,4 +208,4 @@ define(function (require) {
             }
         ]
     };
-});
+}());

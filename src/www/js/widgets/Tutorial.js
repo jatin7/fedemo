@@ -16,8 +16,9 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
         initialize: function () {
             var initWidth = 300;
             _.bindAll(this, "resize", "render", "_render");
-            PageManager.set("leftArea", initWidth);
-            PageManager.on("pageresize", this.resize);
+            MAPR.page.model.set("left", initWidth);
+            //PageManager.set("leftArea", initWidth);
+            //PageManager.on("pageresize", this.resize);
 
             this.$el.width(initWidth);
             this.render();
@@ -28,13 +29,11 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
 
         },
         render: function () {
-            this._render(this.$el, TutorialText, 1);
-
-
+            this._render(this.$el, MAPR.Text.Tutorial, 1);
         },
         _render: function (el, obj, level) {
             var curHook, objItem,
-            cur = $(Templates.tutorial_item({
+            cur = $(Handlebars.templates["tutorial_item.tmpl"]({
                 obj: obj,
                 top: level === 1,
                 margin: level * 10
@@ -91,6 +90,9 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
 
     });
     $(function () {
+        console.log("start")
+        $("body").append(Handlebars.templates["tutorial_base.tmpl"]());
+
         MAPR.tutorial = new MAPR.Tutorial();
     })
-});
+}());
