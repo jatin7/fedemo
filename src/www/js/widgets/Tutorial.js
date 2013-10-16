@@ -14,7 +14,7 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
 
         },
         initialize: function () {
-            var initWidth = 300;
+            var initWidth = 500;
             _.bindAll(this, "resize", "render", "_render");
             MAPR.page.model.set("left", initWidth);
             MAPR.page.on("pageresize", this.resize);
@@ -25,17 +25,31 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
         },
         resize: function (width, height) {
             this.$el.height(height);
-
         },
         render: function () {
             this._render(this.$el, MAPR.Text.Tutorial, 1);
         },
+        getSize: function (size) {
+            var ret = "";
+            if (size === 1) {
+                ret = "vm_large";
+            } else if (size === 2) {
+                ret = "vm_med";
+            } else if (size === 3) {
+                ret = "vm_small";
+            }
+            return ret;
+        },
         _render: function (el, obj, level) {
             var curHook, objItem,
+                size = this.getSize(obj.size || level - 1),
             cur = $(Handlebars.templates["tutorial_item.tmpl"]({
                 obj: obj,
                 top: level === 1,
+                show: _.isUndefined(obj.show) ? level > 3 : obj.show,
+                size: size ,
                 margin: level * 10
+
             }))
             cur.appendTo(el);
 
@@ -44,6 +58,8 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
                 objItem = obj.ul
             } else if (!!obj.ol) {
                 objItem = obj.ol;
+            } else if (!!obj.std) {
+                objItem = obj.std;
             }
 
             if (objItem) {

@@ -3,6 +3,8 @@
   display: none;
 }
 .vm_page .vm_container {
+  display: inline-block;
+  padding-right: 5px;
   width: 1200px;
   padding: 15px 0;
   margin: auto;
@@ -130,7 +132,7 @@
   font-size: 26px;
   text-align: center;
 }
-.vm_tutorial> li.vm_item.vm_top> ol.vm_hook {
+.vm_tutorial> li.vm_item.vm_top> ul.vm_hook {
   display: block;
   margin-left: 5px;
 }
@@ -138,12 +140,22 @@
   margin: 7px 0;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc {
+  white-space: nowrap;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   cursor: pointer;
   font-weight: bold;
+}
+.vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_large {
+  font-size: 20px;
+}
+.vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_med {
+  font-size: 16px;
+}
+.vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_small {
+  font-size: 14px;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_highlight {
   background-color: #c1c1c1;
@@ -157,20 +169,20 @@
 .vm_tutorial .vm_item:not(.vm_top) .vm_container {
   display: none;
 }
-.vm_tutorial .vm_item:not(.vm_top) .vm_text {
-  margin-left: 30px;
-}
-.vm_tutorial .vm_item:not(.vm_top) .vm_text ul,
-.vm_tutorial .vm_item:not(.vm_top) .vm_text ol {
-  margin-left: 20px;
-}
 .vm_tutorial .vm_item strong {
   font-size: 12px;
 }
-.vm_tutorial .vm_item ul {
+.vm_tutorial .vm_item ul.vm_bullet {
   list-style: disc outside;
 }
 .vm_tutorial .vm_item ol {
   list-style: decimal outside;
+}
+.vm_tutorial .vm_item .vm_text p {
+  text-indent: 15px;
+}
+.vm_tutorial .vm_item .vm_text ul,
+.vm_tutorial .vm_item .vm_text ol {
+  margin-left: 20px;
 }
 

@@ -7,16 +7,27 @@
     "use strict"
     MAPR.Text.Tutorial = {
         desc: "MapR MCS Tutorial",
-        ol: [
+        text: ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sit amet pellentesque arcu. Vivamus at luctus dolor. Nulla elementum consequat lacus, nec ultrices neque scelerisque eu. Proin auctor imperdiet velit, quis accumsan arcu interdum sit amet. Aliquam in semper quam. Etiam venenatis enim eu ultrices imperdiet. Pellentesque id mi vel nulla pulvinar tempor et eu arcu. Ut cursus congue faucibus. Phasellus aliquet magna diam, eget aliquam elit faucibus nec." ,
+            "Donec turpis orci, condimentum sit amet odio vitae, aliquet consequat ipsum. Cras hendrerit turpis ut tellus faucibus ornare nec in dolor. Proin fermentum velit ac tellus dignissim egestas. Maecenas eros ipsum, accumsan vel cursus eget, lacinia a sem. Aenean mattis ornare turpis in dictum. Integer non erat ac lacus luctus hendrerit. Fusce luctus nulla eu nibh tempor, at tincidunt purus fermentum. Integer eleifend nisl turpis, nec hendrerit tortor venenatis in. Morbi purus ipsum, sodales in suscipit vel, condimentum vel massa." ,
+            "Maecenas nec porttitor lectus. Integer sollicitudin id ante pharetra vehicula. Praesent vulputate interdum elementum. Aenean augue felis, vestibulum quis aliquet at, rhoncus et nisl. Mauris eu arcu mauris. Praesent a posuere augue. Pellentesque sodales nulla egestas nisl congue, nec elementum sapien feugiat. Nunc nec ultricies nisi, vel sodales velit." ,
+            "Fusce facilisis id elit in faucibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus a sem quis libero viverra imperdiet id ac elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam tortor ante, ornare id nulla nec, tempor viverra urna. Quisque id odio interdum risus varius facilisis eget ac quam. Quisque id sapien vitae justo condimentum vestibulum ac vitae quam. Suspendisse potenti. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam adipiscing porta nulla, id interdum orci vehicula eget. Integer convallis urna a ante venenatis, in vulputate velit vestibulum. Phasellus rutrum nibh nisl, at commodo ante auctor at. Morbi magna risus, vehicula sed fermentum vitae, tincidunt quis tellus. Maecenas vitae nisi sagittis, pharetra ligula eget, ornare risus. Morbi hendrerit massa at magna fringilla, in suscipit neque fermentum. Morbi non dolor nibh." ,
+            "Nulla sed pretium nibh. Ut ut viverra risus. Etiam nisl lacus, hendrerit non nunc at, molestie egestas justo. Cras aliquam vulputate risus egestas consectetur. Aliquam pellentesque interdum rhoncus. In hac habitasse platea dictumst. Vestibulum at eros vel magna vestibulum dignissim in nec sapien. Maecenas vitae molestie sem. Phasellus ac dui vel augue accumsan ultrices sit amet sit amet nulla. Donec eget tempor sem, sit amet ultrices sapien. Praesent molestie, dui ac vehicula mattis, est libero tristique risus, non fermentum dui purus ullamcorper ante. Mauris lobortis ligula sapien, non tempus massa dapibus non. Proin adipiscing at metus non hendrerit. Morbi at vulputate leo, id fermentum neque. Praesent ut diam pellentesque, volutpat nisi et, condimentum tortor. Cras interdum blandit massa, non lobortis lectus vulputate et."
+        ],
+        std: [
             {
                 desc: "Lorem ipsum dolor sit amet",
+                size: 1,
                 ul: [
                     {
                         desc: "consectetur adipiscing elit",
+                        size: 2,
                         text: "Aenean id dui luctus, dapibus leo congue, consectetur justo. Praesent at justo venenatis, fermentum erat id, posuere quam. Fusce non quam dignissim, iaculis turpis ut, aliquam felis. Fusce non nisi ut ligula dictum sagittis.",
+                        show: true,
                         ol: [
                             {
                                 desc: "Ut quis vehicula lectus, eget ultricies justo. ",
+                                show: true,
+                                size: 3,
                                 text: "Pellentesque vitae libero vitae quam feugiat dictum non nec felis. Nullam nisl dui, commodo in blandit dictum, aliquam vel nisl. "
                             },
                             {
