@@ -1,0 +1,142 @@
+.vm_page {
+  overflow: auto;
+  display: none;
+}
+.vm_page .vm_container {
+  width: 1200px;
+  padding: 15px 0;
+  margin: auto;
+  border-left: 1px solid #acacac;
+  border-right: 1px solid #acacac;
+  position: relative;
+  background-color: rgba(255,170,255,0.667) f;
+}
+.vm_page .vm_container .vm_title {
+  width: 575px;
+  height: 150px;
+  border: 1px solid #000;
+  margin: auto;
+  border-radius: 5px;
+}
+.vm_page .vm_container .vm_developer {
+  absolute: left 50px top 200px;
+}
+.vm_page .vm_container .vm_developer .vm_icon,
+.vm_page .vm_container .vm_developer .vm_button {
+  background: linear-gradient(top, #68a7d8, #00467f);
+}
+.vm_page .vm_container .vm_admin {
+  absolute: right 50px top 200px;
+}
+.vm_page .vm_container .vm_admin .vm_icon,
+.vm_page .vm_container .vm_admin .vm_button {
+  background: linear-gradient(top, #e07d8c, #990d22);
+}
+.vm_page .vm_container .vm_developer,
+.vm_page .vm_container .vm_admin {
+  width: 500px;
+  border: 1px solid #777;
+  border-radius: 25px;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.4);
+}
+.vm_page .vm_container .vm_developer .vm_button,
+.vm_page .vm_container .vm_admin .vm_button {
+  width: 200px;
+  border-radius: 25px;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.4);
+}
+.vm_page .vm_container .vm_developer .vm_button.vm_highlight,
+.vm_page .vm_container .vm_admin .vm_button.vm_highlight {
+  box-shadow: 0 3px 5px rgba(0,0,0,0.7);
+}
+.vm_page .vm_container .vm_developer .vm_icon,
+.vm_page .vm_container .vm_admin .vm_icon {
+  border-radius: 25px 25px 0 0;
+}
+.vm_page .vm_container .vm_developer .vm_label,
+.vm_page .vm_container .vm_admin .vm_label {
+  margin: auto;
+  border: 1px solid #acacac;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 24px;
+  color: #f7f7f7;
+  text-shadow: #555 2px 2px;
+  cursor: pointer;
+  user-select: none;
+}
+.vm_page .vm_container .vm_developer .vm_label.vm_highlight,
+.vm_page .vm_container .vm_admin .vm_label.vm_highlight {
+  border-color: #666;
+  text-shadow: #111 2px 2px;
+}
+.vm_page .vm_container .vm_developer .vm_info,
+.vm_page .vm_container .vm_admin .vm_info {
+  border-radius: 5px;
+  width: 400px;
+  font-size: 16px;
+  margin: auto;
+  margin-bottom: 25px;
+}
+.vm_page .vm_container .vm_developer .vm_info ul,
+.vm_page .vm_container .vm_admin .vm_info ul {
+  list-style: inherit;
+}
+.vm_page .vm_container .vm_developer .vm_info ul li,
+.vm_page .vm_container .vm_admin .vm_info ul li {
+  margin-top: 15px;
+}
+.vm_tutorial {
+  absolute: top 0 left 0;
+  border-right: 1px solid #777;
+  overflow: auto;
+  background: linear-gradient(left, #fff, #ddd);
+}
+.vm_tutorial> li.vm_item.vm_top {
+  list-style: none;
+}
+.vm_tutorial> li.vm_item.vm_top> .vm_desc {
+  margin: auto;
+  display: block;
+  font-size: 26px;
+  text-align: center;
+}
+.vm_tutorial> li.vm_item.vm_top> ol.vm_hook {
+  display: block;
+  margin-left: 5px;
+}
+.vm_tutorial .vm_item:not(.vm_top) {
+  margin: 7px 0;
+}
+.vm_tutorial .vm_item:not(.vm_top) .vm_desc {
+  user-select: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+.vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_highlight {
+  background-color: #c1c1c1;
+}
+.vm_tutorial .vm_item:not(.vm_top) .vm_desc .ui-icon {
+  display: inline-block;
+  relative: top 2px;
+}
+.vm_tutorial .vm_item:not(.vm_top) .vm_container {
+  display: none;
+}
+.vm_tutorial .vm_item:not(.vm_top) .vm_text {
+  margin-left: 30px;
+}
+.vm_tutorial .vm_item:not(.vm_top) .vm_text ul,
+.vm_tutorial .vm_item:not(.vm_top) .vm_text ol {
+  margin-left: 20px;
+}
+.vm_tutorial .vm_item strong {
+  font-size: 12px;
+}
+.vm_tutorial .vm_item ul {
+  list-style: disc outside;
+}
+.vm_tutorial .vm_item ol {
+  list-style: decimal outside;
+}
+
