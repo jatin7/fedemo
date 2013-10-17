@@ -15,16 +15,46 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
 
         },
         initialize: function () {
-            _.bindAll(this, "resize", "render", "_render");
+            _.bindAll(this, "resize", "render", "_render", "hueResize");
             var initWidth = 500;
             this.initWidth = initWidth;
-            MAPR.page.model.set("left", initWidth);
-            MAPR.page.on("pageresize", this.resize);
+            this.setPage(initWidth);
 
             this.$el.width(initWidth - 10);
             this.render();
 
         },
+        setPage: function (initWidth) {
+            if (this.isMCS()) {
+                // MCS
+                MAPR.page.model.set("left", initWidth);
+                // Only set on initial calls
+                if (!this.init) {
+                    MAPR.page.on("pageresize", this.resize);
+                    this.init = true;
+                }
+            } else {
+                // Hue
+                this.hue = $(".vm_hue").css("margin-left", initWidth + 10);
+                // Only set on initial calls
+                if (!this.init) {
+                    this.win = $(window).on("resize", this.hueResize);
+                    this.hueResize();
+                    this.init = true;
+                    this.hue.attr("src", window.location.protocol + "//" + window.location.host + ":8888");
+                }
+            }
+
+        },
+        // Resize for Hue
+        hueResize: function () {
+            var height = this.win.height(),
+                width = this.win.width();
+
+            this.resize(width, height);
+            this.hue.height(height).width(width - this.initWidth - 20)
+        },
+        // Standard resize
         resize: function (width, height) {
             this.$el.height(height);
 
@@ -41,7 +71,7 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
                 resize: _.bind(function (e, ui) {
                     var size = ui.size.width
                     this.initWidth = size + 10;
-                    MAPR.page.model.set("left", size + 10);
+                    this.setPage(size + 10);
                     $(window).trigger("resize");
 
                 }, this)
@@ -145,7 +175,7 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
             }
 
             this.initWidth = set;
-            MAPR.page.model.set("left", set);
+            this.setPage(set);
             if (hide) {
                 $(window).trigger("resize");
                 this.$el.children(".vm_minimize").css("left", 0);

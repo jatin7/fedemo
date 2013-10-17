@@ -6,7 +6,6 @@
 (function () {
     "use strict"
     MAPR.Text = MAPR.Text || {};
-
     MAPR.Text.Tutorial = {
         desc: "Introducing MapR's Hadoop VM",
         text: [

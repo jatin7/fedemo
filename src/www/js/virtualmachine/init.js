@@ -3,11 +3,9 @@ noarg:true, noempty:true, nonew:true, plusplus:true, quotmark:double, regexp:tru
 strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:true, jquery:true*/
 /*global require:true*/
 
-define(function (require) {
-    var $ = require("jquery"),
-        _ = require("underscore"),
-        Backbone = require("backbone"),
-        view,
+(function () {
+    "use strict"
+    var view,
         start = function () {
             view = new View();
         },
@@ -34,9 +32,11 @@ define(function (require) {
             var dev = this.container.children(".vm_developer"),
                 admin = this.container.children(".vm_admin"),
                 title = this.container.children(".vm_title"),
+                height,
                 devH = dev.children(".vm_info").height(),
                 adminH = admin.children(".vm_info").height(),
                 offset = 125 + dev.children(".vm_button").outerHeight(true);
+
 
             height = devH > adminH ? devH : adminH;
             dev.height(height + offset).children(".vm_info").height(height);
@@ -73,9 +73,8 @@ define(function (require) {
     })
 
 
-
-   return {
-        start: start
-    }
-});
+    $(function () {
+       start();
+    })
+}());
 
