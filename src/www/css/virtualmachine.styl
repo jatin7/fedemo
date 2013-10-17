@@ -76,6 +76,20 @@
     border-right 1px solid #777
     overflow auto
     background linear-gradient(left, #fff, #ddd)
+    .vm_minimize
+        position fixed
+        background    : linear-gradient(top, rgba(235,235,235,1), rgba(202,202,202,1));
+        height 75px
+        border-radius 0 5px 5px 0
+        .z_button
+            border-top: 30px solid transparent;
+            border-bottom: 30px solid transparent;
+            border-right: 12px solid #444;
+            border-left: none
+            margin-left: 0;
+        &.vm_collapsed .z_button
+            border-left: 12px solid #666;
+            border-right: none
     &> li.vm_item.vm_top
 
         list-style none

@@ -123,6 +123,28 @@
   background: -ms-linear-gradient(left, #fff, #ddd);
   background: linear-gradient(to right, #fff, #ddd);
 }
+.vm_tutorial .vm_minimize {
+  position: fixed;
+  background: -webkit-linear-gradient(top, #ebebeb, #cacaca);
+  background: -moz-linear-gradient(top, #ebebeb, #cacaca);
+  background: -o-linear-gradient(top, #ebebeb, #cacaca);
+  background: -ms-linear-gradient(top, #ebebeb, #cacaca);
+  background: linear-gradient(to bottom, #ebebeb, #cacaca);
+  height: 75px;
+  -webkit-border-radius: 0 5px 5px 0;
+  border-radius: 0 5px 5px 0;
+}
+.vm_tutorial .vm_minimize .z_button {
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-right: 12px solid #444;
+  border-left: none;
+  margin-left: 0;
+}
+.vm_tutorial .vm_minimize.vm_collapsed .z_button {
+  border-left: 12px solid #666;
+  border-right: none;
+}
 .vm_tutorial> li.vm_item.vm_top {
   list-style: none;
 }

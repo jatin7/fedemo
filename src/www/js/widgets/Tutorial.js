@@ -8,26 +8,44 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
     MAPR.Tutorial = Backbone.View.extend({
         el: "div.vm_tutorial",
         events: {
+            "click .vm_minimize": "toggleTutorial",
             "click .vm_desc": "toggle",
             "mouseover .vm_desc": "mouseover",
             "mouseout .vm_desc": "mouseout"
 
         },
         initialize: function () {
-            var initWidth = 500;
             _.bindAll(this, "resize", "render", "_render");
+            var initWidth = 500;
+            this.initWidth = initWidth;
             MAPR.page.model.set("left", initWidth);
             MAPR.page.on("pageresize", this.resize);
 
-            this.$el.width(initWidth);
+            this.$el.width(initWidth - 10);
             this.render();
 
         },
         resize: function (width, height) {
             this.$el.height(height);
+
+            this.$el.children(".vm_minimize").css({
+                "top": height / 2,
+                "left": this.initWidth - 9
+            });
+
         },
         render: function () {
             this._render(this.$el, MAPR.Text.Tutorial, 1);
+            this.$el.resizable({
+                handles: "e",
+                resize: _.bind(function (e, ui) {
+                    var size = ui.size.width
+                    this.initWidth = size + 10;
+                    MAPR.page.model.set("left", size + 10);
+                    $(window).trigger("resize");
+
+                }, this)
+            });
         },
         getSize: function (size) {
             var ret = "";
@@ -101,11 +119,39 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
             var ct = $(e.currentTarget);
 
             ct.removeClass("vm_highlight");
+        },
+        toggleTutorial: function (e) {
+            var ct = $(e.currentTarget),
+                hide = ct.hasClass("vm_collapsed"),
+                set;
+
+            ct.toggleClass("vm_collapsed", !hide);
+            if (hide) {
+                set = this.oldInitWidth
+            } else {
+                set = 10;
+                this.oldInitWidth = this.initWidth;
+            }
+
+            this.initWidth = set;
+            MAPR.page.model.set("left", set);
+            if (hide) {
+                $(window).trigger("resize");
+                this.$el.children(".vm_minimize").css("left", 0);
+            }
+            this.$el.animate({
+                width: this.initWidth - 10
+            }, 500, function () {
+                $(window).trigger("resize");
+            });
+            this.$el.children(".vm_minimize").animate({
+                left: this.initWidth - 9
+            }, 500);
+
         }
 
     });
     $(function () {
-        console.log("start")
         $("body").append(Handlebars.templates["tutorial_base.tmpl"]());
 
         MAPR.tutorial = new MAPR.Tutorial();
