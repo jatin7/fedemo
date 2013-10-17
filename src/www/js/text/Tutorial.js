@@ -6,103 +6,133 @@
 (function () {
     "use strict"
     MAPR.Text.Tutorial = {
-        desc: "MapR MCS Tutorial",
-        text: ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sit amet pellentesque arcu. Vivamus at luctus dolor. Nulla elementum consequat lacus, nec ultrices neque scelerisque eu. Proin auctor imperdiet velit, quis accumsan arcu interdum sit amet. Aliquam in semper quam. Etiam venenatis enim eu ultrices imperdiet. Pellentesque id mi vel nulla pulvinar tempor et eu arcu. Ut cursus congue faucibus. Phasellus aliquet magna diam, eget aliquam elit faucibus nec." ,
-            "Donec turpis orci, condimentum sit amet odio vitae, aliquet consequat ipsum. Cras hendrerit turpis ut tellus faucibus ornare nec in dolor. Proin fermentum velit ac tellus dignissim egestas. Maecenas eros ipsum, accumsan vel cursus eget, lacinia a sem. Aenean mattis ornare turpis in dictum. Integer non erat ac lacus luctus hendrerit. Fusce luctus nulla eu nibh tempor, at tincidunt purus fermentum. Integer eleifend nisl turpis, nec hendrerit tortor venenatis in. Morbi purus ipsum, sodales in suscipit vel, condimentum vel massa." ,
-            "Maecenas nec porttitor lectus. Integer sollicitudin id ante pharetra vehicula. Praesent vulputate interdum elementum. Aenean augue felis, vestibulum quis aliquet at, rhoncus et nisl. Mauris eu arcu mauris. Praesent a posuere augue. Pellentesque sodales nulla egestas nisl congue, nec elementum sapien feugiat. Nunc nec ultricies nisi, vel sodales velit." ,
-            "Fusce facilisis id elit in faucibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus a sem quis libero viverra imperdiet id ac elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam tortor ante, ornare id nulla nec, tempor viverra urna. Quisque id odio interdum risus varius facilisis eget ac quam. Quisque id sapien vitae justo condimentum vestibulum ac vitae quam. Suspendisse potenti. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam adipiscing porta nulla, id interdum orci vehicula eget. Integer convallis urna a ante venenatis, in vulputate velit vestibulum. Phasellus rutrum nibh nisl, at commodo ante auctor at. Morbi magna risus, vehicula sed fermentum vitae, tincidunt quis tellus. Maecenas vitae nisi sagittis, pharetra ligula eget, ornare risus. Morbi hendrerit massa at magna fringilla, in suscipit neque fermentum. Morbi non dolor nibh." ,
-            "Nulla sed pretium nibh. Ut ut viverra risus. Etiam nisl lacus, hendrerit non nunc at, molestie egestas justo. Cras aliquam vulputate risus egestas consectetur. Aliquam pellentesque interdum rhoncus. In hac habitasse platea dictumst. Vestibulum at eros vel magna vestibulum dignissim in nec sapien. Maecenas vitae molestie sem. Phasellus ac dui vel augue accumsan ultrices sit amet sit amet nulla. Donec eget tempor sem, sit amet ultrices sapien. Praesent molestie, dui ac vehicula mattis, est libero tristique risus, non fermentum dui purus ullamcorper ante. Mauris lobortis ligula sapien, non tempus massa dapibus non. Proin adipiscing at metus non hendrerit. Morbi at vulputate leo, id fermentum neque. Praesent ut diam pellentesque, volutpat nisi et, condimentum tortor. Cras interdum blandit massa, non lobortis lectus vulputate et."
+        desc: "Introducing MapR's Hadoop VM",
+        text: [
+            {
+                desc: "The MapR Virtual Machine is a fully-functional single-node cluster capable of running MapReduce" +
+                    "programs and working with applications like Hive and Pig. You can try the MapR Virtual Machine on" +
+                    "nearly any 64-bit computer. When you run the MapR virtual machine, you'll experience the MapR" +
+                    "Control System and HUE graphical interfaces running on the MapR File System (MapR-FS). The MapR-" +
+                    "FS is a fully read-write distributed file system that allows applications to concurrently read and write" +
+                    "directly to disk."
+            },
+
+            {
+                desc: "Use the information and tutorials included in the MapR VM to discover the MapR Control System and" +
+                    "components included in the HUE interface. The tutorials provided within the MapR VM are intended to" +
+                    "guide you through some basic administrator and developer procedures you might perform on a cluster." +
+                    "You can also use the virtual machine environment to explore solutions for your own use cases and run" +
+                    "jobs on your data."
+            },
+
+            {
+                desc: "If you decide you would like to experience more of MapR, <a target='_blank' href='http://www.mapr.com/products/download'>" +
+                    "download and test drive a free version</a> of " +
+                    "MapR's distribution for Hadoop. You'll see how easy, fast and dependable true enterprise-grade Hadoop" +
+                    "can be and learn why more companies with mission-critical requirements are choosing MapR."
+            },
+
+            {
+                desc: "If you are interested in learning more about MapR, Hadoop, and MapReduce visit MapR Academy and" +
+                    "watch the informative videos posted on the site. MapR also provides instructor led and web-based" +
+                    "training if you decide you want to learn about MapR and its unique offerings in greater depth."
+            }
         ],
         std: [
-            {
-                desc: "Lorem ipsum dolor sit amet",
-                size: 1,
+            /*{
+                desc: "Accessing the MapR VM",
+                text: "Install the MapR Virtual Machine. Open the MapR Virtual Machine in a VM player. The system presents you with administrator and developer options. Selecting the administrator option navigates you to the MapR Control System. Selecting the Developer option navigates you to the HUE interface.",
                 ul: [
                     {
-                        desc: "consectetur adipiscing elit",
-                        size: 2,
-                        text: "Aenean id dui luctus, dapibus leo congue, consectetur justo. Praesent at justo venenatis, fermentum erat id, posuere quam. Fusce non quam dignissim, iaculis turpis ut, aliquam felis. Fusce non nisi ut ligula dictum sagittis.",
-                        show: true,
+                        desc: "MapR Control System",
+                        text: "To access the MapR Control System:",
                         ol: [
                             {
-                                desc: "Ut quis vehicula lectus, eget ultricies justo. ",
-                                show: true,
-                                size: 3,
-                                text: "Pellentesque vitae libero vitae quam feugiat dictum non nec felis. Nullam nisl dui, commodo in blandit dictum, aliquam vel nisl. "
+                                desc: "Enter the provided URL in a browser window."
                             },
                             {
-                                desc: "Cras placerat condimentum risus a hendrerit.",
-                                text: "Proin ante dui, tincidunt vitae sem at, tincidunt placerat urna. Nam nec ultrices orci. Cras ac hendrerit sapien. Proin cursus eleifend fringilla. Aenean neque nulla, malesuada non lorem vel, scelerisque viverra nisl. Nam euismod enim eu arcu mollis eleifend. Curabitur adipiscing tempus justo at consequat."
+                                desc: "Login with the username mapr and the password mapr."
                             },
                             {
-                                desc: "Praesent quis mollis nibh. ",
-                                text: "Sed nec quam ligula. "
+                                desc: "Click OK to continue."
                             },
                             {
-                                desc: "Nullam sed arcu diam. ",
-                                text: "In mollis est turpis, nec accumsan lacus suscipit at. Donec mollis molestie dui feugiat auctor. Ut convallis ligula sodales ligula pharetra, eu cursus sem pulvinar. Nunc magna risus, vulputate nec odio id, porta vestibulum odio. Etiam blandit convallis aliquam. Maecenas aliquam arcu tortor, vel condimentum nulla hendrerit eget. "
-                            },
-                            {
-                                desc: "In malesuada tortor ",
-                                text: "eu lectus gravida, eget congue nunc sagittis. Proin accumsan nibh mi, in imperdiet felis mattis sit amet. Morbi nunc velit, convallis in malesuada vel, egestas et lectus. Proin elementum eros sed pretium dictum. Aliquam eu venenatis metus, bibendum interdum ante. Duis ut laoreet justo."
-                            },
-                            {
-                                desc: "Sed eget lacus mi. ",
-                                text: "Fusce molestie lacus in nisl hendrerit, a porta odio congue. Donec eget suscipit mauris. Mauris scelerisque sit amet nibh ac malesuada. "
-                            },
-
-                            {
-                                desc: "Etiam posuere nulla id blandit euismod. ",
-                                text: "Phasellus elementum augue ipsum, et scelerisque sapien dictum vitae. Nulla urna risus, laoreet vitae commodo eget, rutrum ac dui. Phasellus porta elit id fringilla mattis. Donec sodales molestie metus, quis faucibus velit convallis ac. Mauris semper, sem ut posuere pharetra, massa neque porttitor nisl, eget eleifend sapien mi ac quam. Sed ac sapien consectetur turpis rhoncus tristique. Vivamus blandit, metus vel aliquet placerat, lorem leo malesuada odio, at consectetur dolor augue in felis. "
+                                desc: "If prompted, accept the terms of the license agreement to proceed."
                             }
                         ]
                     },
                     {
-                        desc: "Aenean id dui luctus",
-                        text: "dapibus leo congue, consectetur justo. Praesent at justo venenatis, fermentum erat id, posuere quam.Fusce non quam dignissim, iaculis turpis ut, aliquam felis. Fusce non nisi ut ligula dictum sagittis. Curabitur ut est sollicitudin lectus laoreet egestas sed sed sapien. Phasellus tincidunt tortor eget hendrerit venenatis. Sed et metus vel eros eleifend ullamcorper.",
+                        desc: "HUE Interfaces",
+                        text: "To access the HUE interface:",
                         ol: [
                             {
-                                desc: "Ut quis vehicula lectus, eget ultricies justo. ",
-                                text: "Pellentesque vitae libero vitae quam feugiat dictum non nec felis. Nullam nisl dui, commodo in blandit dictum, aliquam vel nisl. "
+                                desc: "Enter the provided URL in a browser window."
                             },
                             {
-                                desc: "Cras placerat condimentum risus a hendrerit.",
-                                text: "Proin ante dui, tincidunt vitae sem at, tincidunt placerat urna. Nam nec ultrices orci. Cras ac hendrerit sapien. Proin cursus eleifend fringilla. Aenean neque nulla, malesuada non lorem vel, scelerisque viverra nisl. Nam euismod enim eu arcu mollis eleifend. Curabitur adipiscing tempus justo at consequat."
+                                desc: "Login with the username mapr and the password mapr."
                             },
                             {
-                                desc: "Praesent quis mollis nibh. ",
-                                text: "Sed nec quam ligula. "
+                                desc: "Click OK to continue."
+                            }
+                        ]
+                    }
+                ]
+            },*/
+            {
+                desc: "Explore the MCS in the MapR Hadoop VM",
+                text: "The MapR Control System (MCS) is a complete graphical, programmatic control panel for cluster administration that provides all of the functionality of the command line. The MCS provides job monitoring metrics and helps you troubleshoot issues, such as which jobs required the most memory in a given week or which events caused job and task failures. Use the MCS to access, monitor, and perform administrative tasks on your cluster.",
+                std: [
+                    {
+                        desc: "Dashboard View",
+                        text: [
+                            {
+                                desc: "When you first login to the MCS, you see the Dashboard view. The Dashboard provides a summary of information about the cluster including a cluster heat map that displays the health of each node; an alarms summary; cluster utilization that shows the CPU, memory, and disk space usage; services running across the cluster; the number of available, unavailable, and under replicated volumes; MapReduce jobs."
                             },
                             {
-                                desc: "Nullam sed arcu diam. ",
-                                text: "In mollis est turpis, nec accumsan lacus suscipit at. Donec mollis molestie dui feugiat auctor. Ut convallis ligula sodales ligula pharetra, eu cursus sem pulvinar. Nunc magna risus, vulputate nec odio id, porta vestibulum odio. Etiam blandit convallis aliquam. Maecenas aliquam arcu tortor, vel condimentum nulla hendrerit eget. "
-                            },
-                            {
-                                desc: "In malesuada tortor ",
-                                text: "eu lectus gravida, eget congue nunc sagittis. Proin accumsan nibh mi, in imperdiet felis mattis sit amet. Morbi nunc velit, convallis in malesuada vel, egestas et lectus. Proin elementum eros sed pretium dictum. Aliquam eu venenatis metus, bibendum interdum ante. Duis ut laoreet justo."
-                            },
-                            {
-                                desc: "Sed eget lacus mi. ",
-                                text: "Fusce molestie lacus in nisl hendrerit, a porta odio congue. Donec eget suscipit mauris. Mauris scelerisque sit amet nibh ac malesuada. "
-                            },
-                            {
-                                desc: "Praesent quis mollis nibh. ",
-                                text: "Sed nec quam ligula. "
-                            },
-                            {
-                                desc: "Nullam sed arcu diam. ",
-                                text: "In mollis est turpis, nec accumsan lacus suscipit at. Donec mollis molestie dui feugiat auctor. Ut convallis ligula sodales ligula pharetra, eu cursus sem pulvinar. Nunc magna risus, vulputate nec odio id, porta vestibulum odio. Etiam blandit convallis aliquam. Maecenas aliquam arcu tortor, vel condimentum nulla hendrerit eget. "
+                                img: "MCS_DashboardView"
                             }
                         ]
                     },
                     {
-                        desc: "Nam fringilla ligula eget dui vehicula pellentesque.",
-                        text: "In posuere mi id lacus vehicula, ac rutrum est dictum.Quisque et tortor tempus, cursus libero at, vehicula libero.Duis tincidunt sem et nibh vehicula aliquet.Quisque ac sapien in ante faucibus mattis at at elit.Integer quis ligula porta leo suscipit consectetur."
-                    },
-                    {
-                        desc: "Praesent tempus eros sit amet placerat ultrices. ",
-                        text: "Mauris vel erat dui. Proin vitae varius nibh, ac aliquet enim. Nam porta mi et turpis porttitor faucibus. Vivamus vel ipsum eu lacus euismod blandit. Praesent velit nulla, semper vitae ante tristique, lobortis auctor tortor. Nulla convallis semper orci, quis ultricies nulla eleifend sit amet. Vivamus sed consectetur ipsum, lobortis posuere diam. Nunc in mauris in metus fermentum pulvinar. Fusce pretium nec enim eget condimentum."
+                        desc: "Cluster Heat Map",
+                        text: [
+                            {
+                                desc: "The Cluster Heat Map is the first panel in the Dashboard view. It displays color coded squares that represent nodes in a cluster. The color of the square indicates node health. A green node indicates that a node is in good health, whereas red indicates that a node requires immediate attention."
+                            },
+                            {
+                                img: "cluster_heatMap"
+                            }
+                        ],
+                        std: [{
+                         desc: "Explore the Heat Map",
+                        ul: [
+                            {
+                                desc: "Use the zoom slider in the tool bar to expand the node and see specific node details.",
+                                text: "You can use the filters in the tool bar to select which node details display. For example, you can filter by memory utilization and all nodes using 80% or more of their available memory display in the dashboard in red. You can also sort nodes by rack, name, or status."
+                            },
+                            {
+                                desc: "Click on the node to view node details. A new view opens displaying the details. Expand and collapse the panels."
+                            },
+                            {
+                                desc: "Click the Dashboard tab to return to the Dashboard view."
+                            },
+                            {
+                                desc: "Click to view Heat Map controls and the node color legend.",
+                                text: "The color statuses and descriptions listed in the legend indicate what the health of the node would be if it changed from green to any of the colors shown."
+                            },
 
+                            {
+                                desc: "Adjust the refresh rate to set how often the MCS refreshes the displayed cluster data."
+                            },
+                            {
+                                desc: "Change the column count to set how many columns of nodes the MCS displays in a rack. If you have many nodes in a cluster and you want to see all the nodes in the cluster with a critical status, you can filter by the word 'critical' and the MCS displays all the nodes in the cluster that require immediate attention."
+                            },
+                            {
+                                desc: "Click to close the Heat Map control panel."
+                            }
+
+                        ]
+                        }]
                     },
                     {
 

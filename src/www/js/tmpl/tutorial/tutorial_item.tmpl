@@ -2,7 +2,7 @@
 
     <span class="vm_desc {{size}}">
         {{{obj.desc}}}
-        {{#unless top}}
+        {{#unless single}}
             <span class="ui-icon ui-icon-triangle-1-{{#if show}}s{{else}}e{{/if}}"></span>
         {{/unless}}
     </span>
@@ -10,9 +10,17 @@
         {{#if obj.text}}
             <span class="vm_text">
                 {{#each obj.text}}
-                    <p>
+                    {{#with desc}}
+                        <p>
+                            {{{this}}}
+                        </p>
+                    {{/with}}
+                    {{#with img}}
+                        <img src="images/vm/{{{this}}}">
+                    {{/with}}
+                    {{#with text}}
                         {{{this}}}
-                    </p>
+                    {{/with}}
                 {{else}}
                     <p>
                         {{{obj.text}}}

@@ -74,9 +74,10 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
             cur = $(Handlebars.templates["tutorial_item.tmpl"]({
                 obj: obj,
                 top: level === 1,
+                single: level === 1 || (_.keys(obj).length === 1),
                 show: _.isUndefined(obj.show) ? level > 3 : obj.show,
                 size: size ,
-                margin: level * 10
+                margin: level > 2 ? 20 : level * 10
 
             }))
             cur.appendTo(el);
