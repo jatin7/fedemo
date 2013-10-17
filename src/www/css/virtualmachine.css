@@ -117,11 +117,11 @@
   left: 0;
   border-right: 1px solid #777;
   overflow: auto;
-  background: -webkit-linear-gradient(left, #fff, #ddd);
-  background: -moz-linear-gradient(left, #fff, #ddd);
-  background: -o-linear-gradient(left, #fff, #ddd);
-  background: -ms-linear-gradient(left, #fff, #ddd);
-  background: linear-gradient(to right, #fff, #ddd);
+  background: -webkit-linear-gradient(left, #fff, #eee);
+  background: -moz-linear-gradient(left, #fff, #eee);
+  background: -o-linear-gradient(left, #fff, #eee);
+  background: -ms-linear-gradient(left, #fff, #eee);
+  background: linear-gradient(to right, #fff, #eee);
 }
 .vm_tutorial .vm_minimize {
   position: fixed;
@@ -153,6 +153,9 @@
   display: block;
   font-size: 26px;
   text-align: center;
+  padding: 10px 0;
+  color: #00467f;
+  font-weight: bold;
 }
 .vm_tutorial> li.vm_item.vm_top> ul.vm_hook {
   display: block;
@@ -162,22 +165,28 @@
   margin: 7px 0;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc {
-  white-space: nowrap;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  color: #000;
   cursor: pointer;
   font-weight: bold;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_large {
   font-size: 20px;
+  color: #00467f;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_med {
   font-size: 16px;
+  color: #00467f;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_small {
-  font-size: 14px;
+  font-size: 12px;
+  color: #00467f;
+}
+.vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_std {
+  font-size: 12px;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_highlight {
   background-color: #c1c1c1;
@@ -206,5 +215,8 @@
 .vm_tutorial .vm_item .vm_text ul,
 .vm_tutorial .vm_item .vm_text ol {
   margin-left: 20px;
+}
+.vm_tutorial .vm_item .vm_text img {
+  width: 400px;
 }
 

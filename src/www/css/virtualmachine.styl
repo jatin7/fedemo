@@ -75,21 +75,21 @@
     absolute top 0 left 0
     border-right 1px solid #777
     overflow auto
-    background linear-gradient(left, #fff, #ddd)
+    background linear-gradient(left, #fff, #eee)
     .vm_minimize
         position fixed
-        background    : linear-gradient(top, rgba(235,235,235,1), rgba(202,202,202,1));
+        background    linear-gradient(top, rgba(235,235,235,1), rgba(202,202,202,1));
         height 75px
         border-radius 0 5px 5px 0
         .z_button
-            border-top: 30px solid transparent;
-            border-bottom: 30px solid transparent;
-            border-right: 12px solid #444;
-            border-left: none
-            margin-left: 0;
+            border-top 30px solid transparent
+            border-bottom 30px solid transparent
+            border-right 12px solid #444
+            border-left none
+            margin-left 0;
         &.vm_collapsed .z_button
-            border-left: 12px solid #666;
-            border-right: none
+            border-left 12px solid #666
+            border-right none
     &> li.vm_item.vm_top
 
         list-style none
@@ -98,6 +98,9 @@
             display block
             font-size 26px
             text-align center
+            padding 10px 0
+            color #00467F
+            font-weight bold
         &> ul.vm_hook
             display block
             margin-left 5px
@@ -107,12 +110,17 @@
         .vm_desc
             &.vm_large
                 font-size 20px
+                color #00467F
             &.vm_med
                 font-size 16px
+                color #00467F
             &.vm_small
-                font-size 14px
-            white-space nowrap
+                font-size 12px
+                color #00467F
+            &.vm_std
+                font-size 12px
             user-select none
+            color black
             cursor pointer
             font-weight bold
             &.vm_highlight
@@ -135,4 +143,6 @@
                 text-indent 15px
             ul,ol
                 margin-left 20px
+            img
+                width 400px
 
