@@ -46,6 +46,16 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
 
                 }, this)
             });
+
+            this.resize(0, $(window).height());
+            // Check if login exists, and autofill
+                if (this.isMCS() && !MAPR.Utility.cookie.get("MapRAuth")) {
+                $("#username").val("root").focusout();
+                $("#password").val("mapr").focusout();
+            }
+        },
+        isMCS: function () {
+            return window.location.pathname === "/";
         },
         getSize: function (size) {
             var ret = "";
