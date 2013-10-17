@@ -39,6 +39,9 @@ ln -s $SRC/www/js/widgets/Tutorial.js $WORKSPACE/js/widgets/Tutorial.js
 checkReturn
 ln -s $SRC/www/js/virtualmachine $WORKSPACE/js/virtualmachine
 checkReturn
+ln -s $SRC/www/images/vm $WORKSPACE/images/vm
+checkReturn
+
 
 mv $WORKSPACE/css/mapr_prod.css $WORKSPACE/css/mapr_prod.bk.css
 checkReturn
