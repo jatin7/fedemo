@@ -75,6 +75,7 @@
     border-right 1px solid #777
     overflow auto
     background linear-gradient(left, #fff, #eee)
+    font-size 14px
     .vm_minimize
         position fixed
         background    linear-gradient(top, rgba(235,235,235,1), rgba(202,202,202,1));
@@ -95,11 +96,11 @@
         &> .vm_desc
             margin auto
             display block
-            font-size 26px
-            text-align center
+            font-size 30px
             padding 10px 0
             color #00467F
             font-weight bold
+            text-decoration underline
         &> ul.vm_hook
             display block
             margin-left 5px
@@ -108,16 +109,16 @@
         margin 7px 0
         .vm_desc
             &.vm_large
-                font-size 20px
+                font-size 24px
                 color #00467F
             &.vm_med
-                font-size 16px
+                font-size 20px
                 color #00467F
             &.vm_small
-                font-size 12px
+                font-size 16px
                 color #00467F
             &.vm_std
-                font-size 12px
+                font-size 14px
             user-select none
             color black
             cursor pointer
@@ -129,6 +130,7 @@
                 relative   top 2px
         .vm_container
             display none
+            margin-bottom 25px
 
     .vm_item
         strong
@@ -138,8 +140,15 @@
         ol
             list-style decimal outside
         .vm_text
+            line-height 20px
             p
-                text-indent 15px
+                text-align: justify;
+                margin: 12px;
+            div.vm_text_bullet
+                list-style disc outside
+                display list-item
+                margin-left 30px
+                margin-bottom 12px
             ul,ol
                 margin-left 20px
             img

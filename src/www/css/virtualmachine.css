@@ -121,6 +121,7 @@
   background: -o-linear-gradient(left, #fff, #eee);
   background: -ms-linear-gradient(left, #fff, #eee);
   background: linear-gradient(to right, #fff, #eee);
+  font-size: 14px;
 }
 .vm_tutorial .vm_minimize {
   position: fixed;
@@ -150,11 +151,11 @@
 .vm_tutorial> li.vm_item.vm_top> .vm_desc {
   margin: auto;
   display: block;
-  font-size: 26px;
-  text-align: center;
+  font-size: 30px;
   padding: 10px 0;
   color: #00467f;
   font-weight: bold;
+  text-decoration: underline;
 }
 .vm_tutorial> li.vm_item.vm_top> ul.vm_hook {
   display: block;
@@ -173,19 +174,19 @@
   font-weight: bold;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_large {
-  font-size: 20px;
+  font-size: 24px;
   color: #00467f;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_med {
-  font-size: 16px;
+  font-size: 20px;
   color: #00467f;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_small {
-  font-size: 12px;
+  font-size: 16px;
   color: #00467f;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_std {
-  font-size: 12px;
+  font-size: 14px;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_highlight {
   background-color: #c1c1c1;
@@ -198,6 +199,7 @@
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_container {
   display: none;
+  margin-bottom: 25px;
 }
 .vm_tutorial .vm_item strong {
   font-size: 12px;
@@ -208,8 +210,18 @@
 .vm_tutorial .vm_item ol {
   list-style: decimal outside;
 }
+.vm_tutorial .vm_item .vm_text {
+  line-height: 20px;
+}
 .vm_tutorial .vm_item .vm_text p {
-  text-indent: 15px;
+  text-align: justify;
+  margin: 12px;
+}
+.vm_tutorial .vm_item .vm_text div.vm_text_bullet {
+  list-style: disc outside;
+  display: list-item;
+  margin-left: 30px;
+  margin-bottom: 12px;
 }
 .vm_tutorial .vm_item .vm_text ul,
 .vm_tutorial .vm_item .vm_text ol {

@@ -1,6 +1,6 @@
 <li class="vm_item {{#if top}}vm_top{{/if}}" style="margin-left:{{margin}}px">
 
-    <span class="vm_desc {{size}}">
+    <span class="vm_desc {{size}} {{#unless single}}vm_clickable {{/unless}}">
         {{{obj.desc}}}
         {{#unless single}}
             <span class="ui-icon ui-icon-triangle-1-{{#if show}}s{{else}}e{{/if}}"></span>
@@ -17,6 +17,9 @@
                     {{/with}}
                     {{#with img}}
                         <img src="images/vm/{{{this}}}">
+                    {{/with}}
+                    {{#with bullet}}
+                        <div class="vm_text_bullet">{{{this}}}</div>
                     {{/with}}
                     {{#with text}}
                         {{{this}}}

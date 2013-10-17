@@ -9,7 +9,7 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
         el: "div.vm_tutorial",
         events: {
             "click .vm_minimize": "toggleTutorial",
-            "click .vm_desc": "toggle",
+            "click .vm_clickable": "toggle",
             "mouseover .vm_desc": "mouseover",
             "mouseout .vm_desc": "mouseout"
 
@@ -65,7 +65,9 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
 
         },
         render: function () {
-            this._render(this.$el, MAPR.Text.Tutorial, 1);
+            _.each(MAPR.Text.Tutorial, function (item) {
+                this._render(this.$el, item, 1);
+            }, this);
             this.$el.resizable({
                 handles: "e",
                 resize: _.bind(function (e, ui) {
