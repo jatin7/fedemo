@@ -3,7 +3,6 @@
   display: none;
 }
 .vm_page .vm_container {
-  display: inline-block;
   padding-right: 5px;
   width: 1200px;
   padding: 15px 0;
