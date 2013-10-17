@@ -9,8 +9,10 @@ rm $ADMIN/virtualmachine.jsp
 rm $WORKSPACE/virtualmachine.html
 rm $WORKSPACE/hue.html
 rm $WORKSPACE/js/mapr_vm_main.js
+rm $WORKSPACE/js/mapr_vm_hue.js
 rm $WORKSPACE/css/virtualmachine.styl
 rm $WORKSPACE/css/virtualmachine.css
+rm $WORKSPACE/js/text/Hue-Tutorial.js
 rm $WORKSPACE/js/text/Tutorial.js
 rm $WORKSPACE/js/tmpl/src/tutorial
 rm $WORKSPACE/js/widgets/Tutorial.js
