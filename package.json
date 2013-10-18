@@ -11,6 +11,8 @@
   "license": "",
   "dependencies": {
     "uglify-js": "~2.4.0",
-    "handlebars": "~1.0.12"
+    "handlebars": "~1.0.12",
+    "stylus": "~0.38.0",
+    "nib": "~1.0.1"
   }
 }
