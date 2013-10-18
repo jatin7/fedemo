@@ -98,7 +98,7 @@
                                     desc: "Click the Dashboard tab to return to the Dashboard view."
                                 },
                                 {
-                                    desc: "Click to view Heat Map controls and the node color legend.",
+                                    desc: "Click " + img("Wrench_Icon") + " to view Heat Map controls and the node color legend.",
                                     text: [
                                         {
                                             img: "HeatMap"
@@ -116,7 +116,7 @@
                                     desc: "Change the column count to set how many columns of nodes the MCS displays in a rack. If you have many nodes in a cluster and you want to see all the nodes in the cluster with a critical status, you can filter by the word 'critical' and the MCS displays all the nodes in the cluster that require immediate attention."
                                 },
                                 {
-                                    desc: "Click to close the Heat Map control panel."
+                                    desc: "Click " + img("Wrench_Icon") + " to close the Heat Map control panel."
                                 }
 
                             ]
