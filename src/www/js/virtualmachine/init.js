@@ -64,7 +64,7 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
 
             if (par.hasClass("vm_admin")) {
                 console.log("admin")
-                window.location = "/";
+                window.location = "/mcs";
             } else if (par.hasClass("vm_developer")) {
                 window.location = "/hue"
             }

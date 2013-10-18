@@ -19,7 +19,7 @@ ADMIN="$1/src/adminuiapp/src/main/webapp"
 WORKSPACE="$1/src/www"
 
 
-mv $ADMIN/index.jsp $ADMIN/virtualmachine.jsp
+mv $ADMIN/index.jsp $ADMIN/mcs.jsp
 checkReturn
 ln -s $SRC/adminuiapp/src/main/webapp/index.jsp $ADMIN/index.jsp
 checkReturn
@@ -48,7 +48,7 @@ checkReturn
 ln -s $SRC/www/images/vm $WORKSPACE/images/vm
 checkReturn
 
-mv $WORKSPACE/index.html $WORKSPACE/virtualmachine.html
+mv $WORKSPACE/index.html $WORKSPACE/mcs.html
 checkReturn
 ln -s $SRC/www/index.html $WORKSPACE/index.html
 checkReturn

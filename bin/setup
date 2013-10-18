@@ -30,9 +30,9 @@ ADMIN="$1/src/adminuiapp/src/main/webapp"
 WORKSPACE="$1"
 
 
-mv $ADMIN/index.jsp $ADMIN/virtualmachine.jsp
+mv $ADMIN/index.jsp $ADMIN/mcs.jsp
 checkReturn
-mv $WORKSPACE/src/www/index.html $WORKSPACE/src/www/virtualmachine.html
+mv $WORKSPACE/src/www/index.html $WORKSPACE/src/www/mcs.html
 checkReturn
 cp -R $SRC $WORKSPACE
 checkReturn
