@@ -87,7 +87,7 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
             }
         },
         isMCS: function () {
-            return window.location.pathname === "/";
+            return window.location.pathname === "/mcs";
         },
         getSize: function (size) {
             var ret = "";
