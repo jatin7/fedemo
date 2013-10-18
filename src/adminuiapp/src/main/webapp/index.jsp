@@ -22,7 +22,7 @@
 <head>
     <title>MapR VirtualMachine</title>
     <link rel='stylesheet' href='css/mapr_prod.css'>
-    <script src="js/mapr_vm_main.js"></script>
+    <script src="js/mapr_vm_main.min.js"></script>
 </head>
 <body>
 <div class="vm_page">
