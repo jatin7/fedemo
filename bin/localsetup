@@ -39,7 +39,7 @@ ln -s $SRC/www/js/text/Tutorial.js $WORKSPACE/js/text/Tutorial.js
 checkReturn
 ln -s $SRC/www/js/text/Hue-Tutorial.js $WORKSPACE/js/text/Hue-Tutorial.js
 checkReturn
-ln -s $SRC/www/js/tmpl/tutorial $WORKSPACE/js/tmpl/src/tutorial
+ln -s $SRC/www/js/tmpl/src/tutorial $WORKSPACE/js/tmpl/src/tutorial
 checkReturn
 ln -s $SRC/www/js/widgets/Tutorial.js $WORKSPACE/js/widgets/Tutorial.js
 checkReturn

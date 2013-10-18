@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SRC="`dirname $DIR`/src"
+NODE=`dirname $DIR`/node_modules
+
+$NODE/stylus/bin/stylus -I "$NODE" < $SRC/www/css/virtualmachine.styl > $SRC/www/css/virtualmachine.css
