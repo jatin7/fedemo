@@ -6,266 +6,671 @@
 (function () {
     "use strict"
     MAPR.Text = MAPR.Text || {};
-    MAPR.Text.Tutorial = {
-        desc: "Introducing MapR's Hadoop VM",
-        text: [
-            {
-                desc: "The MapR Virtual Machine is a fully-functional single-node cluster capable of running MapReduce" +
-                    "programs and working with applications like Hive and Pig. You can try the MapR Virtual Machine on" +
-                    "nearly any 64-bit computer. When you run the MapR virtual machine, you'll experience the MapR" +
-                    "Control System and HUE graphical interfaces running on the MapR File System (MapR-FS). The MapR-" +
-                    "FS is a fully read-write distributed file system that allows applications to concurrently read and write" +
-                    "directly to disk."
-            },
+    MAPR.Text.Tutorial = [
+        {
+            desc: "Introducing MapR's Hadoop VM",
+            text: [
+                {
+                    desc: "The MapR Virtual Machine is a fully-functional single-node cluster capable of running MapReduce" +
+                        "programs and working with applications like Hive and Pig. You can try the MapR Virtual Machine on" +
+                        "nearly any 64-bit computer. When you run the MapR virtual machine, you'll experience the MapR" +
+                        "Control System and HUE graphical interfaces running on the MapR File System (MapR-FS). The MapR-" +
+                        "FS is a fully read-write distributed file system that allows applications to concurrently read and write" +
+                        "directly to disk."
+                },
 
-            {
-                desc: "Use the information and tutorials included in the MapR VM to discover the MapR Control System and" +
-                    "components included in the HUE interface. The tutorials provided within the MapR VM are intended to" +
-                    "guide you through some basic administrator and developer procedures you might perform on a cluster." +
-                    "You can also use the virtual machine environment to explore solutions for your own use cases and run" +
-                    "jobs on your data."
-            },
+                {
+                    desc: "Use the information and tutorials included in the MapR VM to discover the MapR Control System and" +
+                        "components included in the HUE interface. The tutorials provided within the MapR VM are intended to" +
+                        "guide you through some basic administrator and developer procedures you might perform on a cluster." +
+                        "You can also use the virtual machine environment to explore solutions for your own use cases and run" +
+                        "jobs on your data."
+                },
 
-            {
-                desc: "If you decide you would like to experience more of MapR, <a target='_blank' href='http://www.mapr.com/products/download'>" +
-                    "download and test drive a free version</a> of " +
-                    "MapR's distribution for Hadoop. You'll see how easy, fast and dependable true enterprise-grade Hadoop" +
-                    "can be and learn why more companies with mission-critical requirements are choosing MapR."
-            },
+                {
+                    desc: "If you decide you would like to experience more of MapR, <a target='_blank' href='http://www.mapr.com/products/download'>" +
+                        "download and test drive a free version</a> of " +
+                        "MapR's distribution for Hadoop. You'll see how easy, fast and dependable true enterprise-grade Hadoop" +
+                        "can be and learn why more companies with mission-critical requirements are choosing MapR."
+                },
 
-            {
-                desc: "If you are interested in learning more about MapR, Hadoop, and MapReduce visit MapR Academy and" +
-                    "watch the informative videos posted on the site. MapR also provides instructor led and web-based" +
-                    "training if you decide you want to learn about MapR and its unique offerings in greater depth."
-            }
-        ],
-        std: [
-            /*{
-                desc: "Accessing the MapR VM",
-                text: "Install the MapR Virtual Machine. Open the MapR Virtual Machine in a VM player. The system presents you with administrator and developer options. Selecting the administrator option navigates you to the MapR Control System. Selecting the Developer option navigates you to the HUE interface.",
-                ul: [
-                    {
-                        desc: "MapR Control System",
-                        text: "To access the MapR Control System:",
-                        ol: [
-                            {
-                                desc: "Enter the provided URL in a browser window."
-                            },
-                            {
-                                desc: "Login with the username mapr and the password mapr."
-                            },
-                            {
-                                desc: "Click OK to continue."
-                            },
-                            {
-                                desc: "If prompted, accept the terms of the license agreement to proceed."
-                            }
-                        ]
-                    },
-                    {
-                        desc: "HUE Interfaces",
-                        text: "To access the HUE interface:",
-                        ol: [
-                            {
-                                desc: "Enter the provided URL in a browser window."
-                            },
-                            {
-                                desc: "Login with the username mapr and the password mapr."
-                            },
-                            {
-                                desc: "Click OK to continue."
-                            }
-                        ]
-                    }
-                ]
-            },*/
-            {
-                desc: "Explore the MCS in the MapR Hadoop VM",
-                text: "The MapR Control System (MCS) is a complete graphical, programmatic control panel for cluster administration that provides all of the functionality of the command line. The MCS provides job monitoring metrics and helps you troubleshoot issues, such as which jobs required the most memory in a given week or which events caused job and task failures. Use the MCS to access, monitor, and perform administrative tasks on your cluster.",
-                std: [
-                    {
-                        desc: "Dashboard View",
-                        text: [
-                            {
-                                desc: "When you first login to the MCS, you see the Dashboard view. The Dashboard provides a summary of information about the cluster including a cluster heat map that displays the health of each node; an alarms summary; cluster utilization that shows the CPU, memory, and disk space usage; services running across the cluster; the number of available, unavailable, and under replicated volumes; MapReduce jobs."
-                            },
-                            {
-                                img: "MCS_DashboardView"
-                            }
-                        ]
-                    },
-                    {
-                        desc: "Cluster Heat Map",
-                        text: [
-                            {
-                                desc: "The Cluster Heat Map is the first panel in the Dashboard view. It displays color coded squares that represent nodes in a cluster. The color of the square indicates node health. A green node indicates that a node is in good health, whereas red indicates that a node requires immediate attention."
-                            },
-                            {
-                                img: "cluster_heatMap"
-                            }
-                        ],
-                        std: [{
-                         desc: "Explore the Heat Map",
-                        ul: [
-                            {
-                                desc: "Use the zoom slider in the tool bar to expand the node and see specific node details.",
-                                text: [
-                                    {
-                                        img: "zoom_slider"
-                                    },
-                                    {
-                                        desc: "You can use the filters in the tool bar to select which node details display. For example, you can filter by memory utilization and all nodes using 80% or more of their available memory display in the dashboard in red. You can also sort nodes by rack, name, or status."
-                                    }
-                                ]
-                            },
-                            {
-                                desc: "Click on the node to view node details. A new view opens displaying the details. Expand and collapse the panels.",
-                                text: [
-                                    {
-                                        img: "NodeDetails"
-                                    }]
-                            },
-                            {
-                                desc: "Click the Dashboard tab to return to the Dashboard view."
-                            },
-                            {
-                                desc: "Click to view Heat Map controls and the node color legend.",
-                                text: [
-                                    {
-                                        img: "HeatMap"
-                                    },
-                                    {
-                                        desc: "The color statuses and descriptions listed in the legend indicate what the health of the node would be if it changed from green to any of the colors shown."
-                                    }
-                                ]
-                            },
+                {
+                    desc: "If you are interested in learning more about MapR, Hadoop, and MapReduce <a href='http://www.mapr.com/academy/' target='_blank'>visit MapR Academy</a> and" +
+                        "watch the informative videos posted on the site. MapR also provides instructor led and web-based" +
+                        "training if you decide you want to learn about MapR and its unique offerings in greater depth."
+                }
+            ]
+        },  // End introduction
+        { // Using HUE
+            desc: "Explore HUE in the MapR Hadoop VM",
 
-                            {
-                                desc: "Adjust the refresh rate to set how often the MCS refreshes the displayed cluster data."
-                            },
-                            {
-                                desc: "Change the column count to set how many columns of nodes the MCS displays in a rack. If you have many nodes in a cluster and you want to see all the nodes in the cluster with a critical status, you can filter by the word 'critical' and the MCS displays all the nodes in the cluster that require immediate attention."
-                            },
-                            {
-                                desc: "Click to close the Heat Map control panel."
-                            }
+            text: [
+                {
+                    desc: "Hue is an interface for interacting with web applications that access a MapR cluster. You can use HUE to upload and export data to and from the MapR File System (MapR-FS). You can work with tables, run Hive queries, and run MapReduce jobs in Pig."
+                },
 
-                        ]
-                        }]
-                    },
-                    {
+                {
+                    desc: "The MapR VM includes brief overviews and tutorials for the following components in HUE:"
+                },
 
-                        desc: "Cluster Utilization, Jobs, Services, Volumes",
-                        text: "In the panels to the right of the Heat Map, you can see cluster utilization, MapReduce jobs, services running across the cluster, as well as mounted and unmounted volumes in the cluster. You can click on multiple links in the panels for more details about the cluster and nodes.",
-                        ol: [
-                            {
-                                desc: "Sed eget lacus mi. ",
-                                text: "Fusce molestie lacus in nisl hendrerit, a porta odio congue. Donec eget suscipit mauris. Mauris scelerisque sit amet nibh ac malesuada. "
-                            },
+                {
+                    bullet: "File Browser"
+                },
+                {
+                    bullet: "Metastore Manager"
+                },
+                {
+                    bullet: "Beeswax"
+                },
+                {
+                    bullet: "Pig"
+                },
+                {
+                    desc: "The tutorials are designed to help get you acquainted with HUE and the MapR-FS. In the tutorials, you will upload a file, convert the file to a table, and then run a simple query on the table. You will also create and run a word count MapReduce job in Pig. "
+                }
+            ], // End intro text
+            std: [ // Start items
+                {
+                    desc: "Before You Begin",
+                    text: [
+                        {
+                            desc: "Download the following files for use in the tutorials:"
+                        },
 
-                            {
-                                desc: "Etiam posuere nulla id blandit euismod. ",
-                                text: "Phasellus elementum augue ipsum, et scelerisque sapien dictum vitae. Nulla urna risus, laoreet vitae commodo eget, rutrum ac dui. Phasellus porta elit id fringilla mattis. Donec sodales molestie metus, quis faucibus velit convallis ac. Mauris semper, sem ut posuere pharetra, massa neque porttitor nisl, eget eleifend sapien mi ac quam. Sed ac sapien consectetur turpis rhoncus tristique. Vivamus blandit, metus vel aliquet placerat, lorem leo malesuada odio, at consectetur dolor augue in felis. "
-                            },
-                            {
-                                desc: "Cum sociis",
-                                text: "natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ultrices lorem in diam condimentum volutpat. Fusce et interdum justo, et dictum risus."
+                        {
+                            bullet: "customer.csv"
+                        },
+                        {
+                            bullet: "constitution.txt"
+                        },
+                        {
+                            bullet: "oozie-examples-3.3.2-mapr.jar"
+                        }
+                    ]
+                }, // End before you begin
+                { // Start FileBrowser
+                    desc: "File Browser",
+                    text: [
 
-                            },
-                            {
-                                desc: "Nulla sit amet magna nibh.",
-                                text: "Aenean luctus placerat ipsum quis condimentum. Aliquam consectetur tortor pellentesque, tempus neque id, tincidunt nibh. Phasellus tristique dictum augue, vel dictum enim laoreet ut. Mauris a mollis turpis. Nulla gravida elit sapien, ac sollicitudin odio auctor quis. Aliquam in lacus malesuada, semper felis rhoncus, ornare risus. Curabitur in egestas sapien. Etiam elementum pharetra lectus vel scelerisque. Morbi cursus adipiscing elit sit amet vehicula. "
-                            },
-                            {
-                                desc: "Maecenas ullamcorper odio vel purus auctor",
-                                text: "sit amet posuere erat porta. Pellentesque non lorem a sem tincidunt porta nec nec nisi. Sed auctor diam eget pharetra tincidunt. Quisque sit amet neque eget erat tempus rhoncus eu id mi. Mauris sed nisl tempus, commodo orci a, laoreet erat."
-                            }
-                        ]
-                    }
+                        {
+                            desc: "File Browser is an application that you can use to access files and directories in the MapR File System (MapR-FS). Use the File Browser in HUE to perform the following directory tasks:"
+                        },
 
-                ]
+                        {
+                            bullet: "Create directories"
+                        },
+                        {
+                            bullet: "Upload, rename, transfer, and delete files and directories"
+                        },
+                        {
+                            bullet: "Change the owner, group, and permissions of a file or directory"
+                        },
+                        {
+                            bullet: "View and edit files as text or binary or download the files to your local system"
+                        },
+                        {
+                            bullet: "View MapReduce job input and output files"
+                        }
+                    ],
+                    std: [
+                        {
+                            desc: "Using File Browser",
 
-            },
-            {
-                desc: "Proin vel vestibulum elit.",
-                ul: [
-                    {
-                        desc: "Nam bibendum sapien blandit lectus accumsan viverra.",
-                        text: "Proin feugiat aliquet condimentum. Praesent at lectus a enim luctus aliquam a et tortor. Cras a porttitor velit, nec vulputate lorem."
-                    },
-                    {
-                        desc: "Aenean",
-                        text: "ligula nibh, tincidunt non justo a, consequat laoreet nisl. Maecenas non sem metus. In placerat ante nulla, a accumsan sem rhoncus et. Nulla et fermentum nisi, eu iaculis erat."
-                    },
-                    {
-                        desc: "Suspendisse potenti. Maecenas sodales, odio et pretium varius, odio est congue massa, eget adipiscing diam diam vel libero. ",
-                        text: "Interdum et malesuada fames ac ante ipsum primis in faucibus."
-                    },
-                    {
-                        desc: "Donec leo lacus",
-                        text: "consectetur a cursus nec, consectetur non erat. Ut interdum tincidunt tortor quis pulvinar. Nullam ligula neque, tempus sit amet leo egestas, rhoncus dignissim purus. Proin eu molestie est, sit amet aliquet nunc. Donec dignissim, massa vitae elementum adipiscing, purus neque laoreet nunc, vel dictum lorem quam eu augue. Integer id tempus est. Praesent ornare fringilla congue. Praesent volutpat ultricies risus in mollis. Phasellus molestie ipsum quis pulvinar viverra. Praesent varius purus eget felis tempor, at porttitor risus pulvinar. Etiam eleifend leo sapien, ut elementum ante pretium et. Curabitur magna purus, congue at leo et, vulputate placerat tellus. Duis et tempus nibh. Fusce aliquet vitae massa gravida dictum."
-                    },
-                    {
-                        desc: "Sed sodales placerat sem",
-                        text: "adipiscing laoreet dui aliquet ac. Etiam sagittis ultrices molestie. Etiam consequat aliquet metus, consequat semper massa convallis at. Nulla at ullamcorper erat. Donec interdum, elit vitae rhoncus venenatis, dolor leo condimentum augue, vel bibendum ante risus ut mi. Nam tempus vitae elit quis gravida. Duis aliquet gravida arcu, nec hendrerit elit blandit sit amet. Cras sagittis nibh non luctus rutrum. Quisque vitae augue leo. Morbi vitae nunc urna. Nunc eget nibh ullamcorper, aliquam dui vel, bibendum sem."
-                    }
+                            text: "In this tutorial, open File Browser, create a new directory, and upload the Customers.csv file.",
 
-                ]
-            },
-            {
-                desc: "Morbi ullamcorper accumsan magna vel condimentum.",
-                text: " Nam ligula magna, dapibus ut leo eget, volutpat dapibus felis. Suspendisse magna odio, bibendum eu venenatis tincidunt, ornare vitae lectus. Proin vitae volutpat nibh, et mollis felis. Etiam non eleifend massa. Donec viverra lacus a elit luctus sagittis. Vestibulum accumsan metus magna. Maecenas ipsum orci, accumsan vitae magna ac, sodales venenatis tellus. Mauris condimentum nisl pharetra lorem volutpat congue. Donec bibendum leo et sagittis pretium.",
-                ol: [
-                    {
-                        desc: "Sed eget lacus mi. ",
-                        text: "Fusce molestie lacus in nisl hendrerit, a porta odio congue. Donec eget suscipit mauris. Mauris scelerisque sit amet nibh ac malesuada. "
-                    },
+                            ul: [
+                                {
+                                    desc: "Create a new directory:",
 
-                    {
-                        desc: "Etiam posuere nulla id blandit euismod. ",
-                        text: "Phasellus elementum augue ipsum, et scelerisque sapien dictum vitae. Nulla urna risus, laoreet vitae commodo eget, rutrum ac dui. Phasellus porta elit id fringilla mattis. Donec sodales molestie metus, quis faucibus velit convallis ac. Mauris semper, sem ut posuere pharetra, massa neque porttitor nisl, eget eleifend sapien mi ac quam. Sed ac sapien consectetur turpis rhoncus tristique. Vivamus blandit, metus vel aliquet placerat, lorem leo malesuada odio, at consectetur dolor augue in felis. "
-                    },
-                    {
-                        desc: "Cum sociis",
-                        text: "natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ultrices lorem in diam condimentum volutpat. Fusce et interdum justo, et dictum risus."
+                                    ol: [
+                                        {
+                                            desc: "Click . The File Browser page opens."
+                                        },
+                                        {
+                                            desc: "Click the New button, and select Directory."
+                                        },
+                                        {
+                                            desc: "Enter CustomerDirectory as the Directory Name."
+                                        },
+                                        {
+                                            desc: "Click Submit. The CustomerDirectory is added to the list."
+                                        }
+                                    ]
+                                },
+                                {
+                                    desc: "Upload a file:",
+                                    ol: [
+                                        {
+                                            desc: "Click on the CustomerDirectory name in the list to open the directory."
+                                        },
+                                        {
+                                            desc: "Click the Upload button, and select Files."
+                                        },
+                                        {
+                                            desc: "Click Select Files in the pop up dialog."
+                                        },
+                                        {
+                                            desc: "Navigate to the Customers.csv file, and upload it. The file displays in the CustomerDirectory."
+                                        }
+                                    ]}
+                            ],
 
-                    },
-                    {
-                        desc: "Nulla sit amet magna nibh.",
-                        text: "Aenean luctus placerat ipsum quis condimentum. Aliquam consectetur tortor pellentesque, tempus neque id, tincidunt nibh. Phasellus tristique dictum augue, vel dictum enim laoreet ut. Mauris a mollis turpis. Nulla gravida elit sapien, ac sollicitudin odio auctor quis. Aliquam in lacus malesuada, semper felis rhoncus, ornare risus. Curabitur in egestas sapien. Etiam elementum pharetra lectus vel scelerisque. Morbi cursus adipiscing elit sit amet vehicula. "
-                    },
-                    {
-                        desc: "Maecenas ullamcorper odio vel purus auctor",
-                        text: "sit amet posuere erat porta. Pellentesque non lorem a sem tincidunt porta nec nec nisi. Sed auctor diam eget pharetra tincidunt. Quisque sit amet neque eget erat tempus rhoncus eu id mi. Mauris sed nisl tempus, commodo orci a, laoreet erat."
-                    }
-                ]
-            },
-            {
-                desc: "Etiam sed augue at purus blandit venenatis sed vestibulum diam. ",
-                text: "Donec justo enim, molestie et velit a, varius tincidunt ligula. Curabitur eleifend sagittis lacus. Nam pulvinar aliquam quam nec molestie. Ut eu felis massa. Phasellus consequat magna at sem rhoncus, id blandit arcu posuere. Aenean feugiat faucibus fringilla.",
-                ul: [
-                    {
-                        desc: "Ut quis vehicula lectus, eget ultricies justo. ",
-                        text: "Pellentesque vitae libero vitae quam feugiat dictum non nec felis. Nullam nisl dui, commodo in blandit dictum, aliquam vel nisl. "
-                    },
-                    {
-                        desc: "Cras placerat condimentum risus a hendrerit.",
-                        text: "Proin ante dui, tincidunt vitae sem at, tincidunt placerat urna. Nam nec ultrices orci. Cras ac hendrerit sapien. Proin cursus eleifend fringilla. Aenean neque nulla, malesuada non lorem vel, scelerisque viverra nisl. Nam euismod enim eu arcu mollis eleifend. Curabitur adipiscing tempus justo at consequat."
-                    },
-                    {
-                        desc: "Praesent quis mollis nibh. ",
-                        text: "Sed nec quam ligula. "
-                    },
-                    {
-                        desc: "Nullam sed arcu diam. ",
-                        text: "In mollis est turpis, nec accumsan lacus suscipit at. Donec mollis molestie dui feugiat auctor. Ut convallis ligula sodales ligula pharetra, eu cursus sem pulvinar. Nunc magna risus, vulputate nec odio id, porta vestibulum odio. Etiam blandit convallis aliquam. Maecenas aliquam arcu tortor, vel condimentum nulla hendrerit eget. "
-                    },
-                    {
-                        desc: "In malesuada tortor ",
-                        text: "eu lectus gravida, eget congue nunc sagittis. Proin accumsan nibh mi, in imperdiet felis mattis sit amet. Morbi nunc velit, convallis in malesuada vel, egestas et lectus. Proin elementum eros sed pretium dictum. Aliquam eu venenatis metus, bibendum interdum ante. Duis ut laoreet justo."
-                    }
-                ]
-            }
-        ]
-    };
+                            post: "<strong>Next step</strong>: Use Metastore Manager to create a table from the uploaded file."
+
+
+                        }
+                    ] // End using filebrowser
+
+
+                }, // End Filebrowser
+                {
+
+                    desc: "Metastore Manager",
+
+                    text: [
+                        {
+                            desc: "Metastore Manager is an application that you can use to manage databases, tables, and partitions stored in a relational database that applications, like HIVE, access through the metastore service API."
+                        },
+
+                        {
+                            desc: "Use Metastore Manager to perform the following table operations:"
+                        },
+
+                        {
+                            bullet: "Create tables"
+                        },
+                        {
+                            bullet: "Browse tables"
+                        },
+                        {
+                            bullet: "Import table data"
+                        },
+                        {
+                            bullet: "Drop tables"
+                        },
+                        {
+                            bullet: "View table location"
+                        },
+                        {
+                            desc: "Use Metastore Manager to perform the following database operations:"
+                        },
+
+                        {
+                            bullet: "Select a database"
+                        },
+                        {
+                            bullet: "Create a database"
+                        },
+                        {
+                            bullet: "Drop databases"
+                        }
+                    ],
+                    std: [
+                        {
+                            desc: "Using Metastore Manager",
+                            text: "In this tutorial, open Metastore Manager and create a table from the Customer.csv file.",
+
+                                    ul: [
+                                        {
+                                            desc: "Import the Customer.csv file:",
+
+                                            ol: [
+                                                {
+                                                    desc: "Click . The Metastore Manager page opens."
+                                                },
+                                                {
+                                                    desc: "Under Actions, select Create a new table from a file."
+                                                },
+                                                {
+                                                    desc: "Enter customer_table as the table name."
+                                                },
+                                                {
+                                                    desc: "Browse to the input file location in the MapR-FS."
+                                                },
+                                                {
+                                                    desc: "Select the Customer.csv file. The file path appears in the Input File field."
+                                                },
+                                                {
+                                                    desc: "Select the Import data from file checkbox."
+                                                },
+                                                {
+                                                    desc: "Click Next."
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            desc: "Choose a delimiter:",
+                                            ol: [
+                                                {
+                                                    desc: "Select comma as the delimiter."
+                                                },
+                                                {
+                                                    desc: "Click Next."
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            desc: "Define your columns:",
+                                            ol: [
+                                                {
+                                                    desc: "Enter column names."
+                                                },
+                                                {
+                                                    desc: "Select column types that correlate with the data."
+                                                },
+                                                {
+                                                    desc: "Click Create table. A message, “Waiting for query” appears while the system creates the table."
+                                                },
+                                                {
+                                                    desc: "After the table is created, click on the Sample view to see the table."
+                                                }
+                                            ]
+
+                                        }
+
+                                    ],
+
+                                    post: "<strong>Next step</strong>: Use Beeswax to run a Hive query on the table."
+                        }
+                    ] // End metastore list items
+                }, // End metastore
+                { // Start Beeswax
+                    desc: "Beeswax",
+
+                    text: "Beeswax is an application for querying data in Hive. Hive is a data warehouse system for Hadoop that uses an SQL-like language to query structured data in the MapR File System (MapR-FS). You can access Beeswax from the HUE interface to run Hive queries with Hive's Query Language (HQL) and then save the queries.",
+
+                    std: [
+                        {
+                            desc: "Using Beeswax",
+                            text: [
+                                {
+                                    desc: "In this tutorial, use the Beeswax application to create a customer_table in Hive from the Customers.csv file you uploaded in the Using Metastore Manager tutuorial. Run a basic query against the customer_table you uploaded."
+                                },
+                                {
+                                    desc: "Create and run a query:"
+                                }
+                            ],
+                            ol: [
+                                {
+                                    desc: "Click . The Hive Query page opens."
+                                },
+                                {
+                                    desc: "In the Query Editor, enter the following query:",
+                                    text: [
+                                        {
+                                            desc: "SELECT * FROM customer_table WHERE state=”TX”"
+                                        },
+
+                                        {
+                                            desc: "The system processes the query and then displays all the customers located in Texas in the Results view."
+                                        }
+                                    ]
+                                },
+
+                                {
+                                    desc: "Optionally, save the query or download the query as a CSV or XLS file."
+                                }
+                            ], // End beeswax tutorial
+
+                            post: "<strong>Next step</strong>: Use Pig to create a script and run a MapReduce job on the constitution.txt file."
+                        }
+                    ] // End Beeswax items
+
+
+                }, // End Beeswax
+                { // Start Pig
+
+                    desc: "Pig",
+
+                    text: "Pig is a platform for parallelized analysis of large data sets. Pig programs use a language called Pig Latin.",
+
+                    std: [ // Start pig tutorials
+                        {
+                            desc: "Using Pig",
+
+                            text: "In this tutorial, use File Browser to create a directory for a US Constitution text file, and then use Pig to create a script that runs a word count MapReduce job on the text in the file. After you run the MapReduce job, view the wordcount file generated by the job.",
+
+                            ul: [
+                                {
+                                    desc: "Create a new directory for the constitution.txt file:",
+
+                                    ol: [
+                                        {
+                                            desc: "Click . The File Browser page opens."
+                                        },
+                                        {
+                                            desc: "Click the New button, and select Directory."
+                                        },
+                                        {
+                                            desc: "Enter ‘in’ as the directory name, and click Submit. The new directory displays in the list."
+                                        },
+                                        {
+                                            desc: "Click on the word ‘in’ in the list to open the directory."
+                                        },
+                                        {
+                                            desc: "Click the Upload button, and select Files."
+                                        },
+                                        {
+                                            desc: "Click the Select Files button."
+                                        },
+                                        {
+                                            desc: "Navigate to the constitution.txt file and upload it. The file appears in the list.",
+                                            text: [
+                                                {
+                                                    desc: "Notice the full directory path: user/mapr/in"
+                                                },
+                                                {
+                                                    desc: "You will need this path when you create a PIG script to run the MapReduce job."
+                                                }
+
+                                            ]
+
+                                        }
+                                    ]
+                                },
+                                {
+                                    desc: "Create a Pig script and run a word count MapReduce job:",
+                                    ol: [
+                                        {
+                                            desc: "Click . The Pig script page opens."
+                                        },
+                                        {
+                                            desc: "Enter ConstitutionWordcount as the title for the script."
+                                        },
+                                        {
+                                            desc: "In the script window, enter the following lines, and press Enter after you type each line :",
+                                            text: [
+                                                {
+                                                    desc: "A = LOAD '/user/mapr/in' USING TextLoader() AS (words:chararray);"
+                                                },
+                                                {
+                                                    desc: "B = FOREACH A GENERATE FLATTEN(TOKENIZE(*));"
+                                                },
+                                                {
+                                                    desc: "C = GROUP B BY $0;"
+                                                },
+                                                {
+                                                    desc: "D = FOREACH C GENERATE group, COUNT(B);"
+                                                },
+                                                {
+                                                    desc: "STORE D INTO '/user/mapr/wordcount';"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            desc: "Click Execute to run the script.",
+                                            text: "The script picks up the file from the ‘in’ directory you created using the File Browser. The system runs the MapReduce job and stores the output in a wordcount directory created by the script. You can click on the Logs link to verify that the job completed."
+                                        },
+                                        {
+                                            desc: "Click Save to save the script."
+                                        }
+                                    ]
+                                },
+                                {
+                                    desc: "View the wordcount file that contains the MapReduce job results:",
+
+                                    ol: [
+                                        {
+                                            desc: "Click . The File Browser page opens."
+                                        },
+                                        {
+                                            desc: "Navigate to the user/mapr/wordcount directory."
+                                        },
+                                        {
+                                            desc: "Open the file in the directory."
+                                        },
+                                        {
+                                            desc: "Review the output to see which word was used the most in the US Constitution."
+                                        },
+                                        {
+                                            desc: "Optionally, edit or download the file."
+                                        }
+                                    ],
+
+                                    post: "<strong>Next step</strong>: Use Job Designer to create and submit a MapReduce job design."
+                                }
+                            ]
+                        }
+                    ] // End Pig Tutorial
+
+                }, // End Pig
+                { // Start Job designer
+
+                    desc: "Job Designer",
+
+                    text: [
+                        {
+                            desc: "Job Designer is an application that you can use to submit MapReduce, Hadoop streaming, or JAR jobs. A MapReduce job contains Java map and reduce functions. You can use existing mapper and reducer classes in a MapReduce job design without writing a main Java class. A Hadoop streaming job is a job where map and reduce functions, written in a non-Java language, read and write standard Unix inputs and outputs. A JAR job is a job where map and reduce functions, written in Java, read and write standard Unix inputs and outputs."
+                        },
+                        {
+                            desc: "When you create a MapReduce job in Job Designer, you can configure variables in the form of $variable_name for all job design settings except Name and Description. If you include variables, you can specify values for the variables in a dialog box that appears when you submit the job."
+                        }
+                    ],
+                    std: [
+                        {
+                            desc: "Using Job Designer",
+
+                            text: "In this tutorial, use File Browser to create a directory that you can upload the sample JAR file to. Use Job Designer to create a MapReduce job using the sample JAR file. Submit the job, and view output file.",
+
+                            ul: [
+                                {
+                                    desc: "Create a new directory:",
+                                    ol: [
+
+                                        {
+                                            desc: "Click . The File Browser page opens."
+                                        },
+                                        {
+                                            desc: "Click the New button, and select Directory."
+                                        },
+                                        {
+                                            desc: "Enter mapreducejob as the Directory Name."
+                                        },
+                                        {
+                                            desc: "Click Submit. The mapreducejob directory is added to the list."
+                                        }
+                                    ]
+                                },
+                                {
+                                    desc: "Upload the JAR file:",
+
+                                    ol: [
+                                        {
+                                            desc: "Click on mapreducejob in the list to open the directory."
+                                        },
+                                        {
+                                            desc: "Click the Upload button, and select Files."
+                                        },
+                                        {
+                                            desc: "Click Select Files in the pop up dialog."
+                                        },
+                                        {
+                                            desc: "Navigate to the oozie-examples-3.3.2-mapr.jar, and upload it. The file displays in the mapreducejob directory."
+                                        }
+                                    ]
+                                },
+                                {
+                                    desc: "Create a MapReduce Job Design:",
+
+
+                                    ol: [
+                                        {
+                                            desc: "Click . The Job Designer page opens."
+                                        },
+                                        {
+                                            desc: "Click the New Action button, and select MapReduce."
+                                        },
+                                        {
+                                            desc: "Configure the job settings with the information below:"
+                                            /*        Setting
+
+                                             Description
+
+                                             Name
+
+                                             Enter MapReduceJobDesign as the job name.
+
+                                             Description
+
+                                             Enter Job Design Tutorial as the descriptor.
+
+                                             JAR Path
+
+                                             Enter user/mapr/mapreducejob/oozie-examples-3.3.2-mapr.jar as the fully-qualified path to the JAR file with the classes that implement the mapper and reducer functions.
+
+                                             Job Properties
+
+                                             Click the Add property button four times. Enter the following property names and their associated value:
+
+                                             Property Name
+
+                                             Value
+
+                                             mapred.mapper.class
+
+                                             org.apache.oozie.example.SampleMapper
+
+                                             mapred.reducer.class
+
+                                             org.apache.oozie.example.SampleReducer
+
+                                             mapred.output.dir
+
+                                             /user/mapr/mapreducejob/output
+
+                                             mapred.input.dir
+
+                                             /oozie/examples/input-data/text
+                                             */
+                                        },
+                                        {
+                                            desc: "Click Save. The Job Designs page appears with the new MapReduceJobDesign in the list."
+                                        }
+
+                                    ]
+                                },
+                                {
+                                    desc: "Submit the Job Design:",
+                                    ol: [
+                                        {
+                                            desc: "Select the checkbox next to the MapReduceJobDesign job design."
+                                        },
+                                        {
+                                            desc: "Click the Submit button. A submit dialog appears."
+                                        },
+                                        {
+                                            desc: "Click Submit."
+                                        },
+                                        {
+                                            desc: "Click the Log view to see the log file as the job processes."
+                                        }
+                                    ]
+                                },
+                                {
+                                    desc: "View the output file:",
+                                    ol: [
+                                        {
+                                            desc: "Click . The File Browser page opens."
+                                        },
+                                        {
+                                            desc: "Click on mapreducejob in the list to open the directory."
+                                        },
+                                        {
+                                            desc: "Click on output in the list to open the output directory."
+                                        },
+                                        {
+                                            desc: "Click on the part-xxxx file to view the job output."
+                                        },
+
+                                    ]
+                                }
+                            ],
+                            post: "<strong>Next step</strong>: Use Oozie to submit a workflow."
+                        }
+                    ] // End Job designer tutorial
+                }, // End Job Designer
+                { // Start Oozie
+                    desc: "Oozie",
+
+                    text: "Oozie is a workflow system for Hadoop. Use Oozie to set up workflows that execute MapReduce jobs and set up a coordinator that manages workflows.",
+                    std: [
+                        {
+
+                            desc: "Using Oozie",
+
+                            text: "In this tutorial, delete the output directory created from the MapReduce job you ran in the Job Designer tutorial. Submit the MapReduce workflow.",
+
+                            ul: [
+                                {
+                                    desc: "Delete the output file:",
+                                    ol: [
+                                        {
+                                            desc: "Click . The File Browser page opens."
+                                        },
+                                        {
+                                            desc: "Click mapreducejob in the list to open the directory."
+                                        },
+                                        {
+                                            desc: "Select the checkbox next to the Output directory."
+                                        },
+                                        {
+                                            desc: "Click the Delete forever button. A confirmation dialog appears."
+                                        },
+                                        {
+                                            desc: "Click Yes."
+                                        }
+                                    ]
+                                },
+                                {
+
+                                    desc: "Submit a workflow:",
+
+                                    ol: [
+
+                                        {
+                                            desc: "Click . The Oozie page opens."
+                                        },
+                                        {
+                                            desc: "Click mapreducejob in the list to open the directory."
+                                        },
+                                        {
+                                            desc: "Select the checkbox next to the Output directory."
+                                        },
+                                        {
+                                            desc: "Click the Delete forever button. A confirmation dialog appears."
+                                        },
+                                        {
+                                            desc: "Click Yes."
+                                        }
+                                    ]}
+                            ]
+                        }
+                    ] // End oozie tutorial
+
+
+                } // End Oozie
+
+            ] // End intro items
+
+
+        }, // END Using HUE
+        {
+            desc: "Summary",
+            text: "You have learned how to navigate the HUE interface and use some applications included in HUE. You created new directories and uploaded data into the MapR-FS through the File Browser; created a table from a file using Metastore Manager; created and ran a Hive query using Beeswax; created a Pig script and ran a wordcount MapReduce job; used Job Design to create and submit a MapReduce job design; and used Oozie to submit a workflow."
+        },
+        {
+            desc: "Support and Feedback",
+            std: [
+                {
+                    desc: "For Help",
+                    text: "Visit MapR X if you require assistance with the MapR Virtual Machine."
+                },
+                {
+                    desc: "Tell us what you think",
+                    text: "We appreciate feedback. If you would like to send feedback regarding your MapR Virtual Machine experience, email X."
+                }
+            ]
+
+        }
+    ]; // END TUTORIAL
 }());

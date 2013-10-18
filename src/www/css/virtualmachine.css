@@ -188,6 +188,10 @@
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_std {
   font-size: 14px;
 }
+.vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_strikeout {
+  color: #a1a1a1;
+  text-decoration: line-through;
+}
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_highlight {
   background-color: #c1c1c1;
 }

@@ -10,6 +10,7 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
         events: {
             "click .vm_minimize": "toggleTutorial",
             "click .vm_clickable": "toggle",
+            "click .vm_action_item": "strikeout",
             "mouseover .vm_desc": "mouseover",
             "mouseout .vm_desc": "mouseout"
 
@@ -103,11 +104,14 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
         _render: function (el, obj, level) {
             var curHook, objItem,
                 size = this.getSize(obj.size || level - 1),
+                single = level === 1 || (_.keys(obj).length === 1),
+                show = _.isUndefined(obj.show) ? level > 3 : obj.show,
             cur = $(Handlebars.templates["tutorial_item.tmpl"]({
                 obj: obj,
                 top: level === 1,
-                single: level === 1 || (_.keys(obj).length === 1),
-                show: _.isUndefined(obj.show) ? level > 3 : obj.show,
+                single: single,
+                strikeout: single ||  show,
+                show: show,
                 size: size ,
                 margin: level > 2 ? 20 : level * 10
 
@@ -150,7 +154,18 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
 
                 e.stopPropagation();
                 e.stopImmediatePropagation();
+                if (ct.hasClass("vm_action_item")) {
+                    this.strikeout(e);
+                }
             }
+        },
+        strikeout: function (e) {
+            var ct = $(e.currentTarget),
+            parent = ct.parent();
+            if (!parent.hasClass("vm_top")) {
+                ct.toggleClass("vm_strikeout");
+            }
+
         },
         mouseover: function (e) {
             var ct = $(e.currentTarget);

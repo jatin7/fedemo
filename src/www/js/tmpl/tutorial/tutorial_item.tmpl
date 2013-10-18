@@ -1,6 +1,6 @@
 <li class="vm_item {{#if top}}vm_top{{/if}}" style="margin-left:{{margin}}px">
 
-    <span class="vm_desc {{size}} {{#unless single}}vm_clickable {{/unless}}">
+    <span class="vm_desc {{size}} {{#unless single}}vm_clickable{{/unless}} {{#if strikeout}}vm_action_item{{/if}}">
         {{{obj.desc}}}
         {{#unless single}}
             <span class="ui-icon ui-icon-triangle-1-{{#if show}}s{{else}}e{{/if}}"></span>
@@ -40,6 +40,11 @@
         {{/if}}
         {{#if obj.ul}}
             <ul class="vm_hook vm_bullet"></ul>
+        {{/if}}
+        {{#if obj.post}}
+            <span class="vm_text">
+                {{{obj.post}}}
+            </span>
         {{/if}}
     </div>
 </li>
