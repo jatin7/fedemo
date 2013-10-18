@@ -1,0 +1,16 @@
+{
+  "name": "MAPR_VM",
+  "version": "3.0.0",
+  "description": "MAPR VM Package",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "uglify-js": "~2.4.0",
+    "handlebars": "~1.0.12"
+  }
+}
