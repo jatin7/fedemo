@@ -5,8 +5,9 @@
 WORKSPACE="$1/src/www"
 ADMIN="$1/src/adminuiapp/src/main/webapp"
 
-rm $ADMIN/virtualmachine.jsp
-rm $WORKSPACE/virtualmachine.html
+rm $ADMIN/index.jsp
+rm $ADMIN/hue.jsp
+rm $WORKSPACE/index.html
 rm $WORKSPACE/hue.html
 rm $WORKSPACE/js/mapr_vm_main.js
 rm $WORKSPACE/js/mapr_vm_hue.js
@@ -19,6 +20,8 @@ rm $WORKSPACE/js/widgets/Tutorial.js
 rm $WORKSPACE/js/virtualmachine
 rm $WORKSPACE/images/vm
 
+mv $ADMIN/virtualmachine.jsp $ADMIN/index.jsp
+mv $WORKSPACE/virtualmachine.html $WORKSPACE/index.html
 mv $WORKSPACE/css/mapr_prod.bk.css $WORKSPACE/css/mapr_prod.css
 mv $WORKSPACE/js/mapr_prod_core.bk.js $WORKSPACE/js/mapr_prod_core.js
 mv $WORKSPACE/compile_templates.bk.hb $WORKSPACE/compile_templates.hb

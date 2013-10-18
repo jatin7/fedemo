@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Sets up the users local directory for testing VM related projects
+# Dont forget to run cleanup.sh after this is run
+
+# Pass in the trunk directory of your source code to link up VM for testing
+# IE ./localsetup.sh /home/funuser/development/default/trunk
+
+function checkReturn() {
+    if [ $? -ne 0 ]; then
+        echo "Failed, exiting early"
+        exit 1
+    fi
+}
+
+if [ -z $1 ]; then
+    echo "This script is used to copy the virtualmachine source over to the given directory."
+    echo "This is intended mainly for running the build for the VM"
+    echo ""
+    echo "ERROR: Argument not provided. Required argument is the trunk path of the source tree you wish to update:"
+    echo "IE: \"./setup /home/funguy/development/goose/trunk\""
+    echo "Exiting..."
+    exit 1
+fi
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SRC="`dirname $DIR`/src"
+ADMIN="$1/src/adminuiapp/src/main/webapp"
+WORKSPACE="$1"
+
+
+mv $ADMIN/index.jsp $ADMIN/virtualmachine.jsp
+checkReturn
+mv $WORKSPACE/src/www/index.html $WORKSPACE/src/www/virtualmachine.html
+checkReturn
+cp -R $SRC $WORKSPACE
+checkReturn
+
+
