@@ -23,6 +23,8 @@ mv $ADMIN/index.jsp $ADMIN/mcs.jsp
 checkReturn
 ln -s $SRC/adminuiapp/src/main/webapp/index.jsp $ADMIN/index.jsp
 checkReturn
+rm $ADMIN/hue.jsp
+checkReturn
 ln -s $SRC/adminuiapp/src/main/webapp/hue.jsp $ADMIN/hue.jsp
 checkReturn
 ln -s $SRC/www/hue.html $WORKSPACE/hue.html
@@ -63,11 +65,6 @@ checkReturn
 mv $WORKSPACE/js/mapr_prod_core.js $WORKSPACE/js/mapr_prod_core.bk.js
 checkReturn
 cp $SRC/www/js/mapr_prod_core.js $WORKSPACE/js
-checkReturn
-
-mv $WORKSPACE/compile_templates.hb $WORKSPACE/compile_templates.bk.hb
-checkReturn
-cp $SRC/www/compile_templates.hb $WORKSPACE
 checkReturn
 
 
