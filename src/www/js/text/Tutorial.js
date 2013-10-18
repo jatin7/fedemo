@@ -36,7 +36,7 @@
                 },
 
                 {
-                    desc: "If you are interested in learning more about MapR, Hadoop, and MapReduce visit MapR Academy and" +
+                    desc: "If you are interested in learning more about MapR, Hadoop, and MapReduce <a href='http://www.mapr.com/academy/' target='_blank'>visit MapR Academy</a> and" +
                         "watch the informative videos posted on the site. MapR also provides instructor led and web-based" +
                         "training if you decide you want to learn about MapR and its unique offerings in greater depth."
                 }
@@ -245,16 +245,16 @@
                             desc: "The first step in configuring a new MapR cluster is to apply a license. You can easily apply a license from the MapR Control System. When you select a license, choose one that meets your needs:"
                         },
                         {
-                            bullet: "M3—Free edition, with unlimited scale, full Hadoop capability and single-point NFS"
+                            bullet: "M3-Free edition, with unlimited scale, full Hadoop capability and single-point NFS"
                         },
                         {
-                            bullet: "M5—Supported edition, offering high availability, multiple NFS nodes, and data management"
+                            bullet: "M5-Supported edition, offering high availability, multiple NFS nodes, and data management"
                         },
                         {
-                            bullet: "M7—All of the above plus native MapR Tables"
+                            bullet: "M7-All of the above plus native MapR Tables"
                         },
                         {
-                            bullet: "If you do not apply even the free M3 license, you cannot take advantage of features like NFS. You can see a complete listing of the features available with each license on the MapR Editions page."
+                            bullet: "If you do not apply even the free M3 license, you cannot take advantage of features like NFS. You can see a complete listing of the features available with each license on the <a href='http://www.mapr.com/products/mapr-editions' target='_blank'>MapR Editions</a> page."
                         }
                     ],
                     ul: [
@@ -264,8 +264,15 @@
 
                             ol: [
                                 {
-                                    desc: "Click the Manage Licenses link in the top right corner of the MapR Control System screen.",
-                                    text: "<strong>Note:</strong> You do not need to apply a license in the virtual machine, however should you install a trial or purchased version of MapR, you will need to apply a product license."
+                                    desc: "Click the <strong>Manage Licenses</strong> link in the top right corner of the MapR Control System screen.",
+                                    text: [
+                                        {
+                                            desc: "<strong>Note:</strong> You do not need to apply a license in the virtual machine, however should you install a trial or purchased version of MapR, you will need to apply a product license."
+                                        },
+                                        {
+                                            img: "LicenseConfig"
+                                        }
+                                    ]
                                 },
                                 {
                                     desc: "Select any of the three methods listed to add the license."
@@ -285,7 +292,7 @@
                             desc: "Topology is a description of the physical layout of the cluster hardware, so that MapR knows which nodes are on different racks. When your data is replicated, the copies go to separate racks. That way, if an entire rack goes down, you don't lose access to your data. Topology is a description of the locations of racks and nodes."
                         },
                         {
-                            img: ""
+                            img: "NodeTopology"
                         },
 
                         {
@@ -295,10 +302,10 @@
                             bullet: "All the racks are inside the enclosing topology /data."
                         },
                         {
-                            biullet: "Each node is inside its rack."
+                            bullet: "Each node is inside its rack."
                         },
                         {
-                            biullet: "Any given node can only be in one topology."
+                            bullet: "Any given node can only be in one topology."
                         },
                         {
                             desc: "So, in the above example, the node \"node2\"  on rack \"rack1\" would have the following topology:"
@@ -311,10 +318,15 @@
                     ol: [
                         {
                             desc: "Setting Topology",
-                            text: "Setting up the cluster's physical topology is an important step—not only does it help protect your data in case of a rack failure, it also enables data placement and job placement features. For more information, see Node Topology. ",
+                            text: "Setting up the cluster's physical topology is an important step—not only does it help protect your data in case of a rack failure, it also enables data placement and job placement features. For more information, see <a href='http://www.mapr.com/doc/display/MapR/Node+Topology' target='_blank'>Node Topology</a>. ",
                             ol: [
                                 {
-                                    desc: "From the Dashboard view, click Nodes to see the Nodes view."
+                                    desc: "From the Dashboard view, click Nodes to see the Nodes view.",
+                                    text: [
+                                        {
+                                            img: "SettingTopology"
+                                        }
+                                    ]
                                 },
                                 {
                                     desc: "Select the checkboxes for all the nodes on a single rack."
@@ -344,19 +356,19 @@
                         },
 
                         {
-                            bullet: "Volume topology lets you specify a subset of cluster nodes that a volume is allowed to use, for data placement (see Setting Volume Topology)."
+                            bullet: "<strong>Volume topology</strong> lets you specify a subset of cluster nodes that a volume is allowed to use, for data placement (see <a href='http://www.mapr.com/doc/display/MapR/Managing+Data+with+Volumes' target='_blank'>Setting Volume Topology</a>)."
                         },
                         {
-                            bullet: "Snapshots let you preserve the state of a volume at a particular point in time (see Snapshots)."
+                            bullet: "<strong>Snapshots</strong> let you preserve the state of a volume at a particular point in time (see <a href='http://www.mapr.com/doc/display/MapR/Snapshots' target='_blank'>Snapshots</a>)."
                         },
                         {
-                            bullet: "Mirrors let you create read-only copies of a volume for load-balancing, separation of development from production, or backup (see Mirror Volumes)."
+                            bullet: "<strong>Mirrors</strong> let you create read-only copies of a volume for load-balancing, separation of development from production, or backup (see <a href='http://www.mapr.com/doc/display/MapR/Mirror+Volumes' target='_blank'>Mirror Volumes</a>)."
                         },
                         {
                             text: "A MapR cluster comes with certain system volumes out of the box. The following diagram shows the system volumes (blue) along with recommended volumes that you should add to your new cluster."
                         },
                         {
-                            img: ""
+                            img: "SystemRootVolumeConfig"
                         },
                         {
                             text: "The root volume (mapr.cluster.root, mounted at /) contains the mount points for the other volumes. MapR provides a volume for HBase (if installed) and a /var/mapr volume containing information about cluster configuration. There is also a local volume for each node—limited by its topology to reside only on its own node."
@@ -371,13 +383,13 @@
                             text: "To create a volume in the MapR Control System,",
                             ol: [
                                 {
-                                    desc: "Click Volumes in the Navigation panel."
+                                    desc: "Click <strong>Volumes</strong> in the Navigation panel."
                                 },
                                 {
-                                    desc: "Click New Volume.",
+                                    desc: "Click <strong>New Volume</strong>.",
                                     text: [
                                         {
-                                            img: ""
+                                            img: "CreateNewVolume"
                                         }
                                     ]
                                 },
@@ -385,19 +397,19 @@
                                     desc: "Specify volume settings:",
                                     text: [
                                         {
-                                            biullet: "Volume Setup: Set the name and mount path of the volume. The mount path determines where the volume will be mounted. Following the above volume layout diagram, you might create a volume called johnsmith with a mount path of /users/jsmith for example. You can also set volume topology here (default is /data of course, to use all racks), and choose whether to create a normal read/write volume or a mirror volume."
+                                            bullet: "<strong>Volume Setup</strong>: Set the name and mount path of the volume. The mount path determines where the volume will be mounted. Following the above volume layout diagram, you might create a volume called johnsmith with a mount path of /users/jsmith for example. You can also set volume topology here (default is /data of course, to use all racks), and choose whether to create a normal read/write volume or a mirror volume."
                                         },
                                         {
-                                            biullet: "Permissions: Set the permissions, for each user, for volume operations such as backing up or deleting the volume."
+                                            bullet: "<strong>Permissions</strong>: Set the permissions, for each user, for volume operations such as backing up or deleting the volume."
                                         },
                                         {
-                                            biullet: "Usage Tracking: Set a quota, if desired, to limit the maximum size of the volume. The hard quota is a limit above which writes to the volume are disabled; the advisory quota is a limit above which a warning is sent to the volume’s owner."
+                                            bullet: "<strong>Usage Tracking</strong>: Set a quota, if desired, to limit the maximum size of the volume. The hard quota is a limit above which writes to the volume are disabled; the advisory quota is a limit above which a warning is sent to the volume’s owner."
                                         },
                                         {
-                                            biullet: "Replication: Set the desired replication and the replication method for the volume."
+                                            bullet: "<strong>Replication</strong>: Set the desired replication and the replication method for the volume."
                                         },
                                         {
-                                            text: "For more information on what these settings mean, see Managing Data with Volumes."
+                                            text: "For more information on what these settings mean, see <a href='http://doc.mapr.com/display/MapR/Managing+Data+with+Volumes' target='_blank'>Managing Data with Volumes</a>."
                                         }
                                     ]
                                 }
@@ -421,7 +433,7 @@
                             text: "To create a snapshot:",
                             ol: [
                                 {
-                                    desc: "In the Navigation pane, expand the MapR-FS group and click the Volumes view."
+                                    desc: "In the Navigation pane, expand the <strong>MapR-FS</strong> group and click the Volumes view."
                                 },
                                 {
                                     desc: "Select the checkbox beside the name of each volume for which you want a snapshot, then click the New Snapshot button to display the Snapshot Name dialog."
@@ -439,16 +451,16 @@
                             text: "Configure schedule details:",
                             ol: [
                                 {
-                                    desc: "In the Navigation pane, expand the MapR-FS group and click the Schedules view."
+                                    desc: "In the Navigation pane, expand the <strong>MapR-FS</strong> group and click the Schedules view."
                                 },
                                 {
-                                    desc: "Click New Schedule."
+                                    desc: "Click <strong>New Schedule</strong>."
                                 },
                                 {
-                                    desc: "Type a name for the new schedule in the Schedule Name field."
+                                    desc: "Type a name for the new schedule in the <strong>Schedule Name</strong> field."
                                 },
                                 {
-                                    desc: "Define one or more schedule rules in the Schedule Rules section:"
+                                    desc: "Define one or more schedule rules in the <strong>Schedule Rules</strong> section:"
                                 },
                                 {
                                     desc: "From the first dropdown menu, select a frequency (Once, Yearly, Monthly, etc.))"
@@ -460,13 +472,13 @@
                                     desc: "Continue with each dropdown menu, proceeding to the right, to specify the time at which the scheduled action is to occur."
                                 },
                                 {
-                                    desc: "Use the Retain For field to specify how long the data is to be preserved. For example: if the schedule is attached to a volume for creating snapshots, the Retain For field specifies how far after creation the snapshot expiration date is set."
+                                    desc: "Use the <strong>Retain For</strong> field to specify how long the data is to be preserved. For example: if the schedule is attached to a volume for creating snapshots, the Retain For field specifies how far after creation the snapshot expiration date is set."
                                 },
                                 {
-                                    desc: "Click [ + Add Rule ] to specify additional schedule rules, as desired."
+                                    desc: "Click <strong>[ + Add Rule ]</strong> to specify additional schedule rules, as desired."
                                 },
                                 {
-                                    desc: "Click Save Schedule to create the schedule."
+                                    desc: "Click <strong>Save Schedule</strong> to create the schedule."
                                 }
 
                             ]
