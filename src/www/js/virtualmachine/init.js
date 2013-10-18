@@ -35,13 +35,13 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
                 height,
                 devH = dev.children(".vm_info").height(),
                 adminH = admin.children(".vm_info").height(),
-                offset = 125 + dev.children(".vm_button").outerHeight(true);
+                offset = 225 + dev.children(".vm_button").outerHeight(true);
 
 
             height = devH > adminH ? devH : adminH;
             dev.height(height + offset).children(".vm_info").height(height);
             admin.height(height + offset).children(".vm_info").height(height);
-            this.container.css("min-height", height + title.outerHeight(true) + offset + 50);
+            this.container.css("min-height", height + title.outerHeight(true) + offset + 100);
 
         },
         resize: function () {
