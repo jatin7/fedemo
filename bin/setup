@@ -25,8 +25,8 @@ fi
 
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-DIR2="`dirname $DIR`/bin"
-BIN="$DIR2/bin
+DIR2="`dirname $DIR`"
+BIN="$DIR2/bin"
 SRC="$DIR2/src"
 NODE="$DIR2/node_modules"
 ADMIN="$1/src/adminuiapp/src/main/webapp"
@@ -47,7 +47,7 @@ npm install
 # Compile stylus css
 $BIN/stylus
 
-cat $CSS/virtualmachine.css >> $CSS/zelda.css
+cat $SRC/www/css/virtualmachine.css >> $CSS/zelda.css
 
 # Run handlebars before. So when you concat templates, you get lastest copy
 $NODE/handlebars/bin/handlebars $JS/tmpl/src/**/*.tmpl -f $JS/tmpl/templates.js
