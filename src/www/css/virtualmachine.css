@@ -189,8 +189,13 @@
   font-size: 14px;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_strikeout {
-  color: #a1a1a1;
+  opacity: 0.4;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  filter: alpha(opacity=40);
   text-decoration: line-through;
+}
+.vm_tutorial .vm_item:not(.vm_top) .vm_desc img {
+  vertical-align: middle;
 }
 .vm_tutorial .vm_item:not(.vm_top) .vm_desc.vm_highlight {
   background-color: #c1c1c1;
@@ -231,7 +236,8 @@
 .vm_tutorial .vm_item .vm_text ol {
   margin-left: 20px;
 }
-.vm_tutorial .vm_item .vm_text img {
+.vm_tutorial .vm_item .vm_text img.vm_newline {
   width: 400px;
+  margin-left: 20px;
 }
 

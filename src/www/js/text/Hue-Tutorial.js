@@ -6,6 +6,10 @@
 (function () {
     "use strict"
     MAPR.Text = MAPR.Text || {};
+    var img = function (img) {
+        return "<img class='vm_inline' src='images/vm/" + img + "'>";
+    };
+
     MAPR.Text.Tutorial = [
         {
             desc: "Introducing MapR's Hadoop VM",
@@ -124,7 +128,7 @@
 
                                     ol: [
                                         {
-                                            desc: "Click . The File Browser page opens."
+                                            desc: "Click " + img("hue_fb") + ". The File Browser page opens."
                                         },
                                         {
                                             desc: "Click the New button, and select Directory."
@@ -216,7 +220,7 @@
 
                                             ol: [
                                                 {
-                                                    desc: "Click . The Metastore Manager page opens."
+                                                    desc: "Click " + img("hue_mm") + ". The Metastore Manager page opens."
                                                 },
                                                 {
                                                     desc: "Under Actions, select Create a new table from a file."
@@ -292,7 +296,7 @@
                             ],
                             ol: [
                                 {
-                                    desc: "Click . The Hive Query page opens."
+                                    desc: "Click " + img("hue_bees") + ". The Hive Query page opens."
                                 },
                                 {
                                     desc: "In the Query Editor, enter the following query:",
@@ -336,7 +340,7 @@
 
                                     ol: [
                                         {
-                                            desc: "Click . The File Browser page opens."
+                                            desc: "Click " + img("hue_fb") + ". The File Browser page opens."
                                         },
                                         {
                                             desc: "Click the New button, and select Directory."
@@ -372,7 +376,7 @@
                                     desc: "Create a Pig script and run a word count MapReduce job:",
                                     ol: [
                                         {
-                                            desc: "Click . The Pig script page opens."
+                                            desc: "Click " + img("hue_pig") + ". The Pig script page opens."
                                         },
                                         {
                                             desc: "Enter ConstitutionWordcount as the title for the script."
@@ -411,7 +415,7 @@
 
                                     ol: [
                                         {
-                                            desc: "Click . The File Browser page opens."
+                                            desc: "Click " + img("hue_fb") + ". The File Browser page opens."
                                         },
                                         {
                                             desc: "Navigate to the user/mapr/wordcount directory."
@@ -458,7 +462,7 @@
                                     ol: [
 
                                         {
-                                            desc: "Click . The File Browser page opens."
+                                            desc: "Click " + img("hue_fb") + ". The File Browser page opens."
                                         },
                                         {
                                             desc: "Click the New button, and select Directory."
@@ -495,7 +499,7 @@
 
                                     ol: [
                                         {
-                                            desc: "Click . The Job Designer page opens."
+                                            desc: "Click " + img("hue_jd") + ". The Job Designer page opens."
                                         },
                                         {
                                             desc: "Click the New Action button, and select MapReduce."
@@ -570,7 +574,7 @@
                                     desc: "View the output file:",
                                     ol: [
                                         {
-                                            desc: "Click . The File Browser page opens."
+                                            desc: "Click " + img("hue_fb") + ". The File Browser page opens."
                                         },
                                         {
                                             desc: "Click on mapreducejob in the list to open the directory."
@@ -605,7 +609,7 @@
                                     desc: "Delete the output file:",
                                     ol: [
                                         {
-                                            desc: "Click . The File Browser page opens."
+                                            desc: "Click " + img("hue_fb") + ". The File Browser page opens."
                                         },
                                         {
                                             desc: "Click mapreducejob in the list to open the directory."
@@ -628,7 +632,7 @@
                                     ol: [
 
                                         {
-                                            desc: "Click . The Oozie page opens."
+                                            desc: "Click " + img("hue_ooz") + ". The Oozie page opens."
                                         },
                                         {
                                             desc: "Click mapreducejob in the list to open the directory."
