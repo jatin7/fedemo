@@ -7,7 +7,7 @@
     "use strict"
     MAPR.Text = MAPR.Text || {};
     var img = function (img) {
-        return "<img src='images/vm/" + img + "'>";
+        return "<img src='images/vm/" + img + ".png'>";
 
     };
 
