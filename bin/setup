@@ -42,7 +42,8 @@ checkReturn
 cp -R $SRC $WORKSPACE
 checkReturn
 
-npm install
+(cd $DIR &&  npm install)
+
 
 # Compile stylus css
 $BIN/stylus
