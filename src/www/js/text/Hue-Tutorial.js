@@ -89,6 +89,9 @@
                         },
                         {
                             bullet: "<a href='docs/oozie-examples-3.3.2-mapr.jar'>oozie-examples-3.3.2-mapr.jar</a>"
+                        },
+                        {
+                            buleet: "<a href='docs/workflow.xml'>workflow.xml</a>"
                         }
                     ]
                 }, // End before you begin
