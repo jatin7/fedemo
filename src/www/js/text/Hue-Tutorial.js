@@ -12,7 +12,7 @@
 
     MAPR.Text.Tutorial = [
         {
-            desc: "Introducing MapR's Hadoop VM",
+            desc: "MapR's Hadoop Sandbox",
             text: [
                 {
                     desc: "The MapR Virtual Machine is a fully-functional single-node cluster capable of running MapReduce" +
@@ -82,13 +82,16 @@
                         },
 
                         {
-                            bullet: "customer.csv"
+                            bullet: "<a href='docs/customers.csv'>customers.csv</a>"
                         },
                         {
-                            bullet: "constitution.txt"
+                            bullet: "<a href='docs/constitution.txt'>constitution.txt</a>"
                         },
                         {
-                            bullet: "oozie-examples-3.3.2-mapr.jar"
+                            bullet: "<a href='docs/oozie-examples-3.3.2-mapr.jar'>oozie-examples-3.3.2-mapr.jar</a>"
+                        },
+                        {
+                            buleet: "<a href='docs/workflow.xml'>workflow.xml</a>"
                         }
                     ]
                 }, // End before you begin
@@ -286,14 +289,10 @@
                     std: [
                         {
                             desc: "Using Beeswax",
-                            text: [
+                            text: "In this tutorial, use the Beeswax application to create a customer_table in Hive from the Customers.csv file you uploaded in the Using Metastore Manager tutuorial. Run a basic query against the customer_table you uploaded.",
+                            ul: [
                                 {
-                                    desc: "In this tutorial, use the Beeswax application to create a customer_table in Hive from the Customers.csv file you uploaded in the Using Metastore Manager tutuorial. Run a basic query against the customer_table you uploaded."
-                                },
-                                {
-                                    desc: "Create and run a query:"
-                                }
-                            ],
+                                desc: "Create and run a query:",
                             ol: [
                                 {
                                     desc: "Click " + img("hue_bees") + ". The Hive Query page opens."
@@ -302,7 +301,7 @@
                                     desc: "In the Query Editor, enter the following query:",
                                     text: [
                                         {
-                                            desc: "SELECT * FROM customer_table WHERE state=”TX”"
+                                            desc: "SELECT * FROM customer_table WHERE state=\"TX\""
                                         },
 
                                         {
@@ -314,7 +313,9 @@
                                 {
                                     desc: "Optionally, save the query or download the query as a CSV or XLS file."
                                 }
-                            ], // End beeswax tutorial
+                            ] // End beeswax tutorial
+                            }
+                            ],
 
                             post: "<strong>Next step</strong>: Use Pig to create a script and run a MapReduce job on the constitution.txt file."
                         }
@@ -346,10 +347,10 @@
                                             desc: "Click the New button, and select Directory."
                                         },
                                         {
-                                            desc: "Enter ‘in’ as the directory name, and click Submit. The new directory displays in the list."
+                                            desc: "Enter 'in' as the directory name, and click Submit. The new directory displays in the list."
                                         },
                                         {
-                                            desc: "Click on the word ‘in’ in the list to open the directory."
+                                            desc: "Click on the word 'in' in the list to open the directory."
                                         },
                                         {
                                             desc: "Click the Upload button, and select Files."
@@ -403,7 +404,7 @@
                                         },
                                         {
                                             desc: "Click Execute to run the script.",
-                                            text: "The script picks up the file from the ‘in’ directory you created using the File Browser. The system runs the MapReduce job and stores the output in a wordcount directory created by the script. You can click on the Logs link to verify that the job completed."
+                                            text: "The script picks up the file from the 'in' directory you created using the File Browser. The system runs the MapReduce job and stores the output in a wordcount directory created by the script. You can click on the Logs link to verify that the job completed."
                                         },
                                         {
                                             desc: "Click Save to save the script."
