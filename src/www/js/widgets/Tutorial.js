@@ -42,7 +42,7 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
                     this.win = $(window).on("resize", this.hueResize);
                     this.hueResize();
                     this.init = true;
-                    this.hue.attr("src", window.location.protocol + "//" + window.location.host + ":8888");
+                    this.hue.attr("src", window.location.protocol + "//" + window.location.hostname + ":8888");
                 }
             }
 
