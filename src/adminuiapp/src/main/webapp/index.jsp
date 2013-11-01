@@ -29,7 +29,9 @@
     <div class="vm_container">
         <div class="vm_title">
             <div class="vm_title_text">
-                MapR's Hadoop Sandbox
+                MapR Sandbox for Hadoop
+                <br/>
+                __________
             </div>
 
         </div>
