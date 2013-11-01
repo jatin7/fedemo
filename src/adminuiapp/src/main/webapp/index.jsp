@@ -20,11 +20,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>MapR VirtualMachine</title>
+    <title>MapR Sandbox for Hadoop</title>
     <link rel='stylesheet' href='css/mapr_prod.min.css'>
     <script src="js/mapr_vm_main.min.js"></script>
 </head>
-<body>
 <div class="vm_page">
     <div class="vm_container">
         <div class="vm_title">
@@ -44,7 +43,12 @@
                 If you are a Hadoop developer or an analyst looking to gain understanding of Hadoop and MapR, MapR includes training and tools to get you up to speed on the latest information quick and easy.
             </div>
             <div class="vm_button vm_label" loc="dev">
-                    Click Here
+                <div class="vm_button_container">
+                    <span class="vm_button_text">
+                        Launch HUE
+                    </span>
+                    <span class="ui-icon ui-icon-extlink vm_button_icon"></span>
+                </div>
             </div>
 
         </div>
@@ -58,7 +62,12 @@
 
             </div>
             <div class="vm_button vm_label">
-                Click Here
+                <div class="vm_button_container">
+                    <span class="vm_button_text">
+                        Launch MCS
+                    </span>
+                    <span class="ui-icon ui-icon-extlink vm_button_icon"></span>
+                </div>
             </div>
         </div>
 
