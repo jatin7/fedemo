@@ -13,53 +13,205 @@
 
     MAPR.Text.Tutorial = [
         {
-            desc: "MapR Sandbox for Hadoop",
+            desc: "Introducing MapR's Sandbox for Hadoop",
             text: [
                 {
-                    desc: "The MapR Virtual Machine is a fully-functional single-node cluster capable of running MapReduce" +
-                        "programs and working with applications like Hive and Pig. You can try the MapR Virtual Machine on" +
-                        "nearly any 64-bit computer. When you run the MapR virtual machine, you'll experience the MapR" +
-                        "Control System and HUE graphical interfaces running on the MapR File System (MapR-FS). The MapR-" +
-                        "FS is a fully read-write distributed file system that allows applications to concurrently read and write" +
-                        "directly to disk."
+                    desc: "MapR's Sandbox for Hadoop is a fully-functional single-node cluster capable of running MapReduce programs and working with applications like Hive and Pig. You can experience MapR's Sandbox for Hadoop on nearly any 64-bit computer. "
                 },
 
                 {
-                    desc: "Use the information and tutorials included in the MapR VM to discover the MapR Control System and" +
-                        "components included in the HUE interface. The tutorials provided within the MapR VM are intended to" +
-                        "guide you through some basic administrator and developer procedures you might perform on a cluster." +
-                        "You can also use the virtual machine environment to explore solutions for your own use cases and run" +
-                        "jobs on your data."
+                    desc: "The sandbox provides an environment for you to experiment with the MapR Control System and HUE graphical interfaces running on the MapR File System (MapR-FS). MapR-FS is a fully read-write distributed file system that allows applications to concurrently read and write directly to disk. You can mount a MapR cluster via NFS, or you can mount NFS on a Linux, Mac, or Windows client."
                 },
 
                 {
-                    desc: "If you decide you would like to experience more of MapR, <a target='_blank' href='http://www.mapr.com/products/download'>" +
-                        "download and test drive a free version</a> of " +
-                        "MapR's distribution for Hadoop. You'll see how easy, fast and dependable true enterprise-grade Hadoop" +
-                        "can be and learn why more companies with mission-critical requirements are choosing MapR."
+                    desc: "Use the information and tutorials included in MapR's Sandbox for Hadoop to discover the MapR Control System and applications included in the HUE interface. The tutorials are intended to guide you through some basic administrator and developer procedures you might perform on a cluster. You can also use the sandbox to explore solutions to your use cases, and run jobs on your data."
                 },
-
                 {
-                    desc: "If you are interested in learning more about MapR, Hadoop, and MapReduce <a href='http://www.mapr.com/academy/' target='_blank'>visit MapR Academy</a> and" +
-                        "watch the informative videos posted on the site. MapR also provides instructor led and web-based" +
-                        "training if you decide you want to learn about MapR and its unique offerings in greater depth."
+                    desc: "If you would like to experience more of MapR, <a href='http://www.mapr.com/products/download' target='_blank'>download and test drive a free version</a> of MapR's distribution for Hadoop. You'll see how easy, fast, and dependable true enterprise-grade Hadoop can be, and learn why more companies with mission-critical requirements are choosing MapR."
+                },
+                {
+                    desc: "For more information about MapR, Hadoop, and MapReduce, visit <a href='http://www.mapr.com/academy/' target='_blank'>MapR Academy</a> and watch the informative videos posted on the site. MapR also provides instructor led and web-based training if you decide you want to learn about MapR and its unique offerings in greater depth."
                 }
             ]
         },
         {
-            desc: "Explore the MCS in the MapR Hadoop VM",
-            text: "The MapR Control System (MCS) is a complete graphical, programmatic control panel for cluster administration that provides all of the functionality of the command line. The MCS provides job monitoring metrics and helps you troubleshoot issues, such as which jobs required the most memory in a given week or which events caused job and task failures. Use the MCS to access, monitor, and perform administrative tasks on your cluster.",
-            std: [
+            desc: "Explore the MCS in MapR's Sandbox for Hadoop",
+            text: [{
+                desc: "The MapR Control System (MCS) is a graphical, programmatic control panel for cluster administration that provides complete cluster monitoring functionality and most of the functionality of the command line. The MCS provides job monitoring metrics that help you troubleshoot issues, such as which jobs required the most memory in a given week or which events caused job and task failures. Use the MCS to access, monitor, and perform administrative tasks on your cluster."
+            },
+            {
+                desc: "MapR's Sandbox for Hadoop includes brief overviews and tutorials to help get you acquainted with some MCS features and functionality that you would use as a cluster administrator to ensure the cluster runs smoothly."
+            },
+            {
+                desc: "Use the tutorials included in the sandbox to perform the following operations in the MCS:"
+            },
+            {
+                bullet: ""
+            },
+            {
+                bullet: "Mount a MapR cluster via NFS"
+            },
+            {
+                bullet: "Explore the Dashboard view"
+            },
+            {
+                bullet: "Set up topology"
+            },
+            {
+                bullet: "Create volumes"
+            },
+            {
+                bullet: "Take snapshots"
+            },
+            {
+                bullet: "Create mirror volumes"
+            },
+            {
+                bullet: "Configure notifications and alarms"
+            },
+            {
+                bullet: "Review job metrics"
+            }],
+            std: [{
+                desc: "NFS Mount",
+                text: [{
+                    desc: "When you mount a MapR cluster directly via NFS, applications can read and write data directly into the cluster with standard tools, applications, and scripts. MapR enables direct file modification and multiple concurrent reads and writes via POSIX semantics. For example, you can run a MapReduce job that outputs to a CSV file, then import the CSV file directly into SQL via NFS. "
+                },
                 {
-                    desc: "Dashboard View",
-                    text: [
-                        {
-                            desc: "When you first login to the MCS, you see the Dashboard view. The Dashboard provides a summary of information about the cluster including a cluster heat map that displays the health of each node; an alarms summary; cluster utilization that shows the CPU, memory, and disk space usage; services running across the cluster; the number of available, unavailable, and under replicated volumes; MapReduce jobs."
+                    desc: "MapR exports each cluster as the directory /mapr/cluster name. For example, /mapr/my.cluster.com. If you create a mount point with the local path /mapr, then Hadoop FS paths and NFS paths to the cluster will be the same. This makes it easy to work on the same files via NFS and Hadoop. In a multi-cluster setting, the clusters share a single namespace, and you can see them all by mounting the top-level /mapr directory."
+
+                }],
+                std: [{
+                    desc: "Mounting the Cluster via NFS",
+                    text: [{
+                        desc: "In this tutorial, open a terminal window and mount the MapR cluster via NFS. After you mount the cluster, drag and drop files from your machine into the MapR directory."
+                    },
+                    {
+                        desc: "Note: This tutorial provides general steps for mounting the cluster via NFS. If you need further instruction, for example if you are running Windows 7 Ultimate or Windows 7 Enterprise, refer to <a href='http://doc.mapr.com/display/MapR12/Accessing+Data+with+NFS' target='_blank'>Accessing Data with NFS</a>."
+                    }],
+                    std: [{
+                        desc: "Mount the cluster via NFS:",
+                        ol: [{
+                            desc: "Open a terminal window on the host machine."
                         },
                         {
-                            img: "MCS_DashboardView"
-                        }
-                    ]
+                            desc: "Type sudo showmount -e localhost in the terminal to see what exports are available on the local host.  ",
+                            text: [{
+                                desc: "Example:"
+                            },
+                            {
+                                desc: "mapr@ubuntu:~$ sudo showmount -e localhost"
+                            }]
+                        },
+                        {
+                            desc: "Enter mapr as the password.",
+                            text: [{
+                                desc: "Example:"
+                            },
+                            {
+                                desc: "[sudo] password for mapr: mapr"
+                            },
+                            {
+                                desc: "The export list for localhost: appears."
+                            },
+                            {
+                                desc: "Example:"
+                            },
+                            {
+                                desc: "Export list for localhost:"
+                            },
+                            {
+                                desc: "/mapr                *"
+                            },
+                            {
+                                desc: "/mapr/my.cluster.com *"
+                            }]
+                        },
+                        {
+                            desc: "If the mapr directory does not exist, create a new directory named /mapr."
+                        },
+                        {
+                            desc: "If no hosts are listed, use the mount command to mount the cluster. ",
+                            text: [{
+                                desc: "Mount the exported share to the /mapr directory."
+                            },
+                            {
+                                desc: "Example: "
+                            },
+                            {
+                                desc: "mapr@ubuntu:~$ sudo mount –t nfs –o nolock localhost:/mapr /map"
+                            }]
+                        },
+                        {
+                            desc: "Use the mount command to verify that the mount was successful.",
+                            text: [{
+                                desc: "Example: "
+                            },
+                            {
+                                desc: "mapr@ubuntu:~$ sudo mount"
+                            },
+                            {
+                                desc: "The following syntax appears:"
+                            },
+                            {
+                                desc: "/dev/sda1 on / type ext4 (rw,errors=remount-ro)"
+                            },
+                            {
+                                desc: "proc on /proc type proc (rw,noexec,nosuid,nodev)"
+                            },
+                            {
+                                desc: "sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)"
+                            },
+                            {
+                                desc: "none on /sys/fs/fuse/connections type fusectl (rw)"
+                            },
+                            {
+                                desc: "none on /sys/kernel/debug type debugfs (rw)"
+                            },
+                            {
+                                desc: "none on /sys/kernel/security type securityfs (rw)"
+                            },
+                            {
+                                desc: "udev on /dev type devtmpfs (rw,mode=0755)"
+                            },
+                            {
+                                desc: "devpts on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=0620)"
+                            },
+                            {
+                                desc: "tmpfs on /run type tmpfs (rw,noexec,nosuid,size=10%,mode=0755)"
+                            },
+                            {
+                                desc: "none on /run/lock type tmpfs (rw,noexec,nosuid,nodev,size=5242880)"
+                            },
+                            {
+                                desc: "none on /run/shm type tmpfs (rw,nosuid,nodev)"
+                            },
+                            {
+                                desc: "rpc_pipefs on /run/rpc_pipefs type rpc_pipefs (rw)"
+                            },
+                            {
+                                desc: "localhost:/mapr on /mapr type nfs (rw,soft,intr,nolock,addr=127.0.0.1)"
+                            }
+                            ]
+                        },
+                        {
+                            desc: "Go to your desktop, and select the MapR NFS mount icon to open the MapR directory."
+                        },
+                        {
+                            desc: "Select any files from a directory on your machine, and drag and drop them into the MapR directory. You can also drag and drop files from the MapR directory into a directory on your machine."
+                        }]
+                    }]
+                }],
+                post: "<strong>Next step</strong>: Navigate to the MapR Control System interface, and explore the MapR Control System (MCS). If prompted to login, enter mapr as the username and password."
+            },
+            {
+                    desc: "MCS Dashboard",
+                    text: [{
+                        desc: "When you first login to the MCS, the Dashboard view appears by defualt. The Dashboard provides a summary of information about the cluster including a cluster heat map that displays the health of each node; an alarms summary; cluster utilization that shows the CPU, memory, and disk space usage; services running across the cluster; the number of available, unavailable, and under replicated volumes; MapReduce jobs. "
+                    },
+                    {
+                        img: "MCS_DashboardView"
+                    }]
                 },
                 {
                     desc: "Cluster Heat Map",
@@ -87,7 +239,7 @@
                                     ]
                                 },
                                 {
-                                    desc: "Click on the node to view node details. A new view opens displaying the details. Expand and collapse the panels.",
+                                    desc: "Click on the node to see node details. A new view opens displaying the details. Expand and collapse the panels.",
                                     text: [
                                         {
                                             img: "NodeDetails"
@@ -170,7 +322,7 @@
                                     ]
                                 },
                                 {
-                                    desc: "Click any of the service links to see nodes running that particular service."
+                                    desc: "Click any of the service links to see nodes running a particular service."
                                 }
                             ]
                         },
@@ -197,74 +349,59 @@
 
                     desc: "Navigation Panel",
                     text: "The Navigation panel provides links to views that enable cluster monitoring, management, and configuration.",
-                    std: [
-                        {
+                    std: [{
                             desc: "Explore the Navigation Panel",
-                            ul: [
-                                {
-                                    desc: "Click on any view in the Navigation panel and explore the options.",
-                                    text: [
-                                        {
-                                            img: "NavigationPane"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-
-
-            ]
+                            ul: [{
+                                    desc: "Click on any view in the Navigation panel and to explore options.",
+                                    text: [{
+                                        img: "NavigationPane"
+                                    }]
+                            }]
+                    }]
+                }]
         }, // End navigation
         {
             desc: "Getting Started in the MapR Control System",
-            text: [
-                {
-                    desc: "Now that you are familiar with the MapR Control System interface, let's walk through some procedures that you would perform after you install MapR and your cluster is running. The following procedures are important to ensure your cluster runs smoothly:"
-                },
-                {
-                    bullet: "Adding a license"
-                },
+            text: [{
+                desc: "Now that you are familiar with the MapR Control System interface, let's walk through some procedures that you would perform after you install MapR and your cluster is running. The following procedures are important to ensure your cluster runs smoothly:"
+            },
+            {
+                bullet: "Adding a license"
+            },
 
-                {
-                    bullet: "Setting up topology"
+            {
+                bullet: "Setting up topology"
+            },
+            {
+                bullet: "Creating volumes"
+            },
+            {
+                bullet: "Configuring notifications and alarms"
+            },
+            {
+                bullet: "Reviewing job metrics"
+            }],
+            std: [{
+                desc: "MapR License Management",
+                text: [{
+                    desc: "The first step in configuring a new MapR cluster is to apply a license. You can easily apply a license from the MapR Control System. When you select a license, choose one that meets your needs:"
                 },
                 {
-                    bullet: "Creating volumes"
+                    bullet: "M3-Free edition, with unlimited scale, full Hadoop capability and single-point NFS"
                 },
                 {
-                    bullet: "Configuring notifications and alarms"
+                    bullet: "M5-Supported edition, offering high availability, multiple NFS nodes, and data management"
                 },
                 {
-                    bullet: "Reviewing job metrics"
-                }
-            ],
-            std: [
+                    bullet: "M7-All of the above plus native MapR Tables"
+                },
                 {
-                    desc: "MapR License Management",
-
-                    text: [
-                        {
-                            desc: "The first step in configuring a new MapR cluster is to apply a license. You can easily apply a license from the MapR Control System. When you select a license, choose one that meets your needs:"
-                        },
-                        {
-                            bullet: "M3-Free edition, with unlimited scale, full Hadoop capability and single-point NFS"
-                        },
-                        {
-                            bullet: "M5-Supported edition, offering high availability, multiple NFS nodes, and data management"
-                        },
-                        {
-                            bullet: "M7-All of the above plus native MapR Tables"
-                        },
-                        {
-                            bullet: "If you do not apply even the free M3 license, you cannot take advantage of features like NFS. You can see a complete listing of the features available with each license on the <a href='http://www.mapr.com/products/mapr-editions' target='_blank'>MapR Editions</a> page."
-                        }
-                    ],
-                    ul: [
-                        {
-                            desc: "Adding a License",
-                            text: "To add a MapR license:",
+                    bullet: "If you do not apply even the free M3 license, you cannot take advantage of features like NFS. You can see a complete listing of the features available with each license on the <a href='http://www.mapr.com/products/mapr-editions' target='_blank'>MapR Editions</a> page."
+                }],
+                ul: [
+                    {
+                    desc: "Adding a License",
+                    text: "To add a MapR license:",
 
                             ol: [
                                 {
@@ -312,7 +449,7 @@
                             bullet: "Any given node can only be in one topology."
                         },
                         {
-                            desc: "So, in the above example, the node \"node2\"  on rack \"rack1\" would have the following topology:"
+                            desc: "In the above example, the node \"node2\"  on rack \"rack1\" would have the following topology:"
                         },
 
                         {
@@ -321,7 +458,7 @@
                     ],
                     ol: [
                         {
-                            desc: "Setting Topology",
+                            desc: "Set Topology",
                             text: "Setting up the cluster's physical topology is an important step—not only does it help protect your data in case of a rack failure, it also enables data placement and job placement features. For more information, see <a href='http://www.mapr.com/doc/display/MapR/Node+Topology' target='_blank'>Node Topology</a>. ",
                             ol: [
                                 {
@@ -347,13 +484,13 @@
                     desc: "Volumes",
                     text: [
                         {
-                            desc: "A volume is a logical unit that you create to organize data into groups so that you can manage your data and apply policy all at once instead of file by file. The volume structure defines how data is distributed across the nodes in your cluster."
+                            desc: "A volume is a logical unit that you create to organize data into groups to that you can manage your data and apply policy all at once instead of file by file. The volume structure defines how data is distributed across the nodes in your cluster."
                         },
                         {
                             desc: "You can create volumes for each user, department, or project. Volumes can enforce disk usage limits, set replication levels, establish ownership and accountability, and measure the cost generated by different projects or departments."
                         },
                         {
-                            desc: "Configure volumes as soon as you can after getting your cluster up and running. Putting all your data in the cluster without organizing it into volumes can lead to headaches later. It is important to create many volumes for data storage and to select your choice of volumes strategically for management. Volumes are easily created, named, and their mount path designated from the MapR Control System (MCS)."
+                            desc: "Configure volumes as soon as you can after getting your cluster up and running. Putting all your data in the cluster without organizing it into volumes can lead to headaches later. It is important to create many volumes for data storage and to select your choice of volumes strategically for management. Volumes are easily created, named, and their mount path designated from the MCS."
                         },
                         {
                             desc: "Volumes empower the following data management features that MapR provides:"
@@ -383,8 +520,7 @@
                     ],
                     std: [
                         {
-                            desc: "Creating Volumes",
-                            text: "To create a volume in the MapR Control System,",
+                            desc: "Create a volume:",
                             ol: [
                                 {
                                     desc: "Click <strong>Volumes</strong> in the Navigation panel."
@@ -407,7 +543,7 @@
                                             bullet: "<strong>Permissions</strong>: Set the permissions, for each user, for volume operations such as backing up or deleting the volume."
                                         },
                                         {
-                                            bullet: "<strong>Usage Tracking</strong>: Set a quota, if desired, to limit the maximum size of the volume. The hard quota is a limit above which writes to the volume are disabled; the advisory quota is a limit above which a warning is sent to the volume’s owner."
+                                            bullet: "<strong>Usage Tracking</strong>: Set a quota, if desired, to limit the maximum size of the volume. The hard quota is a limit above which writes to the volume are disabled; the advisory quota is a limit above which a warning is sent to the volume's owner."
                                         },
                                         {
                                             bullet: "<strong>Replication</strong>: Set the desired replication and the replication method for the volume."
@@ -428,13 +564,12 @@
 
 
                     desc: "Snapshots",
-                    text: "A snapshot is a read-only image of a volume at a specific point in time. Snapshots are useful any time you need to roll back to a known good data set at a specific point in time. You can create a snapshot manually or automate the process with a schedule. If you want to automate the snapshot with a schedule, you first need to configure schedule details.",
+                    text: "A snapshot is a read-only image of a volume at a specific point in time. Snapshots are useful any time you need to roll back to a known good data set at a specific point in time. You can create a snapshot manually or automate the process with a schedule. If you want to automate the snapshot with a schedule, you first need to configure schedule details first.",
 
                     ul: [
 
                         {
-                            desc: "Creating Snapshots Manually",
-                            text: "To create a snapshot:",
+                            desc: "Create a snapshot manually:",
                             ol: [
                                 {
                                     desc: "In the Navigation pane, expand the <strong>MapR-FS</strong> group and click the Volumes view."
@@ -451,8 +586,7 @@
                             ]
                         },
                         {
-                            desc: "Creating Snapshot Schedules",
-                            text: "Configure schedule details:",
+                            desc: "Create a snapshot schedule:",
                             ol: [
                                 {
                                     desc: "In the Navigation pane, expand the <strong>MapR-FS</strong> group and click the Schedules view."
@@ -488,14 +622,13 @@
                             ]
                         },
                         {
-                            desc: "How to schedule a snapshot",
-                            text: "Scheduling snapshots: ",
+                            desc: "Creating Snapshot Schedules",
                             ol: [
                                 {
                                     desc: "In the Navigation pane, expand the MapR-FS group and click the Volumes view."
                                 },
                                 {
-                                    desc: "Display the Volume Properties dialog by clicking the volume name, or by selecting the checkbox beside the name of the volume then clicking the Properties button."
+                                    desc: "Display the Volume Properties dialog by clicking the volume name, or by selecting the checkbox beside the name of the volume and then clicking the Properties button."
                                 },
                                 {
                                     desc: "In the Snapshot Scheduling section, choose a schedule from the Snapshot Schedule dropdown menu."
@@ -520,8 +653,7 @@
 
                     ul: [
                         {
-                            desc: "Creating a Local Mirror Volume",
-                            text: "To create a local mirror volume:",
+                            desc: "Creating a local mirror volume:",
                             ol: [
                                 {
                                     desc: "In the navigation pane, select MapR-FS > Volumes."
@@ -549,7 +681,7 @@
                             ] // End local mirror volume subpoints
                         }, // End local mirror volume
                         {
-                            desc: "Creating a Remote Mirror Volume",
+                            desc: "Create a remote mirror volume:",
                             ol: [
                                 {
                                     desc: "In the navigation pane, select MapR-FS > Volumes."
@@ -593,7 +725,7 @@
                     ],
                     ul: [
                         {
-                            desc: "Explore the interface",
+                            desc: "Explore alarms in the MCS:",
                             ol: [
                                 {
                                     desc: "In the Navigation pane, expand the Cluster group and click the Dashboard view. Alarms display in the Alarms pane of the Dashboard."
@@ -605,7 +737,7 @@
 
                         },
                         {
-                            desc: "Configuring Alarm Notifications",
+                            desc: "Configure an alarm notification:",
                             ol: [
                                 {
                                     desc: "In the Navigation pane, expand the Alarms group and click the Alerts view."
@@ -667,10 +799,10 @@
                             desc: "Viewing Job Metrics",
                             text: [
                                 {
-                                    desc: "Prerequisite: Before you can view job metrics in the MapR Control System, you must run at least one MapReduce job. To run a MapReduce job in the MapR VM, navigate to the HUE interface and complete the Using Pig tutorial."
+                                    desc: "<strong>Prerequisite:</strong> Before you can view job metrics in the MapR Control System, you must run at least one MapReduce job. To run a MapReduce job in the MapR sandbox for Hadoop, navigate to the HUE interface and complete the Using Pig tutorial."
                                 },
                                 {
-                                    desc: "To view job metrics:"
+                                    desc: "View job metrics:"
                                 }
                             ],
 
@@ -698,21 +830,11 @@
         }, // End getting started
         {
             desc: "Summary",
-            text: "You have learned how to navigate the MapR Control System interface, as well as how to perform some administrative tasks on a cluster. You experience how to add a MapR product license, set up rack topology, create volumes, snapshots, and mirror, configure notifications and view alarms, and how to review job metrics."
+            text: "You have learned how to mount a MapR cluster via NFS, navigate the MapR Control System interface, as well as how to perform some administrative tasks on a cluster. You set up rack topology, created a volume, snapshot, and mirrors, configured a notification, viewed alarms and job metrics. "
         },
         {
             desc: "Support and Feedback",
-            std: [
-                {
-                    desc: "For Help",
-                    text: "Visit MapR X if you require assistance with the MapR Virtual Machine."
-                },
-                {
-                    desc: "Tell us what you think",
-                    text: "We appreciate feedback. If you would like to send feedback regarding your MapR Virtual Machine experience, email X."
-                }
-            ]
-
+            text: "If you require assistance or have feedback regarding MapR's Hadoop Sandbox, submit your questions and comments to <a href='http://answers.mapr.com' target='_blank'>MapR Answers</a>"
         }
     ]; // End array
 }());
