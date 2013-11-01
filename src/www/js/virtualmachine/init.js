@@ -33,14 +33,15 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
                 admin = this.container.children(".vm_admin"),
                 title = this.container.children(".vm_title"),
                 height,
+                buttonHeight = dev.children(".vm_button").outerHeight(true),
                 devH = dev.children(".vm_info").height(),
                 adminH = admin.children(".vm_info").height(),
-                offset = 225 + dev.children(".vm_button").outerHeight(true);
+                offset = 225 + buttonHeight;
 
 
             height = devH > adminH ? devH : adminH;
-            dev.height(height + offset).children(".vm_info").height(height);
-            admin.height(height + offset).children(".vm_info").height(height);
+            dev.height(height + offset).children(".vm_info").height(height + buttonHeight + 50);
+            admin.height(height + offset).children(".vm_info").height(height + buttonHeight + 50);
             this.container.css("min-height", height + title.outerHeight(true) + offset + 100);
 
         },
