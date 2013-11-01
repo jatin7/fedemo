@@ -13,9 +13,9 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
 
     View = Backbone.View.extend({
         events: {
-            "mouseover .vm_container .vm_label": "mouseOverIcon",
-            "mouseout .vm_container .vm_label": "mouseOutIcon",
-            "click .vm_container .vm_label": "go_to"
+            "mouseover .vm_container .vm_button": "mouseOverIcon",
+            "mouseout .vm_container .vm_button": "mouseOutIcon",
+            "click .vm_container .vm_button": "go_to"
 
         },
         el: "div.vm_page",
@@ -42,7 +42,7 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
             height = devH > adminH ? devH : adminH;
             dev.height(height + offset).children(".vm_info").height(height + buttonHeight + 50);
             admin.height(height + offset).children(".vm_info").height(height + buttonHeight + 50);
-            this.container.css("min-height", height + title.outerHeight(true) + offset + 100);
+            //this.container.css("min-height", height + title.outerHeight(true) + offset);
 
         },
         resize: function () {
