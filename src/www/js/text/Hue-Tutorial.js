@@ -12,7 +12,7 @@
 
     MAPR.Text.Tutorial = [
         {
-            desc: "MapR's Hadoop Sandbox",
+            desc: "MapR Sandbox for Hadoop",
             text: [
                 {
                     desc: "The MapR Virtual Machine is a fully-functional single-node cluster capable of running MapReduce" +
