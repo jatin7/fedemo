@@ -1,81 +1,101 @@
 @import "nib"
 
-.vm_page
-    overflow auto
-    display none
-    .vm_container
-        width 1200px
-        padding 50px
-        margin 25px auto
-        border 1px solid #acacac
-        position relative
-        border-radius: 5px
-        //border-radius 5px
-        background-color #fafafa
-        //background linear-gradient(center top, #fafafa, #dedede)
-        //background linear-gradient(top, #ffffff, 5% #f5f5f5, 95% #f1f1f1);
-        .vm_title
-            width 1150px
-            height 175px
-            border 1px solid #777
-            margin auto
-            background #FFFFFF
-            border-radius 25px
-            box-shadow 0 3px 5px rgba(0,0,0,0.4)
-            .vm_title_text
-                font-size 50px
-                font-weight bold
-                text-align center
-                margin 50px 0
-                color #00467f
+.vm_main
+    background: url("/images/vm/MAPR_Hadoop_Sandbox_bg.jpg") no-repeat center center fixed;
+    background-size: cover;
+    body
+        background transparent
+        .vm_page
+            overflow auto
+            display none
+            .vm_container
+                width 900px
+                padding 50px
+                margin 25px auto
+                //border 1px solid #acacac
+                position relative
+                //border-radius: 5px
+                //border-radius 5px
+                //background-color #fafafa
+                background transparent
 
-        .vm_developer
-            absolute left 75px top 300px
-            .vm_icon, .vm_button
-                background linear-gradient(top, rgba(104,167,216,1), rgba(0,70,127,1))
-        .vm_admin
-            absolute right 75px top 300px
-            .vm_icon, .vm_button
-                background linear-gradient(top, rgba(224, 125, 140, 1) , rgba(153, 13, 34, 1))
+                //background linear-gradient(center top, #fafafa, #dedede)
+                //background linear-gradient(top, #ffffff, 5% #f5f5f5, 95% #f1f1f1);
+                .vm_title
+                    width 900px
+                    height 175px
+                    user-select none
+                    cursor default
+                    //border 1px solid #777
+                    margin auto
+                    //background #FFFFFF
+                    //border-radius 25px
+                    //box-shadow 0 3px 5px rgba(0,0,0,0.4)
+                    .vm_title_text
+                        font-size 50px
+                        //font-weight bold
+                        text-align center
+                        margin 50px 0
+                        color #fff
+
+                .vm_developer
+                    left 0px
+                    .vm_icon, .vm_button
+                        background linear-gradient(top, rgba(104,167,216,1), rgba(0,70,127,1))
+                    .vm_info
+                        border-right 1px solid #acacac
+                .vm_admin
+                    right 0px
+                    .vm_icon, .vm_button
+                        background linear-gradient(top, rgba(224, 125, 140, 1) , rgba(153, 13, 34, 1))
+                    .vm_info
+                        border-right 1px solid #acacac
 
 
-        .vm_developer, .vm_admin
-            width 500px
-            border 1px solid #777
-            border-radius 25px
-            box-shadow 0 3px 5px rgba(0,0,0,.4);
-            .vm_button
-                width 200px
-                border-radius 25px
-                box-shadow 0 3px 5px rgba(0, 0, 0, .4)
-                margin-top 50px
-                &.vm_highlight
-                    box-shadow 0 3px 5px rgba(0, 0, 0, .7)
-            .vm_icon
-                border-radius 25px 25px 0 0
-            .vm_label
-                margin auto
-                border 1px solid #acacac
-                padding 20px 0
-                //width 125px
-                text-align center
-                font-size 24px
-                color #f7f7f7
-                text-shadow #555 2px 2px
-                cursor pointer
-                user-select none
-                &.vm_highlight
-                    border-color #666666
-                    text-shadow #111 2px 2px
-            .vm_info
-                border-radius 5px
-                //padding 20px 20px
-                width 400px
-                font-size 18px
-                margin 50px auto
-                text-align justify
-                line-height 25px
-
+                .vm_developer, .vm_admin
+                    width 500px
+                    position absolute
+                    top 300px
+                    //background white
+                    //border 1px solid #777
+                    //border-radius 25px
+                    //box-shadow 0 3px 5px rgba(0,0,0,.4);
+                    .vm_button
+                        width 200px
+                        //border-radius 25px
+                        //box-shadow 0 3px 5px rgba(0, 0, 0, .4)
+                        position absolute
+                        left 0
+                        right 0
+                        bottom 50px
+                        margin-top 50px
+                        &.vm_highlight
+                            box-shadow 0 3px 5px rgba(0, 0, 0, .7)
+                    .vm_label
+                        margin auto
+                        border 1px solid #acacac
+                        padding 20px 0
+                        //width 125px
+                        text-align center
+                        font-size 24px
+                        color #f7f7f7
+                        text-shadow #555 2px 2px
+                        cursor pointer
+                        user-select none
+                        &.vm_highlight
+                            border-color #666666
+                            text-shadow #111 2px 2px
+                    .vm_info
+                        //border-radius 5px
+                        //padding 20px 20px
+                        background white
+                        opacity .7
+                        //width 400px
+                        font-size 18px
+                        //margin 50px auto
+                        padding 50px
+                        text-align justify
+                        line-height 25px
 
 .vm_tutorial
     absolute top 0 left 0
