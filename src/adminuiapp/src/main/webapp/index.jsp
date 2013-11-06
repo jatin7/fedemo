@@ -18,7 +18,7 @@
 
 %>
 <!DOCTYPE html>
-<html>
+<html class="vm_main">
 <head>
     <title>MapR Sandbox for Hadoop</title>
     <link rel='stylesheet' href='css/mapr_prod.min.css'>
