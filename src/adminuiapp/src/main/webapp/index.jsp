@@ -25,6 +25,8 @@
     <script src="js/mapr_vm_main.min.js"></script>
 </head>
 <div class="vm_page">
+    <div class="vm_floater">
+    </div>
     <div class="vm_container">
         <div class="vm_title">
             <div class="vm_title_text">
