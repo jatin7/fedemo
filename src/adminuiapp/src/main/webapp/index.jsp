@@ -42,7 +42,7 @@
                 Developers and Analysts
             </div>
             <div class="vm_info">
-                If you are a Hadoop developer or an analyst looking to gain understanding of Hadoop and MapR, MapR includes training and tools to get you up to speed on the latest information quick and easy.
+                If you are a Hadoop developer or an analyst looking to gain understanding of Hadoop and MapR, MapR includes training and tools to get you up to speed on the latest information quickly and easily.
             </div>
             <div class="vm_button vm_label" loc="dev">
                 <div class="vm_button_container">
