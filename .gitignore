@@ -1,2 +1,5 @@
+.DS_Store
+.project
+.settings
 node_modules
 src/www/css/virtualmachine.css
