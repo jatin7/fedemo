@@ -235,7 +235,7 @@
                                 desc: "NekoDrive is an NFS client for Windows based on the Dokan user file system library. You can install NekoDrive and use it to mount a NFS share on a 64-bit machine running Windows XP, Windows 2000, or Windows 7. Neko supports NFS v2, v3, and v4 over TCP and UDP."
                             },
                             {
-                                desc: "You can access source code for the NekoDrive build used in these instructions at http://github.com/mapr. To view the original NekoDrive source code, go to http://code.google.com/p/nekodrive/."
+                                desc: "You can access source code for the NekoDrive build used in these instructions at <a href='http://github.com/mapr' target='_blank'>http://github.com/mapr</a>. To view the original NekoDrive source code, go to <a href='http://code.google.com/p/nekodrive/' target='_blank'>http://code.google.com/p/nekodrive/</a>."
                             }],
                             ul: [{
                                 desc: "Before You Install NekoDrive",
@@ -243,11 +243,11 @@
                                 ol: [
                                 {
                                     desc: "Install Microsoft .net Framework 4.0 redistributable:",
-                                    text: "http://www.microsoft.com/en-us/download/details.aspx?id=17718"
+                                    text: "<a href='http://www.microsoft.com/en-us/download/details.aspx?id=17718' target='_blank'>http://www.microsoft.com/en-us/download/details.aspx?id=17718</a>"
                                 },
                                 {
                                     desc: "Install latest version of Dokan Library:",
-                                    text: "http://dokan-dev.net/en/download/"
+                                    text: "<a href='http://dokan-dev.net/en/download/' target='_blank'>http://dokan-dev.net/en/download/</a>"
                                 }
                                 ]
                             },
@@ -259,18 +259,26 @@
                                 },
 
                                 {
-                                    desc: "Click Run to continue. The Welcome to the NekoDrive software and license terms display."
+                                    desc: "Click Run to continue. The Welcome to the NekoDrive software and license terms display.",
+                                    text: [{
+                                    	img: "nekosetup"
+                                    }]
+
                                 },
 
                                 {
-                                    desc: "Click Next to continue. The Select Installation Folder dialog appears."
+                                    desc: "Click Next to continue. The Select Installation Folder dialog appears.",
+                                    text: [{
+                                    	img: "nekofolder"
+                                    }]
                                 },
                                 {
                                     desc: "Choose to install NekoDrive globally or only for the current user. ",
                                     text: "Note the installation location. The default location is C:\Program Files (x86)\NekoDrive. This path is likely to change."
                                 },
                                 {
-                                    desc: "Click Next to continue. The Confirm Installation dialog appears."
+                                    desc: "Click Next to continue. The Confirm Installation dialog appears.",
+                                    	img: "nekoconfirm"
                                 },
                                 {
                                     desc: "Click Next to start the installation. ",
@@ -281,6 +289,9 @@
                                     {
                                         desc: "When installation completes, an Installation Complete dialog appears.",
                                     },
+                                    {
+	                                    	img: "nekodone"
+                                    }
 
                                     ]
                                 },
@@ -302,6 +313,7 @@
                                 },
                                 {
                                     desc: "Double-click the icon to launch the application. The following window appears:",
+                                    img: "nekoinit"
                                 },
 
                                 {
@@ -309,6 +321,7 @@
                                 },
                                 {
                                     desc: "Click Connect to see the available mounts on the server.",
+                                    img: "nekofinal"
                                 },
 
                                 {
@@ -364,6 +377,9 @@
                                             desc: "Click " + img("hue_fb") + ". The File Browser page opens."
                                         },
                                         {
+                                        		desc: "Select oozie to open the directory."
+                                        },
+                                        {
                                             desc: "Click the New button, and select Directory."
                                         },
                                         {
@@ -378,7 +394,7 @@
                                     desc: "Upload a file:",
                                     ol: [
                                         {
-                                            desc: "Click on the CustomerDirectory name in the list to open the directory."
+                                            desc: "Open the CustomerDirectory."
                                         },
                                         {
                                             desc: "Click the Upload button, and select Files."
@@ -387,12 +403,13 @@
                                             desc: "Click Select Files in the pop up dialog."
                                         },
                                         {
-                                            desc: "Navigate to the Customers.csv file, and upload it. The file displays in the CustomerDirectory."
+                                            desc: "Navigate to the customers.csv file and upload the file. The file appears in the CustomerDirectory.",
+                                            text: "Example: /oozie/CustomerDirectory"
                                         }
                                     ]}
                             ],
 
-                            post: "<strong>Next step</strong>: Use Metastore Manager to create a table from the uploaded file."
+                            post: "<strong>Next step</strong>: Use Metastore Manager to create a table from the customers.csv file you just uploaded."
 
 
                         }
@@ -459,13 +476,11 @@
                                                     desc: "Under Actions, select Create a new table from a file."
                                                 },
                                                 {
-                                                    desc: "Enter customer_table as the table name."
+                                                    desc: "Enter customer_table as the table name and description"
                                                 },
                                                 {
-                                                    desc: "Browse to the input file location in the MapR-FS."
-                                                },
-                                                {
-                                                    desc: "Select the Customer.csv file. The file path appears in the Input File field."
+                                                    desc: "In the Input file field, browse to the CustomerDirectory, and upload the customer.csv file ",
+                                                    text: "Example: /oozie/CustomerDirectory/customer.csv"
                                                 },
                                                 {
                                                     desc: "Select the Import data from file checkbox."
@@ -490,7 +505,7 @@
                                             desc: "Define your columns:",
                                             ol: [
                                                 {
-                                                    desc: "Enter column names."
+                                                    desc: "Enter State as the column name for col_6. "
                                                 },
                                                 {
                                                     desc: "Select column types that correlate with the data."
@@ -499,7 +514,7 @@
                                                     desc: "Click Create table. A message, 'Waiting for query' appears while the system creates the table."
                                                 },
                                                 {
-                                                    desc: "After the table is created, click on the Sample view to see the table."
+                                                    desc: "After the table is created, click on the Sample view to see the new table."
                                                 }
                                             ]
                                         }
@@ -518,7 +533,7 @@
                     std: [
                         {
                             desc: "Using Beeswax",
-                            text: "In this tutorial, use the Beeswax application to create a customer_table in Hive from the Customers.csv file you uploaded in the Using Metastore Manager tutuorial. Run a basic query against the customer_table you uploaded.",
+                            text: "In this tutorial, use Beeswax to run a basic Hive query against the customer_table you created.",
                             ul: [
                                 {
                                 desc: "Create and run a query:",
@@ -546,7 +561,7 @@
                             }
                             ],
 
-                            post: "<strong>Next step</strong>: Use Pig to create a script and run a MapReduce job on the constitution.txt file."
+                            post: "<strong>Next step</strong>: Use Pig to create a script, and run a MapReduce job on the constitution.txt file."
                         }
                     ] // End Beeswax items
 
@@ -562,7 +577,7 @@
                         {
                             desc: "Using Pig",
 
-                            text: "In this tutorial, use File Browser to create a directory for a US Constitution text file, and then use Pig to create a script that runs a word count MapReduce job on the text in the file. After you run the MapReduce job, view the wordcount file generated by the job.",
+                            text: "In this tutorial, create a directory for the US Constitution text file, and then create a Pig script that runs a word count MapReduce job on the text in the file. After you run the MapReduce job, view the wordcount file generated by the job.",
 
                             ul: [
                                 {
@@ -573,13 +588,16 @@
                                             desc: "Click " + img("hue_fb") + ". The File Browser page opens."
                                         },
                                         {
+	                                        	desc: "Select oozie to open the directory."
+                                        },
+                                        {
                                             desc: "Click the New button, and select Directory."
                                         },
                                         {
-                                            desc: "Enter 'in' as the directory name, and click Submit. The new directory displays in the list."
+                                            desc: "Enter wordcount as the directory name, and click Submit. The wordcount directory appears in the list."
                                         },
                                         {
-                                            desc: "Click on the word 'in' in the list to open the directory."
+                                            desc: "Open the wordcount directory. "
                                         },
                                         {
                                             desc: "Click the Upload button, and select Files."
@@ -588,13 +606,13 @@
                                             desc: "Click the Select Files button."
                                         },
                                         {
-                                            desc: "Navigate to the constitution.txt file and upload it. The file appears in the list.",
+                                            desc: "8.	Navigate to the constitution.txt file and upload the file. The file appears in the wordcount directory. ",
                                             text: [
                                                 {
-                                                    desc: "Notice the full directory path: user/mapr/in"
+                                                    desc: "Example: /oozie/wordcount"
                                                 },
                                                 {
-                                                    desc: "You will need this path when you create a PIG script to run the MapReduce job."
+                                                    desc: "Note the directory path because you will need it in the next section when you create a PIG script to run the MapReduce job."
                                                 }
 
                                             ]
@@ -609,13 +627,10 @@
                                             desc: "Click " + img("hue_pig") + ". The Pig script page opens."
                                         },
                                         {
-                                            desc: "Enter ConstitutionWordcount as the title for the script."
-                                        },
-                                        {
-                                            desc: "In the script window, enter the following lines, and press Enter after you type each line :",
+                                            desc: "In the script window, enter the following Pig Latin commands:",
                                             text: [
                                                 {
-                                                    desc: "A = LOAD '/user/mapr/in' USING TextLoader() AS (words:chararray);"
+                                                    desc: "A = LOAD '/oozie/wordcount' USING TextLoader() AS (words:chararray);"
                                                 },
                                                 {
                                                     desc: "B = FOREACH A GENERATE FLATTEN(TOKENIZE(*));"
@@ -627,16 +642,22 @@
                                                     desc: "D = FOREACH C GENERATE group, COUNT(B);"
                                                 },
                                                 {
-                                                    desc: "STORE D INTO '/user/mapr/wordcount';"
+                                                    desc: "STORE D INTO '/oozie/wcresults';"
+                                                },
+                                                {
+                                                		desc: "<strong>Note:</strong> You may need to edit the directory paths in lines A and D. Verify that the path in line A points to the directory where you uploaded the constitution.txt file. Verify that the path in line D points to a directory where you want the output results of the wordcount."
                                                 }
                                             ]
                                         },
                                         {
                                             desc: "Click Execute to run the script.",
-                                            text: "The script picks up the file from the 'in' directory you created using the File Browser. The system runs the MapReduce job and stores the output in a wordcount directory created by the script. You can click on the Logs link to verify that the job completed."
+                                            text: "The script picks up the constitution.txt file from the wordcount directory. The system runs the MapReduce job and stores the output in a wcresults directory. You can view the logs to verify that the job completed."
                                         },
                                         {
-                                            desc: "Click Save to save the script."
+                                            desc: "In the Editor, click Save to save the script."
+                                        },
+                                        {
+                                        	desc: "Enter ConstitutionWordcount as the script title."
                                         }
                                     ]
                                 },
@@ -648,13 +669,11 @@
                                             desc: "Click " + img("hue_fb") + ". The File Browser page opens."
                                         },
                                         {
-                                            desc: "Navigate to the user/mapr/wordcount directory."
+                                            desc: "Navigate to the wcresults output directory.",
+                                            	text: "Example: /oozie/wcresults"
                                         },
                                         {
-                                            desc: "Open the file in the directory."
-                                        },
-                                        {
-                                            desc: "Review the output to see which word was used the most in the US Constitution."
+                                            desc: "Open the part-r-00000 file, and review the output to see which word was used the most in the US Constitution."
                                         },
                                         {
                                             desc: "Optionally, edit or download the file."
@@ -695,13 +714,13 @@
                                             desc: "Click " + img("hue_fb") + ". The File Browser page opens."
                                         },
                                         {
-                                            desc: "Click the New button, and select Directory."
+                                            desc: "Select oozie to open the directory."
                                         },
                                         {
-                                            desc: "Enter mapreducejob as the Directory Name."
+                                            desc: "Enter MapReduceJob as the directory name."
                                         },
                                         {
-                                            desc: "Click Submit. The mapreducejob directory is added to the list."
+                                            desc: "Click Submit. The MapReduceJob directory appears in the list."
                                         }
                                     ]
                                 },
@@ -710,7 +729,7 @@
 
                                     ol: [
                                         {
-                                            desc: "Click on mapreducejob in the list to open the directory."
+                                            desc: "Select MapReduceJob to open the directory."
                                         },
                                         {
                                             desc: "Click the Upload button, and select Files."
@@ -719,7 +738,8 @@
                                             desc: "Click Select Files in the pop up dialog."
                                         },
                                         {
-                                            desc: "Navigate to the oozie-examples-3.3.2-mapr.jar, and upload it. The file displays in the mapreducejob directory."
+                                            desc: "Upload the oozie-examples-3.3.2-mapr.jar. The file appears in the MapReduceJob directory.",
+                                            	text: "Example: /oozie/MapReduceJob/oozie-examples-3.3.2-mapr.jar"
                                         }
                                     ]
                                 },
@@ -778,19 +798,19 @@
                                              */
                                         },
                                         {
-                                            desc: "Click Save. The Job Designs page appears with the new MapReduceJobDesign in the list."
+                                            desc: "Click Save. The Job Designs page appears with the MapReduce_Job_Design in the list."
                                         }
 
                                     ]
                                 },
                                 {
-                                    desc: "Submit the Job Design:",
+                                    desc: "Submit the job design:",
                                     ol: [
                                         {
                                             desc: "Select the checkbox next to the MapReduceJobDesign job design."
                                         },
                                         {
-                                            desc: "Click the Submit button. A submit dialog appears."
+                                            desc: "Click the Submit button. A Submit this job dialog appears. "
                                         },
                                         {
                                             desc: "Click Submit."
@@ -807,74 +827,104 @@
                                             desc: "Click " + img("hue_fb") + ". The File Browser page opens."
                                         },
                                         {
-                                            desc: "Click on mapreducejob in the list to open the directory."
+                                            desc: "Navigate to the MapReduceJob output directory. ",
+                                            	text: "Example: /oozie/MapReduceJob/output"
                                         },
                                         {
-                                            desc: "Click on output in the list to open the output directory."
+                                            desc: "Click part-00000 file and view the job output. You can see that the MapReduce job performed a character count on the text. "
                                         },
-                                        {
-                                            desc: "Click on the part-xxxx file to view the job output."
-                                        },
-
                                     ]
                                 }
                             ],
-                            post: "<strong>Next step</strong>: Use Oozie to submit a workflow."
+                            post: "<strong>Next step</strong>: Use Oozie to create and submit a workflow."
                         }
                     ] // End Job designer tutorial
                 }, // End Job Designer
                 { // Start Oozie
                     desc: "Oozie",
 
-                    text: "Oozie is a workflow system for Hadoop. Use Oozie to set up workflows that execute MapReduce jobs and set up a coordinator that manages workflows.",
+                    text: "Oozie is a workflow system for Hadoop. Use Oozie to set up workflows that execute MapReduce jobs and to set up a coordinator that manages workflows.",
                     std: [
                         {
 
                             desc: "Using Oozie",
 
-                            text: "In this tutorial, delete the output directory created from the MapReduce job you ran in the Job Designer tutorial. Submit the MapReduce workflow.",
+                            text: "In this tutorial, create a workflow to run the same MapReduce job that you ran in the previous tutorial. Submit the workflow to run the job, and then view the output file.",
 
                             ul: [
                                 {
                                     desc: "Delete the output file:",
                                     ol: [
-                                        {
-                                            desc: "Click " + img("hue_fb") + ". The File Browser page opens."
-                                        },
-                                        {
-                                            desc: "Click mapreducejob in the list to open the directory."
-                                        },
-                                        {
-                                            desc: "Select the checkbox next to the Output directory."
-                                        },
-                                        {
-                                            desc: "Click the Delete forever button. A confirmation dialog appears."
-                                        },
-                                        {
-                                            desc: "Click Yes."
-                                        }
+{
+	desc: "Click " + img("hue_ooz") + " The Oozie page opens."
+},
+{
+	desc: "Select" + img("hue_wf")
+},
+{
+	desc: "Click the Create button. The Create Workflow page appears."
+},
+{
+	desc: "Enter Oozie_Workflow as the name and description."
+},
+{
+	desc: "Select the Is shared checkbox."
+},
+{
+	desc: "Click Save. The Editor page appears."
+},
+{
+	desc: "Drag and drop the MapReduce action into the workflow between the start and end actions. The bar between the start and end actions turns blue when you have the MapReduce action in the correct spot to drop it. As soon as you drop the MapReduce action, the Edit Node page appears. A node in this scenario is the action in the workflow."
+},
+{
+	desc: "Enter MRaction as the name and the description."
+},
+{
+	desc: "Navigate to the oozie-examples-3.3.2-mapr.jar file located in the MapReduceJob directory, and upload the file.",
+		text: [
+		       
+{
+	desc: "Example: /oozie/MapReduceJob"
+},
+		       
+{
+	desc: "Note: You may need to click the first / in the directory path to get to the root directory if you do not see the MapReduceJob directory in the list of options. You can navigate to the JAR file from the root directory."
+}
+		       ]
+},
+{
+	desc: "Click the Add Property button four times, and enter the following property names and values:"
+},
+{
+	desc: "Click Done. The MapReduce action appears in the workflow."
+},
+{
+	desc: "Click Save."
+},
+{
+	desc: "Under Actions in the navigation panel, click Submit. A Submit this job dialog appears."
+},
+{
+	desc: "Click Submit."
+}
+
                                     ]
                                 },
                                 {
 
-                                    desc: "Submit a workflow:",
+                                    desc: "View the output file:",
 
                                     ol: [
 
                                         {
-                                            desc: "Click " + img("hue_ooz") + ". The Oozie page opens."
+                                            desc: "Click " + img("hue_fb") + "The File Browser page opens."
                                         },
                                         {
-                                            desc: "Click mapreducejob in the list to open the directory."
+                                            desc: "Navigate to the ooziewfoutput directory.",
+                                            	text: "Example: /oozie/MapReduceJob/ooziewfoutput"
                                         },
                                         {
-                                            desc: "Select the checkbox next to the Output directory."
-                                        },
-                                        {
-                                            desc: "Click the Delete forever button. A confirmation dialog appears."
-                                        },
-                                        {
-                                            desc: "Click Yes."
+                                            desc: "Open the part-00000 file to view the job output."
                                         }
                                     ]}
                             ]
@@ -890,21 +940,11 @@
         }, // END Using HUE
         {
             desc: "Summary",
-            text: "You have learned how to navigate the HUE interface and use some applications included in HUE. You created new directories and uploaded data into the MapR-FS through the File Browser; created a table from a file using Metastore Manager; created and ran a Hive query using Beeswax; created a Pig script and ran a wordcount MapReduce job; used Job Design to create and submit a MapReduce job design; and used Oozie to submit a workflow."
+            text: "You have learned how to mount a MapR cluster via NFS, navigate the HUE interface, and used some applications included in HUE. You created new directories and uploaded data into MapR-FS through the File Browser; created a table from a file using Metastore Manager; created and ran a Hive query using Beeswax; created a Pig script and ran a wordcount MapReduce job; created and submited a MapReduce job design; submitted a workflow with Oozie."
         },
         {
             desc: "Support and Feedback",
-            std: [
-                {
-                    desc: "For Help",
-                    text: "Visit MapR X if you require assistance with the MapR Virtual Machine."
-                },
-                {
-                    desc: "Tell us what you think",
-                    text: "We appreciate feedback. If you would like to send feedback regarding your MapR Virtual Machine experience, email X."
-                }
-            ]
-
+            text: "If you require assistance or have feedback regarding MapR's Hadoop Sandbox, submit your questions and comments to: <a href='http://answers.mapr.com' target='_blank'>http://answers.mapr.com</a> "
         }
     ]; // END TUTORIAL
 }());
