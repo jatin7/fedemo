@@ -755,7 +755,21 @@
                                             desc: "Click the New Action button, and select MapReduce."
                                         },
                                         {
-                                            desc: "Configure the job settings with the information below:"
+                                            desc: "Configure the job settings with the information below:",
+                                            	text: "<table><tr><th>Setting</th><th>Description</th></tr>" +
+                                            			"<tr><td>Name</td><td>Enter MapReduce_Job_Design as the job name.</td></tr>" +
+                                            			"<tr><td>Description</td><td>Enter Job Design Tutorial as the descriptor.</td></tr>" +
+                                            			"<tr><td>JAR Path</td><td>Enter the fully-qualified path to the JAR file with the classes that implement the mapper and reducer functions. <br/>Example: /oozie/MapReduceJob/oozie-examples-3.3.2-mapr.jar</td></tr>" +
+                                            			"<tr><td>Job Properties</td><td>Click the Add property button four times. Enter the following property names and their associated value:" +
+                                            			"<table>" +
+			"<tr><th>Property Name</th><th>Value</th></tr>" +
+			"<tr><td><strong>mapred.mapper.class</strong></td><td>org.apache.oozie.example.SampleMapper</td></tr>" +
+			"<tr><td><strong>mapred.reducer.class</strong></td><td>org.apache.oozie.example.SampleReducer</td></tr>" +
+			"<tr><td><strong>mapred.output.dir</strong></td><td>/oozie/MapReduceJob/output</td></tr>" +
+			"<tr><td><strong>mapred.input.dir</strong></td><td>/oozie/examples/input-data/text</td></tr>" +
+			"</table>" +
+                                            			"</td></tr></table>"
+                                            		
                                             /*        Setting
 
                                              Description
@@ -893,7 +907,15 @@
 		       ]
 },
 {
-	desc: "Click the Add Property button four times, and enter the following property names and values:"
+	desc: "Click the Add Property button four times, and enter the following property names and values:",
+	text: "<table>" +
+			"<tr><th>Property Name</th><th>Value</th></tr>" +
+			"<tr><td><strong>mapred.mapper.class</strong></td><td>org.apache.oozie.example.SampleMapper</td></tr>" +
+			"<tr><td><strong>mapred.reducer.class</strong></td><td>org.apache.oozie.example.SampleReducer</td></tr>" +
+			"<tr><td><strong>mapred.output.dir</strong></td><td>/oozie/MapReduceJob/ooziewfoutput</td></tr>" +
+			"<tr><td><strong>mapred.input.dir</strong></td><td>/oozie/examples/input-data/text</td></tr>" +
+			"</table>"
+
 },
 {
 	desc: "Click Done. The MapReduce action appears in the workflow."
