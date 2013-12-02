@@ -14,21 +14,24 @@
             {
                 desc: "Introducing MapR's Sandbox for Hadoop",
                 text: [
-                        {
-                            desc: "MapR's Sandbox for Hadoop is a fully-functional single-node cluster capable of running MapReduce programs and working with applications like Hive and Pig. You can experience MapR's Sandbox for Hadoop on nearly any 64-bit computer. "
-                        },
-                        {
-                            desc: "The sandbox provides an environment for you to experiment with the MapR Control System and HUE graphical interfaces running on the MapR File System (MapR-FS). MapR-FS is a fully read-write distributed file system that allows applications to concurrently read and write directly to disk. You can mount a MapR cluster via NFS, or you can mount NFS on a Linux, Mac, or Windows client."
-                        },
-                        {
-                            desc: "Use the information and tutorials included in MapR's Sandbox for Hadoop to discover the MapR Control System and applications included in the HUE interface. The tutorials are intended to guide you through some basic administrator and developer procedures you might perform on a cluster. You can also use the sandbox to explore solutions to your use cases, and run jobs on your data."
-                        },
-                        {
-                            desc: "If you would like to experience more of MapR, download and test drive a free version of MapR's distribution for Hadoop. You'll see how easy, fast, and dependable true enterprise-grade Hadoop can be, and learn why more companies with mission-critical requirements are choosing MapR."
-                        },
-                        {
-                            desc: "For more information about MapR, Hadoop, and MapReduce, visit MapR Academy and watch the informative videos posted on the site. MapR also provides instructor led and web-based training if you decide you want to learn about MapR and its unique offerings in greater depth."
-                        }]
+                    {
+                        desc: "MapR's Sandbox for Hadoop is a fully-functional single-node cluster capable of running MapReduce programs and working with applications like Hive and Pig. You can experience MapR's Sandbox for Hadoop on nearly any 64-bit computer. "
+                    },
+    
+                    {
+                        desc: "The sandbox provides an environment for you to experiment with the MapR Control System and HUE graphical interfaces running on the MapR File System (MapR-FS). MapR-FS is a fully read-write distributed file system that allows applications to concurrently read and write directly to disk. You can mount a MapR cluster via NFS, or you can mount NFS on a Linux, Mac, or Windows client."
+                    },
+    
+                    {
+                        desc: "Use the information and tutorials included in MapR's Sandbox for Hadoop to discover the MapR Control System and applications included in the HUE interface. The tutorials are intended to guide you through some basic administrator and developer procedures you might perform on a cluster. You can also use the sandbox to explore solutions to your use cases, and run jobs on your data."
+                    },
+                    {
+                        desc: "If you would like to experience more of MapR, <a href='http://www.mapr.com/products/download' target='_blank'>download and test drive a free version</a> of MapR's distribution for Hadoop. You'll see how easy, fast, and dependable true enterprise-grade Hadoop can be, and learn why more companies with mission-critical requirements are choosing MapR."
+                    },
+                    {
+                        desc: "For more information about MapR, Hadoop, and MapReduce, visit <a href='http://www.mapr.com/academy/' target='_blank'>MapR Academy</a> and watch the informative videos posted on the site. MapR also provides instructor led and web-based training if you decide you want to learn about MapR and its unique offerings in greater depth."
+                    }
+                ]
 
             }, // End introduction
             { // Using HUE
@@ -102,7 +105,7 @@
                         { // Start NFS mount
                             desc: "NFS Mount",
 
-                            post: "<strong>Next:</strong> Navigate to the Hue interface, and use File Browser to create a directory and upload a sample file to the MapR file system.",
+                            post: "<strong>Next:</strong> Next: Login to the Hue interface.",
 
                             text: [
                                     {
@@ -168,8 +171,9 @@
                                                                     desc: "Example: "
                                                                 },
                                                                 {
-                                                                    desc: "mapr@ubuntu:~$ sudo mount 't nfs 'o nolock localhost:/mapr /mapr"
-                                                                }, ]
+                                                                    desc: "mapr@ubuntu:~$ sudo mount -t nfs -o nolock localhost:/mapr /map "
+                                                                }
+                                                                ]
                                                     },
                                                     {
                                                         desc: "Use the mount command to verify that the mount was successful.",
@@ -184,43 +188,7 @@
                                                                     desc: "The following syntax appears:"
                                                                 },
                                                                 {
-                                                                    desc: "/dev/sda1 on / type ext4 (rw,errors=remount-ro)"
-                                                                },
-                                                                {
-                                                                    desc: "proc on /proc type proc (rw,noexec,nosuid,nodev)"
-                                                                },
-                                                                {
-                                                                    desc: "sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)"
-                                                                },
-                                                                {
-                                                                    desc: "none on /sys/fs/fuse/connections type fusectl (rw)"
-                                                                },
-                                                                {
-                                                                    desc: "none on /sys/kernel/debug type debugfs (rw)"
-                                                                },
-                                                                {
-                                                                    desc: "none on /sys/kernel/security type securityfs (rw)"
-                                                                },
-                                                                {
-                                                                    desc: "udev on /dev type devtmpfs (rw,mode=0755)"
-                                                                },
-                                                                {
-                                                                    desc: "devpts on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=0620)"
-                                                                },
-                                                                {
-                                                                    desc: "tmpfs on /run type tmpfs (rw,noexec,nosuid,size=10%,mode=0755)"
-                                                                },
-                                                                {
-                                                                    desc: "none on /run/lock type tmpfs (rw,noexec,nosuid,nodev,size=5242880)"
-                                                                },
-                                                                {
-                                                                    desc: "none on /run/shm type tmpfs (rw,nosuid,nodev)"
-                                                                },
-                                                                {
-                                                                    desc: "rpc_pipefs on /run/rpc_pipefs type rpc_pipefs (rw)"
-                                                                },
-                                                                {
-                                                                    desc: "localhost:/mapr on /mapr type nfs (rw,soft,intr,nolock,addr=127.0.0.1)"
+                                                                    desc: "/dev/sda1 on / type ext4 (rw,errors=remount-ro)<br/>proc on /proc type proc (rw,noexec,nosuid,nodev)<br/>sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)<br/>none on /sys/fs/fuse/connections type fusectl (rw)<br/>none on /sys/kernel/debug type debugfs (rw)<br/>none on /sys/kernel/security type securityfs (rw)<br/>udev on /dev type devtmpfs (rw,mode=0755)<br/>devpts on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=0620)<br/>tmpfs on /run type tmpfs (rw,noexec,nosuid,size=10%,mode=0755)<br/>none on /run/lock type tmpfs (rw,noexec,nosuid,nodev,size=5242880)<br/>none on /run/shm type tmpfs (rw,nosuid,nodev)<br/>rpc_pipefs on /run/rpc_pipefs type rpc_pipefs (rw)<br/>localhost:/mapr on /mapr type nfs (rw,soft,intr,nolock,addr=127.0.0.1)"
                                                                 }, ]
                                                     },
                                                     {
@@ -229,7 +197,8 @@
                                                     {
                                                         desc: "Select any files from a directory on your machine and drag and drop them into the MapR directory. You can also drag and drop files from the MapR directory to a directory on your machine."
                                                     }]
-                                        },
+                                        }]
+                            },
                                         {
                                             desc: "Mounting the Cluster via NFS with Neko Drive on Windows XP/2000/7",
                                             text: [
@@ -276,7 +245,7 @@
                                                                 },
                                                                 {
                                                                     desc: "Choose to install NekoDrive globally or only for the current user. ",
-                                                                    text: "Note the installation location. The default location is C:\Program Files (x86)\NekoDrive. This path is likely to change."
+                                                                    text: "Note the installation location. The default location is C:\\Program Files (x86)\\NekoDrive. This path is likely to change."
                                                                 },
                                                                 {
                                                                     desc: "Click Next to continue. The Confirm Installation dialog appears.",
@@ -306,7 +275,7 @@
                                                     },
                                                     {
                                                         desc: "Mount the cluster with NekoDrive:",
-                                                        text: [
+                                                        ol: [
                                                                 {
                                                                     desc: "Locate the directory where NekoDrive is installed on the system. By default this will be under C:\Program Files (x86)\NekoDrive. This path may be different on your system.",
                                                                 },
@@ -315,7 +284,9 @@
                                                                 },
                                                                 {
                                                                     desc: "Double-click the icon to launch the application. The following window appears:",
-                                                                    img: "nekoinit"
+                                                                    text: [{
+                                                                        img: "nekoinit"
+                                                                    }]
                                                                 },
 
                                                                 {
@@ -323,7 +294,9 @@
                                                                 },
                                                                 {
                                                                     desc: "Click Connect to see the available mounts on the server.",
-                                                                    img: "nekofinal"
+                                                                    text: [{
+                                                                        img: "nekofinal"
+                                                                    }]
                                                                 },
 
                                                                 {
@@ -333,11 +306,13 @@
                                                         ]
 
                                                     }]
-
-                                        }]
-
                             }]
 
+                        },
+                        {
+                            desc: "Login Into Hue",
+                            text: "Login to Hue with the username root and the password mapr.",
+                            post: "<strong>Next:</strong> Use File Browser to create a directory and upload a sample file to the MapR file system."
                         },
                         { // Start FileBrowser
                             desc: "File Browser",
@@ -365,7 +340,7 @@
                             std: [{
                                 desc: "Using File Browser",
 
-                                text: "In this tutorial, open File Browser, create a new directory, and upload the Customers.csv file.",
+                                text: "In this tutorial, open File Browser, create a new directory, and upload the customers.csv file.",
 
                                 ul: [
                                         {
@@ -381,7 +356,8 @@
                                                         desc: "Select oozie to open the directory."
                                                     },
                                                     {
-                                                        desc: "Click the New button, and select Directory."
+                                                        desc: "Click the New button, and select Directory.",
+                                                        text: "You may need to scroll to the right to see the New button."
                                                     },
                                                     {
                                                         desc: "Enter CustomerDirectory as the Directory Name."
@@ -455,8 +431,7 @@
                                     }],
                             std: [{
                                 desc: "Using Metastore Manager",
-                                text: "In this tutorial, open Metastore Manager and create a table from the Customer.csv file.",
-
+                                text: "In this tutorial, import the customer.csv file, and create a table from the file. ",
                                 ul: [
                                         {
                                             desc: "Import the Customer.csv file:",
@@ -541,6 +516,10 @@
                                                         {
                                                             desc: "The system processes the query and then displays all the customers located in Texas in the Results view."
                                                         }]
+                                            },
+                                            {
+                                                desc: "Click Execute.",
+                                                text: "The system processes the query and then displays all the customers located in Texas in the Results view."
                                             },
 
                                             {
@@ -639,14 +618,14 @@
                                                                 }]
                                                     },
                                                     {
-                                                        desc: "Click Execute to run the script.",
+                                                        desc: "In the Editor, click Run.",
                                                         text: "The script picks up the constitution.txt file from the wordcount directory. The system runs the MapReduce job and stores the output in a wcresults directory. You can view the logs to verify that the job completed."
                                                     },
                                                     {
                                                         desc: "In the Editor, click Save to save the script."
                                                     },
                                                     {
-                                                        desc: "Enter ConstitutionWordcount as the script title."
+                                                        desc: "Enter ConstitutionWordcount as the script name, and click Save."
                                                     }]
                                         },
                                         {
@@ -866,7 +845,8 @@
                                 ul: [
                                         {
                                             desc: "Delete the output file:",
-                                            ol: [{
+                                            ol: [
+                                                    {
                                                         desc: "Click "
                                                                 + img("hue_ooz")
                                                                 + " The Oozie page opens."
@@ -924,8 +904,7 @@
                                                     },
                                                     {
                                                         desc: "Under Actions in the navigation panel, click Submit. A Submit this job dialog appears."
-                                                    },
-                                                    {
+                                                    }, {
                                                         desc: "Click Submit."
                                                     }
 
