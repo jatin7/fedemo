@@ -6,9 +6,10 @@
 (function () {
     "use strict"
     MAPR.Text = MAPR.Text || {};
-    var img = function (img) {
-        return "<img src='images/vm/" + img + ".png'>";
-
+    var img = function (img, width, height) {
+        return "<img class='vm_inline' style='height:" + (!!height ? height + "px": "inherit") + 
+            ";width:" + (!!width ? width + "px": "inherit") + 
+            ";'src='images/vm/" + img + ".png'></img>";
     };
 
     MAPR.Text.Tutorial = [
@@ -72,138 +73,213 @@
             {
                 bullet: "Review job metrics"
             }],
-            std: [{
-                desc: "NFS Mount",
-                text: [{
-                    desc: "When you mount a MapR cluster directly via NFS, applications can read and write data directly into the cluster with standard tools, applications, and scripts. MapR enables direct file modification and multiple concurrent reads and writes via POSIX semantics. For example, you can run a MapReduce job that outputs to a CSV file, then import the CSV file directly into SQL via NFS. "
-                },
-                {
-                    desc: "MapR exports each cluster as the directory /mapr/cluster name. For example, /mapr/my.cluster.com. If you create a mount point with the local path /mapr, then Hadoop FS paths and NFS paths to the cluster will be the same. This makes it easy to work on the same files via NFS and Hadoop. In a multi-cluster setting, the clusters share a single namespace, and you can see them all by mounting the top-level /mapr directory."
+            std: [{ // Start NFS mount
+                            desc: "NFS Mount",
 
-                }],
-                std: [{
-                    desc: "Mounting the Cluster via NFS",
-                    text: [{
-                        desc: "In this tutorial, open a terminal window and mount the MapR cluster via NFS. After you mount the cluster, drag and drop files from your machine into the MapR directory."
-                    },
-                    {
-                        desc: "Note: This tutorial provides general steps for mounting the cluster via NFS. If you need further instruction, for example if you are running Windows 7 Ultimate or Windows 7 Enterprise, refer to <a href='http://doc.mapr.com/display/MapR12/Accessing+Data+with+NFS' target='_blank'>Accessing Data with NFS</a>."
-                    }],
-                    std: [{
-                        desc: "Mount the cluster via NFS:",
-                        ol: [{
-                            desc: "Open a terminal window on the host machine."
+                    post: "<strong>Next step</strong>: Navigate to the MapR Control System interface, and explore the MapR Control System (MCS). If prompted to login, enter mapr as the username and password.",
+
+                            text: [
+                                    {
+                                        desc: "When you mount a MapR cluster directly via NFS, your applications can read and write data directly into the cluster with standard tools, applications, and scripts. MapR enables direct file modification and multiple concurrent reads and writes via POSIX semantics. For example, you can run a MapReduce job that outputs to a CSV file, then import the CSV file directly into SQL via NFS. "
+                                    },
+                                    {
+                                        desc: "MapR exports each cluster as the directory /mapr/cluster name. For example, /mapr/my.cluster.com. If you create a mount point with the local path /mapr, then Hadoop FS paths and NFS paths to the cluster will be the same. This makes it easy to work on the same files via NFS and Hadoop. In a multi-cluster setting, the clusters share a single namespace, and you can see them all by mounting the top-level /mapr directory."
+                                    },
+                                    {
+                                        desc: "If you are on a Linux machine, follow the instructions in the Mounting the Cluster via NFS tutorial. If you are on a machine running Windows XP, Windows 2000, or Windows 7, follow the instructions in the Mounting the Cluster via NFS with Neko Drive on Windows XP/2000/7 tutorial. For more information about NFS mount, refer to Accessing Data with NFS."
+                                    }],
+                            std: [
+                                    {
+                                        desc: "Mounting the Cluster via NFS",
+                                        text: "In this tutorial, open a terminal window and mount the MapR cluster via NFS. After you mount the cluster, drag and drop files from your machine into the MapR directory. ",
+                                        ul: [{
+                                            desc: "Mount the cluster via NFS:",
+                                            ol: [
+                                                    {
+                                                        desc: "Open a terminal window on the host machine.",
+                                                    },
+                                                    {
+                                                        desc: "Type sudo showmount -e localhost in the terminal to see what exports are available on the local host.",
+                                                        text: [{
+                                                            desc: "Example: mapr@ubuntu:~$ sudo showmount -e localhost"
+                                                        }]
+                                                    },
+                                                    {
+                                                        desc: "Enter mapr as the password.",
+                                                        text: [
+                                                                {
+                                                                    desc: "Example:"
+                                                                },
+                                                                {
+                                                                    desc: "[sudo] password for mapr: mapr"
+                                                                },
+                                                                {
+                                                                    desc: "The export list for localhost appears."
+                                                                },
+                                                                {
+                                                                    desc: "Example:"
+                                                                },
+                                                                {
+                                                                    desc: "Export list for localhost:"
+                                                                },
+                                                                {
+                                                                    desc: "/mapr                *"
+                                                                },
+                                                                {
+                                                                    desc: "/mapr/my.cluster.com *"
+                                                                }]
+                                                    },
+                                                    {
+                                                        desc: "If the mapr directory does not exist, create a new directory named /mapr."
+                                                    },
+                                                    {
+                                                        desc: "If no hosts are listed, use the mount command to mount the cluster. ",
+                                                        text: [
+                                                                {
+                                                                    desc: "Mount the exported share to the /mapr directory."
+                                                                },
+                                                                {
+                                                                    desc: "Example: "
+                                                                },
+                                                                {
+                                                                    desc: "mapr@ubuntu:~$ sudo mount -t nfs -o nolock localhost:/mapr /map "
+                                                                }]
+                                                    },
+                                                    {
+                                                        desc: "Use the mount command to verify that the mount was successful.",
+                                                        text: [
+                                                                {
+                                                                    desc: "Example: "
+                                                                },
+                                                                {
+                                                                    desc: "mapr@ubuntu:~$ sudo mount"
+                                                                },
+                                                                {
+                                                                    desc: "The following syntax appears:"
+                                                                },
+                                                                {
+                                                                    desc: "/dev/sda1 on / type ext4 (rw,errors=remount-ro)<br/>proc on /proc type proc (rw,noexec,nosuid,nodev)<br/>sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)<br/>none on /sys/fs/fuse/connections type fusectl (rw)<br/>none on /sys/kernel/debug type debugfs (rw)<br/>none on /sys/kernel/security type securityfs (rw)<br/>udev on /dev type devtmpfs (rw,mode=0755)<br/>devpts on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=0620)<br/>tmpfs on /run type tmpfs (rw,noexec,nosuid,size=10%,mode=0755)<br/>none on /run/lock type tmpfs (rw,noexec,nosuid,nodev,size=5242880)<br/>none on /run/shm type tmpfs (rw,nosuid,nodev)<br/>rpc_pipefs on /run/rpc_pipefs type rpc_pipefs (rw)<br/>localhost:/mapr on /mapr type nfs (rw,soft,intr,nolock,addr=127.0.0.1)"
+                                                                }, ]
+                                                    },
+                                                    {
+                                                        desc: "Go to your desktop, and select the MapR NFS mount icon to open the MapR directory."
+                                                    },
+                                                    {
+                                                        desc: "Select any files from a directory on your machine and drag and drop them into the MapR directory. You can also drag and drop files from the MapR directory to a directory on your machine."
+                                                    }]
+                                        }]
+                                    },
+                                    {
+                                        desc: "Mounting the Cluster via NFS with Neko Drive on Windows XP/2000/7",
+                                        text: [
+                                                {
+                                                    desc: "NekoDrive is an NFS client for Windows based on the Dokan user file system library. You can install NekoDrive and use it to mount a NFS share on a 64-bit machine running Windows XP, Windows 2000, or Windows 7. Neko supports NFS v2, v3, and v4 over TCP and UDP."
+                                                },
+                                                {
+                                                    desc: "You can access source code for the NekoDrive build used in these instructions at <a href='http://github.com/mapr' target='_blank'>http://github.com/mapr</a>. To view the original NekoDrive source code, go to <a href='http://code.google.com/p/nekodrive/' target='_blank'>http://code.google.com/p/nekodrive/</a>."
+                                                }],
+                                        ul: [
+                                                {
+                                                    desc: "Before You Install NekoDrive",
+                                                    text: "Before you install NekoDrive, a user with administrator rights on the system must install the following components in the order specified: ",
+                                                    ol: [
+                                                            {
+                                                                desc: "Install Microsoft .net Framework 4.0 redistributable:",
+                                                                text: "<a href='http://www.microsoft.com/en-us/download/details.aspx?id=17718' target='_blank'>http://www.microsoft.com/en-us/download/details.aspx?id=17718</a>"
+                                                            },
+                                                            {
+                                                                desc: "Install latest version of Dokan Library:",
+                                                                text: "<a href='http://dokan-dev.net/en/download/' target='_blank'>http://dokan-dev.net/en/download/</a>"
+                                                            }]
+                                                },
+                                                {
+                                                    desc: "Install NekoDrive:",
+                                                    ol: [
+                                                            {
+                                                                desc: "Double-click on the NekoDriveSetup.msi to launch the system. If a security dialog appears, click Run."
+                                                            },
+
+                                                            {
+                                                                desc: "Click Run to continue. The Welcome to the NekoDrive software and license terms display.",
+                                                                text: [{
+                                                                    img: "nekosetup"
+                                                                }]
+
+                                                            },
+
+                                                            {
+                                                                desc: "Click Next to continue. The Select Installation Folder dialog appears.",
+                                                                text: [{
+                                                                    img: "nekofolder"
+                                                                }]
+                                                            },
+                                                            {
+                                                                desc: "Choose to install NekoDrive globally or only for the current user. ",
+                                                                text: "Note the installation location. The default location is C:\\Program Files (x86)\\NekoDrive. This path is likely to change."
+                                                            },
+                                                            {
+                                                                desc: "Click Next to continue. The Confirm Installation dialog appears.",
+                                                                img: "nekoconfirm"
+                                                            },
+                                                            {
+                                                                desc: "Click Next to start the installation. ",
+                                                                text: [
+                                                                        {
+                                                                            desc: "If a security warning dialog appears about installation of software on the hard drive, click Yes.",
+                                                                        },
+                                                                        {
+                                                                            desc: "When installation completes, an Installation Complete dialog appears.",
+                                                                        },
+                                                                        {
+                                                                            img: "nekodone"
+                                                                        }
+
+                                                                ]
+                                                            },
+                                                            {
+                                                                desc: "Click Close."
+                                                            },
+
+                                                    ]
+
+                                                },
+                                                {
+                                                    desc: "Mount the cluster with NekoDrive:",
+                                                    ol: [
+                                                            {
+                                                                desc: "Locate the directory where NekoDrive is installed on the system. By default this will be under C:\Program Files (x86)\NekoDrive. This path may be different on your system.",
+                                                            },
+                                                            {
+                                                                desc: "Locate NekoDrive.exe, and right-click on the icon to create a desktop shortcut.",
+                                                            },
+                                                            {
+                                                                desc: "Double-click the icon to launch the application. The following window appears:",
+                                                                text: [{
+                                                                    img: "nekoinit"
+                                                                }]
+                                                            },
+
+                                                            {
+                                                                desc: "Enter the IP address of the VM in the appropriate field, and leave the default V3 and TCP options. They indicate that this is a V3 TCP mount. You can locate the IP address of the VM in the VMware Player console.",
+                                                            },
+                                                            {
+                                                                desc: "Click Connect to see the available mounts on the server.",
+                                                                text: [{
+                                                                    img: "nekofinal"
+                                                                }]
+                                                            },
+
+                                                            {
+                                                                desc: "Select a mount from the Devices dropdown list, choose a drive letter, and click Mount to mount the share at the specified location. If the drive mounts successfully, an Explorer window appears and shows contents of the location. Minimize the NekoDrive window to keep the mount active.",
+                                                            },
+
+                                                    ]
+
+                                                }]
+                                    }]
+
                         },
-                        {
-                            desc: "Type sudo showmount -e localhost in the terminal to see what exports are available on the local host.  ",
-                            text: [{
-                                desc: "Example:"
-                            },
-                            {
-                                desc: "mapr@ubuntu:~$ sudo showmount -e localhost"
-                            }]
-                        },
-                        {
-                            desc: "Enter mapr as the password.",
-                            text: [{
-                                desc: "Example:"
-                            },
-                            {
-                                desc: "[sudo] password for mapr: mapr"
-                            },
-                            {
-                                desc: "The export list for localhost: appears."
-                            },
-                            {
-                                desc: "Example:"
-                            },
-                            {
-                                desc: "Export list for localhost:"
-                            },
-                            {
-                                desc: "/mapr                *"
-                            },
-                            {
-                                desc: "/mapr/my.cluster.com *"
-                            }]
-                        },
-                        {
-                            desc: "If the mapr directory does not exist, create a new directory named /mapr."
-                        },
-                        {
-                            desc: "If no hosts are listed, use the mount command to mount the cluster. ",
-                            text: [{
-                                desc: "Mount the exported share to the /mapr directory."
-                            },
-                            {
-                                desc: "Example: "
-                            },
-                            {
-                                desc: "mapr@ubuntu:~$ sudo mount –t nfs –o nolock localhost:/mapr /map"
-                            }]
-                        },
-                        {
-                            desc: "Use the mount command to verify that the mount was successful.",
-                            text: [{
-                                desc: "Example: "
-                            },
-                            {
-                                desc: "mapr@ubuntu:~$ sudo mount"
-                            },
-                            {
-                                desc: "The following syntax appears:"
-                            },
-                            {
-                                desc: "/dev/sda1 on / type ext4 (rw,errors=remount-ro)"
-                            },
-                            {
-                                desc: "proc on /proc type proc (rw,noexec,nosuid,nodev)"
-                            },
-                            {
-                                desc: "sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)"
-                            },
-                            {
-                                desc: "none on /sys/fs/fuse/connections type fusectl (rw)"
-                            },
-                            {
-                                desc: "none on /sys/kernel/debug type debugfs (rw)"
-                            },
-                            {
-                                desc: "none on /sys/kernel/security type securityfs (rw)"
-                            },
-                            {
-                                desc: "udev on /dev type devtmpfs (rw,mode=0755)"
-                            },
-                            {
-                                desc: "devpts on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=0620)"
-                            },
-                            {
-                                desc: "tmpfs on /run type tmpfs (rw,noexec,nosuid,size=10%,mode=0755)"
-                            },
-                            {
-                                desc: "none on /run/lock type tmpfs (rw,noexec,nosuid,nodev,size=5242880)"
-                            },
-                            {
-                                desc: "none on /run/shm type tmpfs (rw,nosuid,nodev)"
-                            },
-                            {
-                                desc: "rpc_pipefs on /run/rpc_pipefs type rpc_pipefs (rw)"
-                            },
-                            {
-                                desc: "localhost:/mapr on /mapr type nfs (rw,soft,intr,nolock,addr=127.0.0.1)"
-                            }
-                            ]
-                        },
-                        {
-                            desc: "Go to your desktop, and select the MapR NFS mount icon to open the MapR directory."
-                        },
-                        {
-                            desc: "Select any files from a directory on your machine, and drag and drop them into the MapR directory. You can also drag and drop files from the MapR directory into a directory on your machine."
-                        }]
-                    }]
-                }],
-                post: "<strong>Next step</strong>: Navigate to the MapR Control System interface, and explore the MapR Control System (MCS). If prompted to login, enter mapr as the username and password."
-            },
+
             {
                     desc: "MCS Dashboard",
                     text: [{
@@ -459,7 +535,7 @@
                     ol: [
                         {
                             desc: "Set Topology",
-                            text: "Setting up the cluster's physical topology is an important step—not only does it help protect your data in case of a rack failure, it also enables data placement and job placement features. For more information, see <a href='http://www.mapr.com/doc/display/MapR/Node+Topology' target='_blank'>Node Topology</a>. ",
+                            text: "Setting up the cluster's physical topology is an important step; not only does it help protect your data in case of a rack failure, it also enables data placement and job placement features. For more information, see <a href='http://www.mapr.com/doc/display/MapR/Node+Topology' target='_blank'>Node Topology</a>. ",
                             ol: [
                                 {
                                     desc: "From the Dashboard view, click Nodes to see the Nodes view.",
@@ -512,7 +588,7 @@
                             img: "SystemRootVolumeConfig"
                         },
                         {
-                            desc: "The root volume (mapr.cluster.root, mounted at /) contains the mount points for the other volumes. MapR provides a volume for HBase (if installed) and a /var/mapr volume containing information about cluster configuration. There is also a local volume for each node—limited by its topology to reside only on its own node."
+                            desc: "The root volume (mapr.cluster.root, mounted at /) contains the mount points for the other volumes. MapR provides a volume for HBase (if installed) and a /var/mapr volume containing information about cluster configuration. There is also a local volume for each node limited by its topology to reside only on its own node."
                         },
                         {
                             desc: "As shown in the example above, you should add a hierarchy of volumes for users, projects and departments, to enable you to manage data for these different entities separately."
