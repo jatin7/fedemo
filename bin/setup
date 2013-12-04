@@ -35,8 +35,6 @@ JS="$WORKSPACE/src/www/js"
 CSS="$WORKSPACE/src/www/css"
 
 
-mv $ADMIN/index.jsp $ADMIN/mcs.jsp
-checkReturn
 mv $WORKSPACE/src/www/index.html $WORKSPACE/src/www/mcs.html
 checkReturn
 cp -R $SRC $WORKSPACE
