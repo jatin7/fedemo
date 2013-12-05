@@ -532,7 +532,7 @@
                             desc: "/data/rack1/node2"
                         }
                     ],
-                    ol: [
+                    std: [
                         {
                             desc: "Set Topology",
                             text: "Setting up the cluster's physical topology is an important step; not only does it help protect your data in case of a rack failure, it also enables data placement and job placement features. For more information, see <a href='http://www.mapr.com/doc/display/MapR/Node+Topology' target='_blank'>Node Topology</a>. ",

@@ -310,7 +310,7 @@
 
                         },
                         {
-                            desc: "Login Into Hue",
+                            desc: "Login to Hue",
                             text: "Login to Hue with the username root and the password mapr.",
                             post: "<strong>Next:</strong> Use File Browser to create a directory and upload a sample file to the MapR file system."
                         },
@@ -511,10 +511,6 @@
                                                 text: [
                                                         {
                                                             desc: "SELECT * FROM customer_table WHERE state=\"TX\""
-                                                        },
-
-                                                        {
-                                                            desc: "The system processes the query and then displays all the customers located in Texas in the Results view."
                                                         }]
                                             },
                                             {
