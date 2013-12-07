@@ -189,43 +189,7 @@
                                                                     desc: "The following syntax appears:"
                                                                 },
                                                                 {
-                                                                    desc: "/dev/sda1 on / type ext4 (rw,errors=remount-ro)"
-                                                                },
-                                                                {
-                                                                    desc: "proc on /proc type proc (rw,noexec,nosuid,nodev)"
-                                                                },
-                                                                {
-                                                                    desc: "sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)"
-                                                                },
-                                                                {
-                                                                    desc: "none on /sys/fs/fuse/connections type fusectl (rw)"
-                                                                },
-                                                                {
-                                                                    desc: "none on /sys/kernel/debug type debugfs (rw)"
-                                                                },
-                                                                {
-                                                                    desc: "none on /sys/kernel/security type securityfs (rw)"
-                                                                },
-                                                                {
-                                                                    desc: "udev on /dev type devtmpfs (rw,mode=0755)"
-                                                                },
-                                                                {
-                                                                    desc: "devpts on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=0620)"
-                                                                },
-                                                                {
-                                                                    desc: "tmpfs on /run type tmpfs (rw,noexec,nosuid,size=10%,mode=0755)"
-                                                                },
-                                                                {
-                                                                    desc: "none on /run/lock type tmpfs (rw,noexec,nosuid,nodev,size=5242880)"
-                                                                },
-                                                                {
-                                                                    desc: "none on /run/shm type tmpfs (rw,nosuid,nodev)"
-                                                                },
-                                                                {
-                                                                    desc: "rpc_pipefs on /run/rpc_pipefs type rpc_pipefs (rw)"
-                                                                },
-                                                                {
-                                                                    desc: "localhost:/mapr on /mapr type nfs (rw,soft,intr,nolock,addr=127.0.0.1)"
+                                                                    desc: "/dev/sda1 on / type ext4 (rw,errors=remount-ro)<br/>proc on /proc type proc (rw,noexec,nosuid,nodev)<br/>sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)<br/>none on /sys/fs/fuse/connections type fusectl (rw)<br/>none on /sys/kernel/debug type debugfs (rw)<br/>none on /sys/kernel/security type securityfs (rw)<br/>udev on /dev type devtmpfs (rw,mode=0755)<br/>devpts on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=0620)<br/>tmpfs on /run type tmpfs (rw,noexec,nosuid,size=10%,mode=0755)<br/>none on /run/lock type tmpfs (rw,noexec,nosuid,nodev,size=5242880)<br/>none on /run/shm type tmpfs (rw,nosuid,nodev)<br/>rpc_pipefs on /run/rpc_pipefs type rpc_pipefs (rw)<br/>localhost:/mapr on /mapr type nfs (rw,soft,intr,nolock,addr=127.0.0.1)"
                                                                 }
                                                                 ]
                                                     },
