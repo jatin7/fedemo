@@ -21,11 +21,11 @@
                         },
 
                         {
-                            desc: "The sandbox provides an environment for you to experiment with the MapR Control System and HUE graphical interfaces running on the MapR File System (MapR-FS). MapR-FS is a fully read-write distributed file system that allows applications to concurrently read and write directly to disk. You can mount a MapR cluster via NFS, or you can mount NFS on a Linux, Mac, or Windows client."
+                            desc: "The sandbox provides an environment for you to experiment with the MapR Control System and HUE graphical interfaces running on the MapR File System (MapR-FS). MapR-FS is a fully read-write distributed file system that allows applications to concurrently read and write directly to disk. You can mount a MapR cluster via NFS from a Linux or Mac client."
                         },
 
                         {
-                            desc: "Use the information and tutorials included in MapR's Sandbox for Hadoop to discover the MapR Control System and applications included in the HUE interface. The tutorials are intended to guide you through some basic administrator and developer procedures you might perform on a cluster. You can also use the sandbox to explore solutions to your use cases, and run jobs on your data."
+                            desc: "Use the information and tutorials included in MapR's Sandbox for Hadoop to discover the MapR Control System and applications included in the Hue interface. The tutorials are intended to guide you through some basic administrator and developer procedures you might perform on a cluster. You can also use the sandbox to explore solutions to your use cases, and run jobs on your data."
                         },
                         {
                             desc: "If you would like to experience more of MapR, <a href='http://www.mapr.com/products/download' target='_blank'>download and test drive a free version</a> of MapR's distribution for Hadoop. You'll see how easy, fast, and dependable true enterprise-grade Hadoop can be, and learn why more companies with mission-critical requirements are choosing MapR."
@@ -116,7 +116,7 @@
                                         desc: "MapR exports each cluster as the directory /mapr/cluster name. For example, /mapr/my.cluster.com. If you create a mount point with the local path /mapr, then Hadoop FS paths and NFS paths to the cluster will be the same. This makes it easy to work on the same files via NFS and Hadoop. In a multi-cluster setting, the clusters share a single namespace, and you can see them all by mounting the top-level /mapr directory."
                                     },
                                     {
-                                        desc: "If you are on a Linux machine, follow the instructions in the Mounting the Cluster via NFS tutorial. If you are on a machine running Windows XP, Windows 2000, or Windows 7, follow the instructions in the Mounting the Cluster via NFS with Neko Drive on Windows XP/2000/7 tutorial. For more information about NFS mount, refer to Accessing Data with NFS."
+                                        desc: "If you are on a Mac or Linux machine, follow the instructions in the Mounting the Cluster via NFS tutorial. For more information about NFS mount, refer to <a href='http://doc.mapr.com/display/MapR12/Accessing+Data+with+NFS' target='_blank'>Accessing Data with NFS</a>."
                                     }],
                             std: [
                                     {
@@ -161,18 +161,19 @@
                                                     },
                                                     {
                                                         desc: "If the mapr directory does not exist, create a new directory named /mapr."
+                                                               
                                                     },
                                                     {
-                                                        desc: "If no hosts are listed, use the mount command to mount the cluster. ",
+                                                        desc: "Use the following mount command to mount the cluster:",
                                                         text: [
                                                                 {
-                                                                    desc: "Mount the exported share to the /mapr directory."
+                                                                    desc: "mapr@ubuntu:~$ sudo mount -t nfs -o nolock <VM IP Address>:/mapr /mapr"
                                                                 },
                                                                 {
                                                                     desc: "Example: "
                                                                 },
                                                                 {
-                                                                    desc: "mapr@ubuntu:~$ sudo mount -t nfs -o nolock localhost:/mapr /map "
+                                                                    desc: "mapr@ubuntu:~$ sudo mount -t nfs -o nolock 192.168.217.196:/mapr /mapr"
                                                                 }]
                                                     },
                                                     {
@@ -188,18 +189,56 @@
                                                                     desc: "The following syntax appears:"
                                                                 },
                                                                 {
-                                                                    desc: "/dev/sda1 on / type ext4 (rw,errors=remount-ro)<br/>proc on /proc type proc (rw,noexec,nosuid,nodev)<br/>sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)<br/>none on /sys/fs/fuse/connections type fusectl (rw)<br/>none on /sys/kernel/debug type debugfs (rw)<br/>none on /sys/kernel/security type securityfs (rw)<br/>udev on /dev type devtmpfs (rw,mode=0755)<br/>devpts on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=0620)<br/>tmpfs on /run type tmpfs (rw,noexec,nosuid,size=10%,mode=0755)<br/>none on /run/lock type tmpfs (rw,noexec,nosuid,nodev,size=5242880)<br/>none on /run/shm type tmpfs (rw,nosuid,nodev)<br/>rpc_pipefs on /run/rpc_pipefs type rpc_pipefs (rw)<br/>localhost:/mapr on /mapr type nfs (rw,soft,intr,nolock,addr=127.0.0.1)"
-                                                                }, ]
+                                                                    desc: "/dev/sda1 on / type ext4 (rw,errors=remount-ro)"
+                                                                },
+                                                                {
+                                                                    desc: "proc on /proc type proc (rw,noexec,nosuid,nodev)"
+                                                                },
+                                                                {
+                                                                    desc: "sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)"
+                                                                },
+                                                                {
+                                                                    desc: "none on /sys/fs/fuse/connections type fusectl (rw)"
+                                                                },
+                                                                {
+                                                                    desc: "none on /sys/kernel/debug type debugfs (rw)"
+                                                                },
+                                                                {
+                                                                    desc: "none on /sys/kernel/security type securityfs (rw)"
+                                                                },
+                                                                {
+                                                                    desc: "udev on /dev type devtmpfs (rw,mode=0755)"
+                                                                },
+                                                                {
+                                                                    desc: "devpts on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=0620)"
+                                                                },
+                                                                {
+                                                                    desc: "tmpfs on /run type tmpfs (rw,noexec,nosuid,size=10%,mode=0755)"
+                                                                },
+                                                                {
+                                                                    desc: "none on /run/lock type tmpfs (rw,noexec,nosuid,nodev,size=5242880)"
+                                                                },
+                                                                {
+                                                                    desc: "none on /run/shm type tmpfs (rw,nosuid,nodev)"
+                                                                },
+                                                                {
+                                                                    desc: "rpc_pipefs on /run/rpc_pipefs type rpc_pipefs (rw)"
+                                                                },
+                                                                {
+                                                                    desc: "localhost:/mapr on /mapr type nfs (rw,soft,intr,nolock,addr=127.0.0.1)"
+                                                                }
+                                                                ]
                                                     },
                                                     {
-                                                        desc: "Go to your desktop, and select the MapR NFS mount icon to open the MapR directory."
+                                                        desc: "Use the file browser to navigate to the mapr directory on your machine. For example, on a Mac operating system, open Finder and open the directory. The directory is the name of the virtual machine IP address.",
+                                                        text: "Example: 192.168.217.196"
                                                     },
                                                     {
-                                                        desc: "Select any files from a directory on your machine and drag and drop them into the MapR directory. You can also drag and drop files from the MapR directory to a directory on your machine."
+                                                        desc: "Select any files from a directory on your machine and drag and drop them into the mapr directory. You can also drag and drop files from the mapr directory to a directory on your machine."
                                                     }]
                                         }]
                                     },
-                                    {
+                                    /*{
                                         desc: "Mounting the Cluster via NFS with Neko Drive on Windows XP/2000/7",
                                         text: [
                                                 {
@@ -306,7 +345,7 @@
                                                     ]
 
                                                 }]
-                                    }]
+                                    }*/]
 
                         },
                         {
