@@ -76,7 +76,7 @@
             std: [{ // Start NFS mount
                             desc: "NFS Mount",
 
-                    post: "<strong>Next step</strong>: Navigate to the MapR Control System interface, and explore the MapR Control System (MCS). If prompted to login, enter mapr as the username and password.",
+                    post: "<strong>Next:</strong> Explore the MCS Dashboard.",
 
                             text: [
                                     {
