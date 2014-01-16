@@ -1,0 +1,55 @@
+---
+#
+# Playbook Name:: start_services
+#
+# Copyright 2013, MapR Technologies
+#
+#   Very simple operation ... start services configured on this node.
+#       Side Effect: enable them if cluster-conf file exists (proving
+#       successful configuration)
+#
+#   TODO : allow "tags" to start zookeeper on it's own rather than
+#   with the warden service.
+
+- name: Start MapR Services
+  hosts: all
+  connection: "{{ cloud_connection|default('local') }}"
+  user: "{{ cloud_user|default('root') }}" 
+  sudo: "{{ mapr_sudo|default('True') }}"
+
+  vars:
+    cConfFile: "{{ mapr_home }}/conf/mapr-clusters.conf"
+    zkNodes: "{{ mapr.groups.zk }}"
+
+  tasks:
+  - stat: path="{{ mapr_home }}/conf/mapr-clusters.conf"
+    register: mapr_configured
+    always_run: True
+  - stat: path="{{ mapr_home }}/roles/zookeeper"
+    register: zookeeper_present
+    always_run: True
+  - stat: path="{{ mapr_home }}/initscripts/mapr-warden"
+    register: warden_present
+    always_run: True
+
+  - command: 'sed -i "s/\-replication\ 3/\-replication\ 1/g" {{ mapr_home }}/server/createJTVolume.sh'
+
+  - command: 'sed -i "s/\-replication\ 2/\-replication\ 1/g" {{ mapr_home }}/server/createsystemvolumes.sh'
+
+  - command: 'sed -i "s/maprcli\ volume\ create/maprcli\ volume\ create\ \-replication\ 1\ /g" {{ mapr_home }}/server/create-volumes.sh'
+
+  - service: name=mapr-zookeeper enabled=yes state=started
+    when: mapr_configured.stat.exists  and  zookeeper_present.stat.exists 
+
+        # Before starting warden, wait for ZK service to be alive.
+        # This is mosly an error check, since starting warden 
+        # without ZK leads to strange errors.
+        #
+        # NOTE: this script ONLY waits when run on non-zk nodes
+        # all others will return immediately
+  - action: "wait_for_zk_service.sh MAX_WAIT=600 ZK_NODES={{ mapr.groups.zk|join(',') }}"
+    when: zookeeper_present.stat.exists == False  and mapr_configured.stat.exists  and  warden_present.stat.exists 
+
+  - service: name=mapr-warden enabled=yes state=started
+    when: mapr_configured.stat.exists  and  warden_present.stat.exists 
+

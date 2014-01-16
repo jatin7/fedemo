@@ -1,0 +1,84 @@
+#!/bin/bash
+#
+# chkconfig: 35 99 15
+# description: Mapr Demo Startup
+# startup script
+
+SCRIPTS_PATH="/opt/startup"
+NAME="MapR's Sandbox for Hadoop"
+LOG="/var/log/startup_script.log"
+HADOOP_VERSION="0.20.2"
+OOZIE_VERSION="3.3.2"
+HUE_VERSION="2.5.0"
+HIVE_VERSION="0.12"
+HTTPFS_VERSION="1.0"
+
+case "$1" in
+start)
+    printf "%-50s\n" "Starting $NAME..." | tee -a $LOG
+    
+    echo "" > /etc/resolv.conf
+
+    printf "%-50s\n" "Updating IP..." | tee -a $LOG
+    bash $SCRIPTS_PATH/gen_hosts.sh
+   
+    sed -i 1i"nameserver 8.8.8.8" /etc/resolv.conf
+    if [ -d "/opt/mapr" ]; then 
+    printf "%-50s\n" "Bringing up VM..." | tee -a $LOG
+    
+    echo 0 > /proc/sys/kernel/hung_task_timeout_secs
+
+    if [ -f "/opt/mapr/hadoop/hadoop-$HADOOP_VERSION/conf/core-site.xml" ]; then
+    cp -rf $SCRIPTS_PATH/core-site.xml /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/conf/core-site.xml
+    cp -rf $SCRIPTS_PATH/mapred-site.xml /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/conf/mapred-site.xml
+    fi
+
+    if [ -f "/opt/mapr/oozie/oozie-$OOZIE_VERSION/conf/oozie-site.xml" ]; then
+    cp -rf $SCRIPTS_PATH/oozie-site.xml /opt/mapr/oozie/oozie-$OOZIE_VERSION/conf/oozie-site.xml
+    fi
+    
+    if [ -f "/opt/mapr/hue/hue-$HUE_VERSION/desktop/conf/hue.ini" ]; then
+    cp -rf $SCRIPTS_PATH/hue.ini /opt/mapr/hue/hue-$HUE_VERSION/desktop/conf/hue.ini 
+    cp /opt/mapr/hue/hue-$HUE_VERSION/desktop/libs/hadoop/java-lib/hue-plugins-*.jar /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/lib/
+    fi 
+
+    if [ -f "/opt/mapr/httpfs/httpfs-$HTTPFS_VERSION/etc/hadoop/httpfs-site.xml" ]; then
+    cp -rf $SCRIPTS_PATH/httpfs-site.xml /opt/mapr/httpfs/httpfs-$HTTPFS_VERSION/etc/hadoop/httpfs-site.xml
+    fi    
+   
+    if [ -f "/opt/mapr/hive/hive-$HIVE_VERSION/conf/hive-site.xml" ]; then
+    cp -rf $SCRIPTS_PATH/hive-site.xml /opt/mapr/hive/hive-$HIVE_VERSION/conf/hive-site.xml
+    cp /opt/mapr/hive/hive-$HIVE_VERSION/conf/warden.hivemeta.conf /opt/mapr/conf/conf.d/warden.hivemeta.conf
+    fi
+
+    printf "%-50s\n" "Waiting for MapR services to come up..." | tee -a $LOG
+    sleep 60 
+    jps | grep CommandServer
+    if [ $? -ne 0 ];then
+    printf "%-50s\n" "Still waiting for MapR services to come up..." | tee -a $LOG
+    sleep 60  
+    fi
+    fi
+    jps | grep CommandServer
+    if [ $? -ne 0 ];then
+    python $SCRIPTS_PATH/error.py
+    else
+    python $SCRIPTS_PATH/welcome.py
+    maprcli volume create -name tables -path /tables
+    fi
+;;
+stop)
+    date >> $LOG
+    /etc/init.d/mapr-warden stop >> $LOG 2>&1
+    /etc/init.d/mapr-zookeeper stop >> $LOG 2>&1
+;;
+
+restart)
+    /etc/init.d/mapr-zookeeper restart >> $LOG 2>&1
+    /etc/init.d/mapr-warden restart >> $LOG 2>&1
+;;
+
+*)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
