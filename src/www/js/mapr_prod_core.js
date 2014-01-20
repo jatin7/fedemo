@@ -8,12 +8,12 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
 // Call init which should load all items that should be loaded on runtime.
 require(["./config"], function () {
     "use strict";
-    require(["jquery", "views/tutorial/init", "init"], function ($, Page, Tutorial) {
+    require(["jquery", "init", "views/tutorial/Init"], function ($, Page, Tutorial) {
 
 
         $(function () { // Document Ready
-            Tutorial.start();
             Page.start();
+            Tutorial.start();
         });
 
     });
