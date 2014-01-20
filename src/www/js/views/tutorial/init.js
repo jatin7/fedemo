@@ -42,10 +42,10 @@ define(function (require) {
             setPage: function (initWidth) {
                 if (this.isMCS()) {
                     // MCS
-                    MAPR.page.model.set("left", initWidth);
+                    PageManager.set("leftArea", initWidth);
                     // Only set on initial calls
                     if (!this.init) {
-                        MAPR.page.on("pageresize", this.resize);
+                        PageManager.on("pageresize", this.resize);
                         this.init = true;
                     }
                 } else {
@@ -120,7 +120,7 @@ define(function (require) {
                     size = this.getSize(obj.size || level - 1),
                     single = level === 1 || (_.keys(obj).length === 1),
                     show = _.isUndefined(obj.show) ? level > 3 : obj.show,
-                cur = $(Templates.templates["tutorial_item.tmpl"]({
+                cur = $(Templates.tutorial_item({
                     obj: obj,
                     top: level === 1,
                     single: single,
@@ -226,4 +226,4 @@ define(function (require) {
     return {
         start: start
     };
-}());
+});
