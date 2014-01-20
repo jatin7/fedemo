@@ -1,0 +1,101 @@
+---
+#
+# Playbook Name:: repos_yum
+#
+# Copyright 2013, MapR Technologies
+#
+# This playbook initializes the repository specifications for the 
+# MapR software.   It MUST be run before the attempt to install 
+# packages is made.
+#
+# If the "makecache" operation fails, we EXPLICITLY delete the 
+# repository specification files so that the next pass through
+# this playbook will work properly.
+#
+
+
+- name: MapR Repository Initialization for RedHat
+  hosts: RedHat
+  connection: "{{ cloud_connection|default('local') }}"
+  user: "{{ cloud_user|default('root') }}" 
+  sudo: "{{ mapr_sudo|default('True') }}"
+  gather_facts: False
+
+  vars:
+    core_url: "{{ mapr_core_repo_url }}"
+    eco_url: "{{ mapr_eco_repo_url }}"
+    mapr_archive_repo_url: "http://archive.mapr.com/"
+    mapr_public_repo_url: "http://package.mapr.com/"
+    mapr_yum_qa_repo_url: "http://yum.qa.lab/"
+# These strings are the default location for MapR repositories.
+# When it is the basis of our _repo_url settings, we carefully
+# handle the correct selection of repositories based on 
+# the version of MapR software selected.
+
+  tasks:
+  - file: path=/etc/yum.repos.d state=directory mode=755 
+
+  - ini_file: dest=/etc/yum.repos.d/mapr_core.repo
+      section='MapR_Core'
+      option="{{ item.key }}"
+      value="{{ item.value }}"
+      state=present
+    with_items:
+            - key: 'name'
+              value: "MapR Core Components"
+            - key: 'baseurl'
+              value: "{{ mapr_core_repo_url }}"
+            - key: 'gpgcheck'
+              value: "0"
+            - key: 'enabled'
+              value: "1"
+            - key: 'protected'
+              value: "1"
+
+  - stat: path="/etc/yum.repos.d/mapr_core.repo"
+    register: core_repo_file
+    always_run: True
+
+# Fix the baseurl when we're not using the public repositories
+  - lineinfile: dest=/etc/yum.repos.d/mapr_core.repo regexp='^baseurl.*' line='baseurl = {{ mapr_core_repo_url }}' state=present
+    register: yum_local_core_repo
+    when: core_repo_file.stat.exists  and  mapr_public_repo_url not in mapr_core_repo_url and mapr_archive_repo_url not in mapr_core_repo_url and mapr_yum_qa_repo_url not in mapr_core_repo_url
+
+  - ini_file: dest=/etc/yum.repos.d/mapr_ecosystem.repo
+              section='MapR_Ecosystem'
+              option="{{ item.key }}"
+              value="{{ item.value }}"
+              state=present
+    with_items:
+            - key: 'name'
+              value: "MapR Ecosystem Components"
+            - key: 'baseurl'
+              value: "{{ mapr_eco_repo_url }}"
+            - key: 'gpgcheck'
+              value: "0"
+            - key: 'enabled'
+              value: "1"
+            - key: 'protected'
+              value: "1"
+
+  - stat: path="/etc/yum.repos.d/mapr_ecosystem.repo"
+    register: eco_repo_file
+    always_run: True
+
+# Fix the baseurl when we're not using the public repositories
+  - lineinfile: dest=/etc/yum.repos.d/mapr_ecosystem.repo regexp="^baseurl.*" line='baseurl = {{ mapr_eco_repo_url }}' state=present
+    register: yum_local_eco_repo
+    when: eco_repo_file.stat.exists  and  mapr_public_repo_url not in mapr_eco_repo_url and mapr_archive_repo_url not in mapr_eco_repo_url and mapr_yum_qa_repo_url not in mapr_eco_repo_url
+
+        # We should be smarter here and only run makecache when
+        # the repositories actualy change.
+  - command: /usr/bin/yum makecache -y
+    register: yum_makecache_result
+    ignore_errors: True
+
+  - action: "shell mv -f /etc/yum.repos.d/mapr_*.repo /tmp"
+    when: yum_makecache_result | failed
+  - fail: msg="Unable to properly configure MapR Repositories.  Please confirm that the repository targets ({{ mapr_core_repo_url }}/v{{ mapr_version }}/redhat and {{ mapr_eco_repo_url }}/redhat) are accessible from your system."
+    when: yum_makecache_result|failed and yum_local_core_repo|skipped and yum_local_eco_repo|skipped
+  - fail: msg="Unable to properly configure MapR Repositories.  Please confirm that the repository targets ({{ mapr_core_repo_url }} and {{ mapr_eco_repo_url }}) are accessible from your system."
+    when: yum_makecache_result|failed and (not yum_local_core_repo|skipped  or  not yum_local_eco_repo|skipped)
