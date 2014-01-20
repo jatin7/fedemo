@@ -6,12 +6,7 @@
 # Pass in the trunk directory of your source code to link up VM for testing
 # IE ./localsetup.sh /home/funuser/development/default/trunk
 
-function checkReturn() {
-    if [ $? -ne 0 ]; then
-        echo "Failed, exiting early"
-        exit 1
-    fi
-}
+set -e
 
 if [ -z $1 ]; then
     echo "This script is used to copy the virtualmachine source over to the given directory."
@@ -36,9 +31,7 @@ CSS="$WORKSPACE/src/www/css"
 
 
 mv $WORKSPACE/src/www/index.html $WORKSPACE/src/www/mcs.html
-checkReturn
 cp -R $SRC $WORKSPACE
-checkReturn
 
 (cd $DIR &&  npm install)
 
