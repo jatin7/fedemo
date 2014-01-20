@@ -36,13 +36,6 @@ cp -R $SRC $WORKSPACE
 (cd $DIR &&  npm install)
 
 
-# Compile stylus css
-$BIN/stylus
-
-cat $SRC/www/css/virtualmachine.css >> $CSS/zelda.css
-
-# Run handlebars before. So when you concat templates, you get lastest copy
-$NODE/handlebars/bin/handlebars $JS/tmpl/src/**/*.tmpl -f $JS/tmpl/templates.js
 
 $NODE/uglify-js/bin/uglifyjs $JS/lib/jquery-1.9.1.js $JS/lib/jquery-ui-1.10.2.custom.js $JS/lib/lodash.js $JS/lib/backbone.js $JS/virtualmachine/init.js -o $JS/mapr_vm_main.min.js
 
