@@ -13,6 +13,7 @@ define(function (require) {
         PageManager = require("pm"),
         Utility = require("util"),
         TutorialText = require("text/Tutorial"),
+        HueTutorialText = require("text/Hue-Tutorial"),
         start = function () {
             $("body").append(Templates.tutorial_base());
             Init = new init();
@@ -80,7 +81,8 @@ define(function (require) {
 
             },
             render: function () {
-                _.each(TutorialText, function (item) {
+                var Text = this.isMCS() ? TutorialText : HueTutorialText;
+                _.each(Text, function (item) {
                     this._render(this.$el, item, 1);
                 }, this);
                 this.$el.resizable({
