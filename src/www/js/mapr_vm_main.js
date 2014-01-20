@@ -1,25 +1,12 @@
-//
-// Pre-load script files that are necessary for the app to function.
-//
-//
+/*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, immed:true, indent:4, latedef:true, newcap:true,
+* noarg:true, noempty:true, nonew:true, plusplus:true, quotmark:double, regexp:true, undef:true, unused:true,
+* strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:true, jquery:true*/
+/*global require:true*/
 
-(function(){
-    var _loadScript, mapr_scripts, i;
-
-    _loadScript = function (url) {
-        document.write("<"+"script src='"+url+"'></"+"script>");
-    };
-
-    mapr_scripts = [
-        'js/lib/jquery-1.9.1.js',
-        'js/lib/jquery-ui-1.10.2.custom.js',
-        'js/lib/lodash.js',
-        'js/lib/backbone.js',
-        'js/virtualmachine/init.js'
-    ];
-
-    for (i=0;i<mapr_scripts.length;i++) {
-        _loadScript(mapr_scripts[i]);
-    }
-
-})();
+require(["./config"], function () {
+    require(["jquery", "jqueryui", "utility/JQueryPlugins", "views/virtualmachine/init"], function ($, $ui, $pl, Init) {
+        $(function () {
+            Init.start();
+        })
+    })
+});
