@@ -3,16 +3,16 @@
  strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:true, jquery:true*/
 /*global define:true*/
 
-(function () {
-    "use strict"
-    MAPR.Text = MAPR.Text || {};
+define(function (require) {
+    "use strict";
+
     var img = function (img, width, height) {
         return "<img class='vm_inline' style='height:" + (!!height ? height + "px": "inherit") + 
             ";width:" + (!!width ? width + "px": "inherit") + 
             ";'src='images/vm/" + img + ".png'></img>";
     };
 
-    MAPR.Text.Tutorial = [
+    return [
             {
                 desc: "Introducing MapR's Sandbox for Hadoop",
                 text: [
@@ -968,4 +968,4 @@
                 desc: "Support and Feedback",
                 text: "If you require assistance or have feedback regarding MapR's Hadoop Sandbox, submit your questions and comments to: <a href='http://answers.mapr.com' target='_blank'>http://answers.mapr.com</a> "
             }]; // END TUTORIAL
-}());
+});
