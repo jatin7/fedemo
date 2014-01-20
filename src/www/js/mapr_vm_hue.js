@@ -13,21 +13,16 @@ strict: true, trailing:true, maxdepth: 4, maxstatements:40, maxlen:120, browser:
 // Initialize require
 // Call init which should load all items that should be loaded on runtime.
 require(["./config"], function () {
-    define(function (require) {
-        "use strict";
-        // Initial load of all required modules
-        //var Munchkin = require("munchkin"),
-        require("underscore");
-        require("jquery");
-        require("jqueryui");
-        require("utility/JQueryPlugins");
-        require("templates");
-        require("tmpl/TemplateHelpers");
-        require("routers/Paths");
-        var Tutorial = require("views/tuturial/init");
+    "use strict";
+    require(["jquery", "underscore", "jqueryui", "utility/JQueryPlugins",
+            "tmpl/TemplateHelpers", "views/tutorial/Init"],
+            function ($, _, $ui, $plugin, tmplHelper, Tutorial) {
+
         $(function () { // Document Ready
             Tutorial.start();
         });
 
     });
 });
+
+
