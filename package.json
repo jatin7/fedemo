@@ -10,9 +10,14 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "uglify-js": "~2.4.0",
-    "handlebars": "~1.0.12",
-    "stylus": "~0.38.0",
-    "nib": "~1.0.1"
+      "grunt-cli": "~0.1.6",
+      "grunt": "~0.4.1",
+      "grunt-contrib-handlebars": "~0.5.9",
+      "grunt-contrib-stylus": "~0.5.0",
+      "grunt-contrib-uglify": "~0.2.1",
+      "grunt-contrib-cssmin": "~0.6.0",
+      "grunt-contrib-clean": "~0.4.0",
+      "grunt-contrib-copy": "~0.4.1",
+      "grunt-contrib-requirejs": "~0.4.1"
   }
 }
