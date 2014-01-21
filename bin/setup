@@ -24,11 +24,29 @@ DIR2="`dirname $DIR`"
 BIN="$DIR2/bin"
 SRC="$DIR2/src"
 NODE="$DIR2/node_modules"
-ADMIN="$1/src/adminuiapp/src/main/webapp"
-WORKSPACE="$1"
+WORKSPACE=$(cd "$1"; pwd)
+ADMIN="$WORKSPACE/src/adminuiapp/src/main/webapp"
 JS="$WORKSPACE/src/www/js"
 CSS="$WORKSPACE/src/www/css"
 
 
 mv $WORKSPACE/src/www/index.html $WORKSPACE/src/www/mcs.html
 cp -R $SRC $WORKSPACE
+
+sed -i -e '
+s#\("www/out/mapr_prod_core\.min\.js":.*\)#\1,\
+    "www/out/mapr_vm_hue.min.js": ["www/out/lib/require.js", "www/out/mapr_vm_hue.js"],\
+    "www/out/mapr_vm_main.min.js": ["www/out/lib/require.js", "www/out/mapr_vm_main.js"]#' $WORKSPACE/src/Gruntfile.js
+
+
+sed -i -e 's#\(name: "mapr_prod_core",\)#name: "mapr_vm_main",\
+                          include: ["jquery", "jqueryui", "utility/JQueryPlugins", "views/virtualmachine/init"]\
+                      },\
+                      {\
+                          name: "mapr_vm_hue",\
+                          include: ["jquery", "underscore", "jqueryui", "utility/JQueryPlugins",\
+                              "tmpl/TemplateHelpers", "views/tutorial/Init"]\
+                      },\
+                      {\
+                          \1#' $WORKSPACE/src/Gruntfile.js
+
