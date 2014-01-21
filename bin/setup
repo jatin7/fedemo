@@ -32,13 +32,3 @@ CSS="$WORKSPACE/src/www/css"
 
 mv $WORKSPACE/src/www/index.html $WORKSPACE/src/www/mcs.html
 cp -R $SRC $WORKSPACE
-
-(cd $DIR &&  npm install)
-
-
-
-$NODE/uglify-js/bin/uglifyjs $JS/lib/jquery-1.9.1.js $JS/lib/jquery-ui-1.10.2.custom.js $JS/lib/lodash.js $JS/lib/backbone.js $JS/virtualmachine/init.js -o $JS/mapr_vm_main.min.js
-
-$NODE/uglify-js/bin/uglifyjs $JS/lib/jquery-1.9.1.js $JS/lib/jquery-ui-1.10.2.custom.js $JS/lib/handlebars.js $JS/lib/lodash.js $JS/lib/backbone.js $JS/tmpl/templates.js $JS/utility/Ajax.js $JS/utility/Popups.js $JS/utility/JQueryPlugins.js $JS/utility/Plugins.js $JS/utility/Helpers.js $JS/utility/Standard.js $JS/tmpl/TemplateHelpers.js $JS/text/Hue-Tutorial.js $JS/widgets/Tutorial.js -o $JS/mapr_vm_hue.min.js
-
-$NODE/uglify-js/bin/uglifyjs $JS/init/Page.js $JS/text/Tutorial.js $JS/widgets/Tutorial.js -o $JS/init/Page.js
