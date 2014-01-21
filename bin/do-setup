@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 WORKSPACE=$1
 (cd $WORKSPACE; hg revert --all; hg clean);
