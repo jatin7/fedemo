@@ -9,7 +9,7 @@
 require(["./config"], function () {
     "use strict";
     //require(["jquery", "views/tutorial/init", "init"], function ($, Page, Tutorial) {
-    require(["jquery", "jqueryui", "utility/JQueryPlugins", "views/virtualmachine/init"], function ($, $ui, $pl, Init) {
+    require(["jquery", "jqueryui", "utility/JQueryPlugins", "views/virtualmachine/Init"], function ($, $ui, $pl, Init) {
         $(function () { // Document Ready
             Init.start();
         });
