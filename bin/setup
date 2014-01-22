@@ -39,6 +39,7 @@ s#\("www/out/mapr_prod_core\.min\.js":.*\)#\1,\
     "www/out/mapr_vm_main.min.js": ["www/out/lib/require.js", "www/out/mapr_vm_main.js"]#' $WORKSPACE/src/Gruntfile.js
 
 
+sed -i -e 's#\(include: \["init"\)\]#\1, "views/tutorial/Init"]#' $WORKSPACE/src/Gruntfile.js
 sed -i -e 's#\(name: "mapr_prod_core",\)#name: "mapr_vm_main",\
                           include: ["jquery", "jqueryui", "utility/JQueryPlugins", "views/virtualmachine/Init"]\
                       },\
