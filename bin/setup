@@ -6,8 +6,6 @@
 # Pass in the trunk directory of your source code to link up VM for testing
 # IE ./localsetup.sh /home/funuser/development/default/trunk
 
-set -e
-
 if [ -z $1 ]; then
     echo "This script is used to copy the virtualmachine source over to the given directory."
     echo "This is intended mainly for running the build for the VM"
@@ -28,19 +26,23 @@ WORKSPACE=$(cd "$1"; pwd)
 ADMIN="$WORKSPACE/src/adminuiapp/src/main/webapp"
 JS="$WORKSPACE/src/www/js"
 CSS="$WORKSPACE/src/www/css"
+GRUNT="$WORKSPACE/src/Gruntfile.js"
 
 
 mv $WORKSPACE/src/www/index.html $WORKSPACE/src/www/mcs.html
 cp -R $SRC $WORKSPACE
 
-sed -i -e '
-s#\("www/out/mapr_prod_core\.min\.js":.*\)#\1,\
-    "www/out/mapr_vm_hue.min.js": ["www/out/lib/require.js", "www/out/mapr_vm_hue.js"],\
-    "www/out/mapr_vm_main.min.js": ["www/out/lib/require.js", "www/out/mapr_vm_main.js"]#' $WORKSPACE/src/Gruntfile.js
+grep "name: \"mapr_vm_main\"" $GRUNT &> /dev/null
+
+if [ $? -eq 1 ]; then
+    sed -i -e '
+    s#\("www/out/mapr_prod_core\.min\.js":.*\)#\1,\
+        "www/out/mapr_vm_hue.min.js": ["www/out/lib/require.js", "www/out/mapr_vm_hue.js"],\
+        "www/out/mapr_vm_main.min.js": ["www/out/lib/require.js", "www/out/mapr_vm_main.js"]#' $GRUNT
 
 
-sed -i -e 's#\(include: \["init"\)\]#\1, "views/tutorial/Init"]#' $WORKSPACE/src/Gruntfile.js
-sed -i -e 's#\(name: "mapr_prod_core",\)#name: "mapr_vm_main",\
+    sed -i -e 's#\(include: \["init"\)\]#\1, "views/tutorial/Init"]#' $GRUNT
+    sed -i -e 's#\(name: "mapr_prod_core",\)#name: "mapr_vm_main",\
                           include: ["jquery", "jqueryui", "utility/JQueryPlugins", "views/virtualmachine/Init"]\
                       },\
                       {\
@@ -49,5 +51,7 @@ sed -i -e 's#\(name: "mapr_prod_core",\)#name: "mapr_vm_main",\
                               "tmpl/TemplateHelpers", "views/tutorial/Init"]\
                       },\
                       {\
-                          \1#' $WORKSPACE/src/Gruntfile.js
+                          \1#' $GRUNT
+
+fi
 
