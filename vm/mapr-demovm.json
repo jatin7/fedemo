@@ -48,7 +48,7 @@
     "format" : "ova",
     "vboxmanage" : [
       ["modifyvm", "{{.Name}}", "--memory", "6144"],
-      ["modifyvm", "{{.Name}}", "--cpus", "1"]
+      ["modifyvm", "{{.Name}}", "--cpus", "2"]
     ]
   },
   {
@@ -78,6 +78,11 @@
     "type": "file",
     "source": "files/startup.tar.gz",
     "destination": "/tmp/startup.tar.gz",
+    "only": ["virtualbox-ovf"]
+    },{
+    "type": "file",
+    "source": "/home/MAPRTECH/share/jfota/mapr-core-3.1.0-VMDEMO.x86_64.rpm",
+    "destination": "/tmp/mapr-core-3.1.0-VMDEMO.x86_64.rpm",
     "only": ["virtualbox-ovf"]
     },
     {

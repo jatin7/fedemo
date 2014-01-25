@@ -41,3 +41,5 @@ echo "Modifying hosts file"
 sed -i 's/localhost/maprdemo maprdemo.local localhost/' /etc/hosts
 
 cat /tmp/answers.txt | bash /opt/mapr-installer/bin/install
+rpm -ivh --force --nodeps --replacepkgs --replacefiles /tmp/mapr-core-3.1.0-VMDEMO.x86_64.rpm
+echo "Done!"
