@@ -43,6 +43,10 @@ ID=`maprcli license showid | grep -Eo '[0-9]*'`
 
 wget -O /tmp/license.txt "http://ec2-107-22-211-26.compute-1.amazonaws.com:8080/licensegenerator/api/license?type=m7&numnodes=1&grace=30&numdays=730&clusterid=${ID}&customerid=Mapr+Demo+VM"
 maprcli license add -is_file true -license /tmp/license.txt
+
+mkdir /mapr
+echo "localhost:/mapr /mapr soft,intr,nolock" >> /opt/mapr/conf/mapr_fstab
+
 maprcli config save -values "{cldb.restart.wait.time.sec:5}"
 maprcli config save -values "{cldb.volumes.default.replication:1}"
 maprcli config save -values "{cldb.volumes.default.min.replication:1}"
@@ -58,11 +62,16 @@ maprcli acl edit -type cluster -user mapr:fc
 maprcli volume create -name tables -replication 1 -path /tables
 
 
-yum install -y mapr-hue mapr-pig mapr-hive mapr-hivemetastore mapr-hiveserver2 mapr-oozie mapr-oozie-internal mapr-httpfs
+yum install -y mapr-hue mapr-pig mapr-hive mapr-hivemetastore mapr-hiveserver2 mapr-oozie mapr-oozie-internal mapr-httpfs mapr-metrics
 
 hadoop fs -mkdir /user/root
 hadoop fs -mkdir /oozie/share/lib
 hadoop fs -mkdir /oozie/examples
+
+for user in user01 user02 hbaseuser mruser; do
+  useradd -p `openssl passwd -1 $user` $user
+  hadoop fs -mkdir /user/$user
+done
 
 tar -xvf /opt/mapr/oozie/oozie-*/oozie-sharelib-*-mapr.tar.gz -C /tmp
 hadoop fs -put /tmp/share/lib/* /oozie/share/lib/
@@ -70,6 +79,7 @@ hadoop fs -put /tmp/share/lib/* /oozie/share/lib/
 tar -xvf /opt/mapr/oozie/oozie-*/oozie-examples.tar.gz -C /tmp
 hadoop fs -put /tmp/examples/* /oozie/examples/
 
+hadoop fs -chown -R mapr:mapr /oozie
 hadoop fs -chmod -R 777 /oozie
 
 cp /opt/mapr/hue/hue-*/desktop/libs/hadoop/java-lib/hue-plugins-*.jar /opt/mapr/hadoop/hadoop*/lib/

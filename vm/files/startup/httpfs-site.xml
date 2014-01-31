@@ -15,11 +15,11 @@
 <configuration>
 <!-- Hue HttpFS proxy user setting -->
 <property>
-  <name>httpfs.proxyuser.root.hosts</name>
+  <name>httpfs.proxyuser.mapr.hosts</name>
   <value>*</value>
 </property>
 <property>
-  <name>httpfs.proxyuser.root.groups</name>
+  <name>httpfs.proxyuser.mapr.groups</name>
   <value>*</value>
 </property>
 </configuration>
