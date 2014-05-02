@@ -1,0 +1,48 @@
+{
+	"variables":{
+		"mapr_version":"3.1.0",
+		"vertica_version":"7.0.1"
+	},
+	"builders":[
+		{
+			"name":"vertica",
+			"vm_name":"MapR-Vertica-{{ user `mapr_version` }}-{{ user `vertica_version`}}",
+			"type":"virtualbox-ovf",
+			"source_path":"output-virtualbox-ovf/MapR-{{ user `mapr_version` }}.ova",
+			"ssh_username":"root",
+			"ssh_password":"mapr",
+			"ssh_wait_timeout":"300s",
+			"import_opts":"keepallmacs",
+			"shutdown_command":"shutdown -P now",
+			"format":"ova"
+		}
+	],
+	"provisioners":[
+		{
+			"type":"file",
+			"source":"files/start_vertica.sh",
+			"destination":"/opt/mapr/start_vertica.sh",
+			"only":[
+				"vertica"
+			]
+		},
+		{
+			"type":"file",
+			"source":"vertica.rpm",
+			"destination":"/tmp/vertica.rpm",
+			"only":[
+				"vertica"
+			]
+		},
+		{
+			"type":"shell",
+			"execute_command":"bash '{{.Path}}'",
+			"scripts":[
+				"script/vertica.sh"
+			],
+			"only":[
+				"vertica"
+			]
+		}
+	]
+}
