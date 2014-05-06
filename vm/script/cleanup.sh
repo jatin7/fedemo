@@ -15,3 +15,4 @@ yum -y clean all
 rm -rf /tmp/*
 rm -rf /root/mapr-setup
 rm -rf /home/maprdev/*
+rm -rf /root/*.iso
