@@ -1,0 +1,331 @@
+#! /bin/bash
+###
+#
+# chkconfig: 35 20 0
+# description:  Enables MapR warden services
+#
+# LSB compliant service control script
+#
+### BEGIN INIT INFO
+# Provides:       mapr-warden
+# Required-Start: $network
+# Required-Stop:  $network
+# Should-Start:
+# Should-Stop:
+# Default-Start:  3 5
+# Default-Stop:   0 1 2 6
+# Short-Description: Start MapR warden service
+### END INIT INFO
+
+
+# Source function library.
+. /etc/init.d/functions
+
+# Define LSB log_* functions.
+# Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
+. /lib/lsb/init-functions
+
+BASEMAPR=${MAPR_HOME:-/opt/mapr}
+PATH=$PATH:/sbin:/usr/sbin:/bin:/usr/bin:$BASEMAPR/warden/
+PATH=$PATH:$BASEMAPR/lib
+PATH=$PATH:$BASEMAPR/server
+env=${BASEMAPR}/conf/env.sh
+[ -f $env ] && . $env
+
+if [ ! -z $JAVA_HOME ]; then
+ export PATH=$JAVA_HOME/bin:$PATH
+fi
+
+# Bug6901: set default OS limits
+# max processes
+ulimit -u ${MAPR_ULIMIT_U:-64000}
+# max file descriptors
+ulimit -n ${MAPR_ULIMIT_N:-64000}
+# max socket connections
+sysctl -q -w net.core.somaxconn=${MAPR_SYSCTL_SOMAXCONN:-20000}
+
+# Bug8992: use root's default umask 022 instead of non-root 002
+umask ${MAPR_UMASK:-022}
+
+DESC="warden daemon"
+NAME=warden
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/mapr-$NAME
+
+#Exit if the package is not installed
+[ -x "$SCRIPTNAME" ] || exit 0
+
+# Read configuration variable file if it is present.
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+
+. $BASEMAPR/server/initscripts-common.sh
+. $BASEMAPR/server/configure-common.sh
+
+MFS_PORT=$(awk -F = '$1 == "mfs.server.port" { print $2 }' ${BASEMAPR}/conf/mfs.conf)
+
+# Variables
+RC_LOCK_DIR=/var/lock/subsys
+WARDEN_LOCK_FILE=${RC_LOCK_DIR}/mapr-warden
+
+WARDEN_HOME=$BASEMAPR
+WARDEN_LOG_DIR=${WARDEN_HOME}/logs
+WARDEN_LOG_FILE=${WARDEN_LOG_DIR}/warden.log
+WARDEN_PID_DIR=${WARDEN_HOME}/logs
+WARDEN_OPTS="-Dmapr.library.flatclass -Dcom.sun.management.jmxremote"
+WARDEN_CLASSPATH="${WARDEN_HOME}:${WARDEN_HOME}/conf"
+for i in ${WARDEN_HOME}/lib/*.jar; do
+  WARDEN_CLASSPATH=${WARDEN_CLASSPATH}:$i;
+done
+WARDEN_CONF=${WARDEN_HOME}/conf/warden.conf
+JT_STOP_COMMAND=$(grep "service.command.jt.stop" ${WARDEN_CONF} | sed 's/service.command.jt.stop=//')
+
+# java.library.path for rpc in c++
+WARDEN_JAVA_LIBRARY_PATH="${WARDEN_HOME}/lib"
+
+WARDEN_OPTS="${WARDEN_OPTS} -Dpid=$$ -Dpname=warden -Dmapr.home.dir=${WARDEN_HOME}"
+
+# stop these guys at the end (even if it wan't started by warden)
+STOP_SCRIPTS="/etc/init.d/mapr-hoststats /etc/init.d/mapr-nfsserver \
+  /etc/init.d/mapr-cldb /etc/init.d/mapr-mfs"
+
+command="WARDEN"
+log=${WARDEN_LOG_FILE}
+pid=${WARDEN_PID_DIR}/warden.pid
+logFile=${WARDEN_LOG_DIR}/wardeninit.log
+
+DAEMON_CONF="$BASEMAPR/conf/daemon.conf"
+if [ -e $DAEMON_CONF ]; then
+  MAPR_USER=$(awk -F = '$1 == "mapr.daemon.user" { print $2 }' $DAEMON_CONF)
+  MAPR_GROUP=$(awk -F = '$1 == "mapr.daemon.group" { print $2 }' $DAEMON_CONF)
+  RUN_AS_MAPR_USER=$(awk -F = '$1 == "mapr.daemon.runuser.warden" { print $2 }' $DAEMON_CONF)
+fi
+
+rotate_log()
+{
+    log=$1;
+    num=10;
+    if [ -n "$2" ]; then
+      num=$2
+    fi
+    if [ -f "$log" ]; then # rotate logs
+      while [ $num -gt 1 ]; do
+       prev=`expr $num - 1`
+       [ -f "$log.$prev" ] && mv "$log.$prev" "$log.$num"
+       num=$prev
+      done
+      mv "$log" "$log.$num";
+    fi
+}
+
+SetupEtcHosts()
+{
+  DemoSuppScr=$BASEMAPR/demovm/DemoVMSupport.pl
+  if [ -x $DemoSuppScr ]; then
+    $DemoSuppScr >> ${WARDEN_LOG_FILE} 2>&1
+  fi
+}
+
+do_start()
+{
+  date >> $logFile
+  echo "Start warden" >> $logFile
+  if [ -f $pid ]; then
+    if kill -0 `cat $pid` >> $logFile 2>&1; then
+      # check if it is really warden or some other process
+      WPID=$(cat $pid)
+      if cat /proc/$WPID/cmdline | grep Warden >> $logFile 2>&1; then
+       echo $command running as process `cat $pid`. Stop it | tee -a ${WARDEN_LOG_FILE}
+       exit 0
+      fi
+    fi
+  fi
+  JAVA=$(CheckForJava)
+  if [ $? != 0 ]; then
+     echo $JAVA | tee -a ${WARDEN_LOG_FILE}
+     exit 1
+  fi
+
+  # setup hostname
+  HOSTNAME_FILE="$BASEMAPR/hostname"
+
+  echo `/bin/hostname --fqdn` > ${HOSTNAME_FILE}.$$
+  if [ $? -ne 0 ]; then
+     echo "INFO: cmd echo `/bin/hostname --fqdn` failed" | tee -a ${WARDEN_LOG_FILE}
+     echo "      Please check your DNS settings" | tee -a ${WARDEN_LOG_FILE}
+     echo "      Using previous version of ${HOSTNAME_FILE}" | tee -a ${WARDEN_LOG_FILE}
+  else
+     cp ${HOSTNAME_FILE}.$$ ${HOSTNAME_FILE}
+  fi
+  rm ${HOSTNAME_FILE}.$$
+
+  if [[ ! -f ${HOSTNAME_FILE} ]] ; then
+    echo "ERROR: ${HOSTNAME_FILE} not present. Exiting !" | tee -a ${WARDEN_LOG_FILE}
+    exit 1
+  fi
+
+  if [[ ! -s ${HOSTNAME_FILE} ]] ; then
+    echo "ERROR: Empty ${HOSTNAME_FILE}. Exiting !" | tee -a ${WARDEN_LOG_FILE}
+    exit 1
+  fi
+
+  #create cpu_mem_disk file
+  CreateCpuMemDiskFile;
+
+  # setup core generation
+  mkdir -p /opt/cores
+  chmod 777 /opt/cores/
+  echo "/opt/cores/%e.core.%p.%h" > /proc/sys/kernel/core_pattern
+
+  rotate_log $log
+
+  # MapR Demo VM support: By default the VM images have 127.0.0.1 -> hostname.
+  # This causes create*volumes.sh to hang. Set up the ip -> host in /etc/hosts.
+  SetupEtcHosts;
+
+  # Stop JT if it is running for some reason - just in case it is a residue from previous crash
+  ${JT_STOP_COMMAND} >> $logFile 2>&1
+
+  CURR_USER=`id -nu`
+  CURR_GROUP=`id -ng`
+  if [ "xxx$MAPR_USER" != "xxx" -a "$MAPR_USER" != "root" ]; then
+    chown $MAPR_USER $HOSTNAME_FILE
+    ChownRootFiles $BASEMAPR/logs $MAPR_USER $MAPR_GROUP
+    if [ "xxx$RUN_AS_MAPR_USER" = "xxx1" ]; then
+      MAPR_SHELL="/bin/sh"
+      RUN_AS_CMD="su -s $MAPR_SHELL -p $MAPR_USER -c"
+      CURR_USER=$MAPR_USER
+      CURR_GROUP=$MAPR_GROUP
+    fi
+  fi
+
+  ConfigureRunUserForHadoop $CURR_USER
+  ConfigureRunUserTTLocalDir $CURR_USER $CURR_GROUP
+  SetPermissionOnLinuxTaskController $CURR_GROUP
+
+  WARDEN_CMD="$JAVA \
+  -XX:ErrorFile='/opt/cores/hs_err_pid%p.log' \
+  -XX:-HeapDumpOnOutOfMemoryError \
+  -XX:HeapDumpPath='/opt/cores' \
+  -XX:+UseConcMarkSweepGC \
+  -Dlog.file=${WARDEN_LOG_FILE} \
+  -Djava.library.path=${WARDEN_JAVA_LIBRARY_PATH} -classpath \
+  ${WARDEN_CLASSPATH} ${WARDEN_OPTS} \
+  com.mapr.warden.WardenMain ${WARDEN_CONF}"
+  if [ "xxx$RUN_AS_CMD" != "xxx" ]; then
+    rm -f $pid
+    $RUN_AS_CMD "$WARDEN_CMD & echo \$! > $pid " >> $logFile 2>&1 < /dev/null &
+  else
+    $WARDEN_CMD >> $logFile 2>&1 < /dev/null &
+    echo $! > $pid
+  fi
+
+  wait_count=30
+  echo "Starting $command, logging to $log."
+  while ! cat $pid > /dev/null 2>&1 && [ $wait_count -gt 1 ] ; do
+    wait_count=`expr $wait_count - 1`
+    echo -n "."
+    sleep 1
+  done
+  echo
+
+  if kill -0 `cat $pid` >> $logFile 2>&1; then
+    echo "For diagnostics look at ${BASEMAPR}/logs/ for createsystemvolumes.log, warden.log and configured services log files"
+    if [ "xxx$RUN_AS_CMD" != "xxx" ]; then
+      $RUN_AS_CMD "nohup bash ${BASEMAPR}/server/createsystemvolumes.sh" >> $logFile 2>&1 &
+    else
+      nohup bash ${BASEMAPR}/server/createsystemvolumes.sh >> $logFile 2>&1 &
+    fi
+
+    [ -d $RC_LOCK_DIR ] && touch ${WARDEN_LOCK_FILE}
+    echo "Warden started" >> $logFile
+  else
+    echo "Warden start failed" >> $logFile
+    echo "Error: warden can not be started. See ${WARDEN_LOG_FILE} for details" | tee -a ${WARDEN_LOG_FILE}
+    exit 1
+  fi
+}
+
+do_stop()
+{
+  date >> $logFile
+  echo "Stop warden" >> $logFile
+  status=0
+  if [ -f $pid ]; then
+    if kill -0 `cat $pid` >> $logFile 2>&1; then
+      echo stopping $command
+      kill `cat $pid`
+      while kill -0 `cat $pid` >> $logFile 2>&1; do
+          sleep 1;
+      done
+      # clean up ipcrm
+      ipcrm -M $MFS_PORT >> $logFile 2>&1
+      status=0
+    else
+      echo $command not running. | tee -a ${WARDEN_LOG_FILE}
+      status=1
+    fi
+  else
+    echo $command not running. | tee -a ${WARDEN_LOG_FILE}
+    status=1
+  fi
+
+  volScriptPid="${BASEMAPR}/logs/createsystemvolumes.sh.pid"
+  #kill createsystemvolumes.sh if its still running
+  if [ -f $volScriptPid ]; then
+    kill -9 `cat $volScriptPid` >> $logFile 2>&1
+  fi
+  # Now make sure we dont have any of our processes running
+  echo looking to stop mapr-core processes not started by warden | tee -a ${WARDEN_LOG_FILE}
+  for stop_script in ${STOP_SCRIPTS}
+  do
+    if [ -x ${stop_script} ]; then
+      ${stop_script} stop >> $logFile 2>&1
+    fi
+  done
+
+  rm -f ${WARDEN_LOCK_FILE}	# ignore errors
+
+  return ${status}
+}
+
+do_status() {
+  if [ -f $pid ]; then
+    if kill -0 `cat $pid` >> $logFile 2>&1; then
+      echo $command running as process `cat $pid`.
+      return 0
+    fi
+      echo $pid exists with pid `cat $pid` but no $command.
+      return 1
+  fi
+  echo $command not running.
+  return 1
+}
+
+
+if [ $(id -u) -ne 0 ]; then
+   echo "Must be root to run warden start/stop/restart commands" | tee -a ${WARDEN_LOG_FILE}
+   exit 1
+fi
+
+case "$1" in
+    start)
+        do_start
+        ;;
+    stop)
+        do_stop
+        ;;
+    status)
+        do_status
+        ;;
+    restart)
+        do_stop
+        do_start
+        ;;
+    *)
+        echo "Usage: $SCRIPTNAME {start|stop|status|restart|}" >&2
+        exit 3
+        ;;
+esac
+
+
+exit $?
