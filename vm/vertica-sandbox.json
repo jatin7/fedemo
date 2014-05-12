@@ -101,13 +101,13 @@
   },
   {
     "type"        : "file",
-    "source"      : "/Users/dtucker/Downloads/mapr-patch-3.0.2.22510.GA-25250.x86_64.rpm",
+    "source"      : "/var/packages/mapr-patch-3.0.2.22510.GA-25250.x86_64.rpm",
     "destination" : "/tmp/mapr-patch-3.0.2.rpm",
     "only"        : ["sandbox","vertica"]
   },
   {
     "type":"file",
-    "source":"files/mapr-warden-302-patched
+    "source":"files/mapr-warden-302-patched",
     "destination":"/opt/mapr/initscripts/mapr-warden-patched",
     "only":[ "vertica" ]
   },

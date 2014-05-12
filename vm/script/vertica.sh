@@ -104,7 +104,7 @@ chown dbadmin:verticadba /vertica
 sudo -u mapr echo localhost:/mapr/demo.mapr.com/vertica/$MAPR_HOSTNAME /vertica nolock,hard >> /opt/mapr/conf/mapr_fstab
 
 service mapr-warden stop
-sed -i "s/# chkconfig: .*/# chkconfig: 35 20 0/" /etc/init.d/mapr-warden
+sed -i "s/# chkconfig: .*/# chkconfig: 35 20 40/" /etc/init.d/mapr-warden
 chkconfig mapr-warden resetpriorities
 
 # Last, but not least, the VMDEMO build for 3.0 releases had a
