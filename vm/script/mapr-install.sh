@@ -1,6 +1,7 @@
 #!/bin/bash -eux
 
-wget http://yum.qa.lab/mapr-installer-multi/mapr-setup -O /root/mapr-setup
+# wget http://yum.qa.lab/mapr-installer-multi/mapr-setup -O /root/mapr-setup
+wget http://archive.mapr.com/releases/v3.0.3/redhat/mapr-setup -O /root/mapr-setup
 
 bash /root/mapr-setup
 
