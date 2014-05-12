@@ -11,7 +11,7 @@ cd /opt/mapr-installer
 
 cat > /root/config.sandbox << EOF
 [Control_Nodes]
-maprdemo.local
+maprdemo
 [Data_Nodes]
 [Client_Nodes]
 [Options]
@@ -46,7 +46,7 @@ yum install -y http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.no
 bash /opt/mapr-installer/bin/install --password mapr --cfg /root/config.sandbox --quiet --user root --debug new
 echo "Install Done!"
 
-ID=`maprcli license showid | grep -Eo '[0-9]*'`
+ID=`maprcli license showid -noheader`
 wget -O /tmp/license.txt "http://ec2-107-22-211-26.compute-1.amazonaws.com:8080/licensegenerator/api/license?type=m7&numnodes=1&grace=30&numdays=730&clusterid=${ID}&customerid=Mapr+Demo+VM&partnerName="
 maprcli license add -is_file true -license /tmp/license.txt
 service mapr-nfsserver restart
