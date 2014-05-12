@@ -1,9 +1,12 @@
 #!/bin/bash
 
-echo Waiting for MapR Services to Start before configuring
 # wait for CLDB service to be running
-while [ `maprcli node list | wc -l` -lt 2 ]; do
-   sleep 1
+#
+echo Waiting for MapR Services to Start before configuring
+maprcli node cldbmaster 2> /dev/null
+while [ $? -ne 0 ] ; do
+	sleep 5
+	maprcli node cldbmaster 2> /dev/null
 done
 
 
@@ -13,20 +16,47 @@ rpm -i /tmp/vertica.rpm
 chkconfig vertica_agent off
 chkconfig verticad off
 cp -d /etc/init.d/verticad /opt/mapr/initscripts
+
 cat > /etc/sudoers.d/mapr-vertica_conf <<DELIM
-mapr ALL=(root) NOPASSWD:/opt/mapr/initscripts/vertica_wrapper,/opt/vertica/sbin/verticad
+mapr ALL=(dbadmin) NOPASSWD:ALL
+mapr ALL=(root) NOPASSWD:/opt/mapr/initscripts/vertica_wrapper,/opt/vertica/sbin/verticad,/bin/chown
 Defaults!/opt/mapr/initscripts/vertica_wrapper !requiretty
 Defaults!/opt/vertica/sbin/verticad !requiretty
+Defaults!/bin/chown !requiretty
+Defaults!/opt/vertica/bin/admintools !requiretty
 DELIM
+
+#
+# Add Vertica to the MapR warden service management infrastructure
+#
+chmod a+x /opt/mapr/server/start_vertica_db.sh
+chmod a+x /opt/mapr/server/test_vertica_db.sh
 
 cat > /opt/mapr/initscripts/vertica_wrapper <<DELIM
 #!/bin/bash
-/usr/bin/sudo /opt/mapr/initscripts/verticad $*
-exit $?
+
+# Make sure VM IP is properly included in configuration
+if [ \$1 = "start" ] ; then
+	MYIP=\`ifconfig eth0 | grep "inet addr" | awk '{print \$2}' | cut -d: -f2\`
+
+	VCONFIG=/opt/vertica/config/admintools.conf
+	sed -i "s/^hosts.*/hosts = \$MYIP/" \$VCONFIG
+	sed -i "s/node0001 = [^,]*,/node0001 = \$MYIP,/g" \$VCONFIG
+	/usr/bin/sudo chown --reference=/opt/vertica/config \$VCONFIG
+
+	[ -x /opt/mapr/server/start_vertica_db.sh ] && /opt/mapr/server/start_vertica_db.sh example 
+
+	/usr/bin/sudo /opt/mapr/initscripts/verticad status
+else
+	[ \$1 = "stop" ] && /usr/bin/sudo -u dbadmin /opt/vertica/bin/admintools -t stop_db -d example
+	/usr/bin/sudo /opt/mapr/initscripts/verticad \$*
+fi
+
+exit \$?
 DELIM
 
 chmod +x /opt/mapr/initscripts/vertica_wrapper
-
+usermod -G verticadba mapr		# so that the updating of admintools can work
 
 cat > /opt/mapr/conf/conf.d/warden.HPVertica.conf <<DELIM
 services=HPVertica:all:nfs
@@ -68,40 +98,22 @@ mkdir /vertica
 chown dbadmin:verticadba /vertica
 
 
-sudo -u mapr echo localhost:/mapr/my.cluster.com/vertica/$MAPR_HOSTNAME /vertica nolock,hard >> /opt/mapr/conf/mapr_fstab
+# NOTE: the cluster name (eg demo.mapr.com) MUST match
+#	the configuration in the mapr-install.sh script that sets up the VM
+#
+sudo -u mapr echo localhost:/mapr/demo.mapr.com/vertica/$MAPR_HOSTNAME /vertica nolock,hard >> /opt/mapr/conf/mapr_fstab
 
-mount localhost:/mapr/my.cluster.com/vertica/$MAPR_HOSTNAME /vertica
+service mapr-warden stop
+sed -i "s/# chkconfig: .*/# chkconfig: 35 20 0/" /etc/init.d/mapr-warden
+chkconfig mapr-warden resetpriorities
 
+# Last, but not least, the VMDEMO build for 3.0 releases had a
+# special webserver configuration that is NOT true for this build;
+# we always need the https connection.
+VM_WELCOME=/opt/startup/welcome.py
+if [ -f $VM_WELCOME ] ; then
+	sed -i "s_http://_https://_" $VM_WELCOME
+	sed -i "s_Cmd+Ctl+F2_Opt+F5_" $VM_WELCOME
+fi
 
-
-sudo -u dbadmin /opt/vertica/bin/admintools -t create_db -c /vertica/data/catalog -D /vertica/data/files -s $MAPR_HOSTNAME -d example 
-
-sudo -u dbadmin /opt/vertica/bin/vsql -c "alter resource pool general maxmemorysize '50%'"
-
-sudo -u dbadmin /opt/vertica/bin/vsql -q -t -A -c "
-Select  E'select add_location(\'/vertica/tmp/'
-        || database_name || '/'
-        || node_name
-        || E'_tmp\',\''
-        || node_name
-        || E'\',\'TEMP\');'
-  from nodes cross join databases" > /tmp/locations.sql
-
-sudo -u dbadmin /opt/vertica/bin/vsql -q -t -A -c "
-select E'select alter_location_use(\'/vertica/data/files/'
-        || database_name || '/'
-        || node_name
-        || E'_data\',\''
-        || node_name
-        || E'\',\'DATA\');'
-  from storage_locations cross join databases
-  where location_usage ilike 'DATA,TEMP' " >> /tmp/locations.sql
-
-sudo -u dbadmin /opt/vertica/bin/vsql -q -f /tmp/locations.sql
-
-sudo -u dbadmin /opt/vertica/bin/admintools -t stop_db -d example
-
-
-chmod +x /opt/mapr/start_vertica.sh
-echo /opt/mapr/start_vertica.sh >> /etc/rc.d/rc.local
 
