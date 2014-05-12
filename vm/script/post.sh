@@ -13,7 +13,7 @@ enabled ()
 
 hive_enabled ()
 {
-  enabled ${MAPR_HIVE_VERSION:-0}
+  enabled "${MAPR_HIVE_VERSION:-}"
   return $?
 }
 
@@ -23,7 +23,7 @@ hive_install ()
   if [ $? -eq 0 ]; then
     PKG="mapr-hive mapr-hivemetastore mapr-hiveserver2"
     # Test if we were passed a blank string, whichcase we install latest
-    if [ ! -z ${MAPR_HIVE_VERSION} ]; then
+    if [ ! -z "${MAPR_HIVE_VERSION}" ]; then
       PKG="mapr-hive-${MAPR_HIVE_VERSION} mapr-hivemetastore-${MAPR_HIVE_VERSION} mapr-hiveserver2-${MAPR_HIVE_VERSION}"
     fi
 
@@ -33,7 +33,7 @@ hive_install ()
 
 hbase_enabled ()
 {
-  enabled ${MAPR_HBASE_VERSION:-0}
+  enabled "${MAPR_HBASE_VERSION:-}"
   return $?
 }
 
@@ -42,7 +42,7 @@ hbase_install ()
   hbase_enabled
   if [ $? -eq 0 ]; then
     PKG="mapr-hbase"
-    if [ ! -z ${MAPR_HBASE_VERSION} ]; then
+    if [ ! -z "${MAPR_HBASE_VERSION:-}" ]; then
       PKG="mapr-hbase-${MAPR_HBASE_VERSION}"
     fi
 
@@ -52,7 +52,7 @@ hbase_install ()
 
 pig_enabled ()
 {
-  enabled ${MAPR_PIG_VERSION:-0}
+  enabled "${MAPR_PIG_VERSION:-}"
   return $?
 }
 
@@ -61,7 +61,7 @@ pig_install ()
   pig_enabled
   if [ $? -eq 0 ]; then
     PKG="mapr-pig"
-    if [ ! -z ${MAPR_PIG_VERSION} ]; then
+    if [ ! -z "${MAPR_PIG_VERSION:-}" ]; then
       PKG="mapr-pig-${MAPR_PIG_VERSION}"
     fi
 
@@ -71,7 +71,7 @@ pig_install ()
 
 hue_enabled ()
 {
-  enabled ${MAPR_HUE_VERSION:-0}
+  enabled "${MAPR_HUE_VERSION:-}"
   return $?
 }
 
@@ -80,7 +80,7 @@ hue_install ()
   hue_enabled
   if [ $? -eq 0 ]; then
     PKG="mapr-hue"
-    if [ ! -z ${MAPR_HUE_VERSION} ]; then
+    if [ ! -z "${MAPR_HUE_VERSION:-}" ]; then
       PKG="mapr-hue-${MAPR_HUE_VERSION}"
     fi
 
@@ -90,7 +90,7 @@ hue_install ()
 
 flume_enabled ()
 {
-  enabled ${MAPR_FLUME_VERSION:-0}
+  enabled "${MAPR_FLUME_VERSION:-}"
   return $?
 }
 
@@ -99,7 +99,7 @@ flume_install ()
   flume_enabled
   if [ $? -eq 0 ]; then
     PKG="mapr-flume"
-    if [ ! -z ${MAPR_FLUME_VERSION} ]; then
+    if [ ! -z "${MAPR_FLUME_VERSION:-}" ]; then
       PKG="mapr-flume-${MAPR_FLUME_VERSION}"
     fi
   
@@ -109,7 +109,7 @@ flume_install ()
 
 hcatalog_enabled ()
 {
-  enabled ${MAPR_HCATALOG_VERSION:-0}
+  enabled "${MAPR_HCATALOG_VERSION:-}"
   return $?
 }
 
@@ -118,7 +118,7 @@ hcatalog_install ()
   hcatalog_enabled
   if [ $? -eq 0 ]; then
     PKG="mapr-hcatalog"
-    if [ ! -z ${MAPR_HCATALOG_VERSION} ]; then
+    if [ ! -z "${MAPR_HCATALOG_VERSION:-}" ]; then
       PKG="mapr-hcatalog-${MAPR_HCATALOG_VERSION}"
     fi
 
@@ -128,7 +128,7 @@ hcatalog_install ()
 
 oozie_enabled ()
 {
-  enabled ${MAPR_OOZIE_VERSION:-0}
+  enabled "${MAPR_OOZIE_VERSION:-}"
   return $?
 }
 
@@ -137,7 +137,7 @@ oozie_install ()
   oozie_enabled
   if [ $? -eq 0 ]; then
     PKG="mapr-oozie"
-    if [ ! -z ${MAPR_OOZIE_VERSION} ]; then
+    if [ ! -z "${MAPR_OOZIE_VERSION:-}" ]; then
       PKG="mapr-oozie-${MAPR_OOZIE_VERSION}"
     fi
 
@@ -147,7 +147,7 @@ oozie_install ()
 
 mahout_enabled ()
 {
-  enabled ${MAPR_MAHOUT_VERSION:-0}
+  enabled "${MAPR_MAHOUT_VERSION:-}"
   return $?
 }
 
@@ -156,7 +156,7 @@ mahout_install ()
   mahout_enabled
   if [ $? -eq 0 ]; then
     PKG="mapr-mahout"
-    if [ ! -z ${MAPR_MAHOUT_VERSION} ]; then
+    if [ ! -z "${MAPR_MAHOUT_VERSION:-}" ]; then
       PKG="mapr-mahout-${MAPR_MAHOUT_VERSION}"
     fi
   
@@ -183,7 +183,24 @@ cp /opt/startup/start-tty* /etc/init
 cp /opt/startup/etc_sysconfig_init /etc/sysconfig/init
 rm /tmp/startup.tar.gz
 
-yum install -y python-sh
+service mapr-warden stop
+service mapr-zookeeper stop
+[ -f /opt/mapr/initscripts/mapr-warden-patched ] && \
+	cp /opt/mapr/initscripts/mapr-warden-patched /etc/init.d/mapr-warden
+
+rpm -iv /tmp/mapr-patch-*.rpm
+rm /tmp/mapr-patch-*.rpm
+
+# Force a simple hostname ... we can't have a "*.local"
+hostname maprdemo
+sed -i "s/^HOSTNAME.*/HOSTNAME=maprdemo/" /etc/sysconfig/network
+
+/opt/mapr/server/configure.sh -N demo.mapr.com -Z maprdemo -C maprdemo \
+	-u mapr -g mapr -M7 --isvm 
+
+/usr/sbin/makewhatis
+${INSTALL_CMD}  lsof
+${INSTALL_CMD}  python-sh
 
 Conf[0]="service.command.nfs.heapsize.min"
 Conf[1]="service.command.nfs.heapsize.max"
@@ -198,8 +215,8 @@ Conf[9]="service.command.webserver.heapsize.max"
 Conf[10]="service.command.mfs.heapsize.min"
 Conf[11]="service.command.mfs.heapsize.max"
 
-Val[0]="32"
-Val[1]="32"
+Val[0]="64"
+Val[1]="64"
 Val[2]="128"
 Val[3]="128"
 Val[4]="256"
@@ -215,25 +232,29 @@ for i in "${!Conf[@]}"; do
   sed -i s/${Conf[$i]}=.*/${Conf[$i]}=${Val[$i]}/ /opt/mapr/conf/warden.conf
 done
 
-service mapr-warden restart
+service mapr-zookeeper start
+service mapr-warden start
 
 mkdir /user
 
 i=0
 while [ "$i" -le "180" ]
 do
-  a=$(($a+1))
-  maprcli node list
+  maprcli node cldbmaster 2> /dev/null
   if [ $? -eq 0 ]; then
     break
   fi
 
-  echo "Waiting for CLDB to comeup..."
-  sleep 1
+  echo "Waiting for CLDB to start up ($i seconds elapsed)..."
+  sleep 5
+  i=$[i+5]
 done
 
-echo "localhost:/mapr /mapr soft,intr,nolock" >> /opt/mapr/conf/mapr_fstab
-mount localhost:/mapr /mapr
+#	Done automatically by latest installer 
+# echo "localhost:/mapr /mapr soft,intr,nolock" >> /opt/mapr/conf/mapr_fstab
+# mount localhost:/mapr /mapr
+
+chmod a+r /opt/mapr/conf/mapr_fstab
 
 
 maprcli config save -values "{cldb.restart.wait.time.sec:5}"
@@ -249,10 +270,11 @@ done
 
 maprcli acl edit -type cluster -user mapr:fc
 maprcli volume create -name tables -replication 1 -path /tables
+maprcli acl edit -type volume -name tables -user mapr:fc
 
 install_packages
 
-${INSTALL_CMD} mapr-metrics
+# ${INSTALL_CMD} mapr-metrics
 
 hadoop fs -mkdir /user/root
 
