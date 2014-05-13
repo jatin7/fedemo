@@ -48,7 +48,7 @@ if [ \$1 = "start" ] ; then
 
 	/usr/bin/sudo /opt/mapr/initscripts/verticad status
 else
-	[ \$1 = "stop" ] && /usr/bin/sudo -u dbadmin /opt/vertica/bin/admintools -t stop_db -d example
+	[ \$1 = "stop" ] && /usr/bin/sudo -u dbadmin /opt/vertica/bin/admintools -t stop_db -d example --noprompts
 	/usr/bin/sudo /opt/mapr/initscripts/verticad \$*
 fi
 
@@ -73,8 +73,9 @@ DELIM
 
 chown mapr:mapr /opt/mapr/conf/conf.d/warden.HPVertica.conf
 
-maprcli volume create -name vertica -path /vertica
-maprcli acl edit -type volume -name vertica -user dbadmin:fc
+#	No longer necessary for global /vertica volume
+# maprcli volume create -name vertica -path /vertica
+# maprcli acl edit -type volume -name vertica -user dbadmin:fc
 
 
 MAPR_HOSTNAME=`maprcli node list -columns hostname -noheader | awk '{print $1}'`

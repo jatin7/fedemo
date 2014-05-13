@@ -55,11 +55,17 @@ select E'select alter_location_use(\'/vertica/data/files/'
 	[ $? -eq 0 ] && rm -f $LOC_SQL
 }
 
-
-if [ ! -d /vertica/data ] ; then 
-	echo "Vertica data filesystem not available; aborting"
-	exit 1
-fi
+NFS_WAIT=0
+test -d /vertica/data
+while [ $? -ne 0 ] ; do
+	if [ $NFS_WAIT -ge 300 ] ; then
+		echo "Vertica data filesystem not available after 5 minutes; aborting"
+		exit 1
+	fi
+	sleep 5
+	NFS_WAIT=$[NFS_WAIT+5]
+	test -d /vertica/data
+done
 
 if [ -d /vertica/data/files/$VERTICADB ] ; then 
 	$ADMINTOOLS -t db_status -s UP | grep -q -w $VERTICADB
@@ -76,7 +82,7 @@ commit
 exit
 EOVERTICA
 			# Start up the DB
-		[ $? -eq 0 ] && $ADMINTOOLS -t start_db -d $VERTICADB
+		[ $? -eq 0 ] && $ADMINTOOLS -t start_db -d $VERTICADB --noprompts
 	fi
 else
 	create_new_db
