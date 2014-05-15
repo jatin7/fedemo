@@ -46,7 +46,7 @@
     "name"             : "sandbox-base",
     "vm_name"          : "MapR-Sandbox-Base-For-Hadoop-{{ user `mapr_version` }}",
     "type"             : "virtualbox-ovf",
-    "source_path"      : "output-virtualbox-iso/base.ova",
+    "source_path"      : "output-base/MapR Base.ova",
     "ssh_username"     : "root",
     "ssh_password"     : "mapr",
     "ssh_wait_timeout" : "300s",
