@@ -13,7 +13,8 @@
     "mapr_oozie_version"    : null,
     "mapr_mahout_version"   : null,
     "mapr_core_repo_url"    : null,
-    "mapr_eco_repo_url"     : null
+    "mapr_eco_repo_url"     : null,
+    "build_headless"        : false
   },
   "builders": [{
     "name"                : "base",
@@ -21,6 +22,7 @@
     "type"                : "virtualbox-iso",
     "format"              : "ova",
     "http_directory"      : "http",
+    "headless"            : "{{ user `build_headless` }}",
     "iso_url"             : "{{ user `iso_url` }}",
     "iso_checksum"        : "{{ user `iso_checksum` }}",
     "iso_checksum_type"   : "sha1",
@@ -51,6 +53,7 @@
     "shutdown_command" : "shutdown -P now",
     "import_opts"      : "keepallmacs",
     "format"           : "ova",
+    "headless"         : "{{ user `build_headless` }}",
     "vboxmanage"       : [
       ["modifyvm", "{{.Name}}", "--memory", "6144"],
       ["modifyvm", "{{.Name}}", "--cpus", "2"]
@@ -66,6 +69,7 @@
     "ssh_wait_timeout" : "300s",
     "shutdown_command" : "shutdown -P now",
     "import_opts"      : "keepallmacs",
+    "headless"         : "{{ user `build_headless` }}",
     "format"           : "ova"
   }],
   "provisioners": [{
