@@ -33,7 +33,7 @@ def make_hint_window():
     Height, Width = screen.getmaxyx()
     hint_win = screen.subwin(Width_Factor, Width, Height - Width_Factor, 0)
     hint_win.box()
-    hint_win.addstr(1,1,"Log in to this virtual machine: Linux/Windows <Alt+F2>, Mac OS X <Cmd+Ctl+F2>")
+    hint_win.addstr(1,1,"Log in to this virtual machine: Linux/Windows <Alt+F2>, Mac OS X <Option+F5>")
 
 def init_screen():
     curses.noecho()
