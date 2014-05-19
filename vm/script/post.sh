@@ -266,6 +266,9 @@ done
 #	Done automatically by latest installer 
 # echo "localhost:/mapr /mapr soft,intr,nolock" >> /opt/mapr/conf/mapr_fstab
 # mount localhost:/mapr /mapr
+mkdir -p /user
+echo "localhost:/mapr/demo.mapr.com/user /user soft,intr,nolock" >> /opt/mapr/conf/mapr_fstab
+mount localhost:/mapr/demo.mapr.com/user /user
 
 chmod a+r /opt/mapr/conf/mapr_fstab
 
@@ -320,3 +323,7 @@ if [ $? -eq 0 ]; then
         <url-pattern>/hue/*</url-pattern>#" /opt/mapr/adminuiapp/webapp/WEB-INF/web.xml
   fi
 fi
+
+for user in user01 user02 hbaseuser mruser; do
+  useradd -d /user/$user -p `openssl passwd -1 $user` -g mapr -m $user
+done
