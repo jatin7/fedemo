@@ -84,7 +84,20 @@ hue_install ()
       PKG="mapr-hue-${MAPR_HUE_VERSION}"
     fi
 
-  ${INSTALL_CMD} ${PKG}
+    ${INSTALL_CMD} ${PKG} mapr-httpfs
+
+    #Install Hue dependencies
+    oozie_enabled
+    if [ $? -eq 0 ]; then
+      MAPR_OOZIE_VERSION=""
+      oozie_install
+    fi
+
+    pig_enabled
+    if [ $? -eq 0 ]; then
+      MAPR_PIG_VERSION=""
+      pig_install
+    fi
   fi
 }
 
