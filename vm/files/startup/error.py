@@ -11,7 +11,7 @@ class NetworkMisconfiguredException(Exception):
     pass
 class ServiceFailedtoStartException(Exception):
     pass
-	
+
 
 def make_welcome_window():
     Height, Width = screen.getmaxyx()
@@ -39,26 +39,26 @@ def make_status_window():
     else:
  	status_win.addstr(1,2,"MapR Services failed to start.", curses.A_BOLD)
 	make_error_window()
-	
+
 def make_error_window():
 	Height, Width = screen.getmaxyx()
 	error_win = screen.subwin(Height / 3, Width, Height / 2 - Width_Factor / 2, 0)
 	error_win.box()
-	
+
 	if ServiceFailedtoStartException:
 		error_win.addstr(1,2,"ERROR 3: Services did not start within 2 minutes.")
-		error_win.addstr(3,2,"Visit: http://doc.mapr.com/display/MapR/Installing+the+MapR+Virtual+Machine")
+		error_win.addstr(3,2,"Visit: http://doc.mapr.com/display/MapR/MapR+Sandbox+for+Hadoop")
 		error_win.addstr(4,2, "for instructions.")
 	else:
 		error_win.addstr(1,2,"ERROR 4: Check DHCP and connection of network interface.")
-		error_win.addstr(3,2,"Visit: http://doc.mapr.com/display/MapR/Installing+the+MapR+Virtual+Machine") 
+		error_win.addstr(3,2,"Visit: http://doc.mapr.com/display/MapR/MapR+Sandbox+for+Hadoop")
 		error_win.addstr(4,2,"for instructions.")
 
 def make_hint_window():
     Height, Width = screen.getmaxyx()
     hint_win = screen.subwin(Width_Factor , Width, Height - Width_Factor, 0)
     hint_win.box()
-    hint_win.addstr(1,1,"Log in to this virtual machine: Linux/Windows <Alt+F2>, Mac OS X <Cmd+Ctl+F2>")
+    hint_win.addstr(1,1,"Log in to this virtual machine: Linux/Windows <Alt+F2>, Mac OS X <Option+F5>")
 
 def init_screen():
     curses.noecho()
