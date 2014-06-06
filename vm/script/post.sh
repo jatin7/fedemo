@@ -46,7 +46,7 @@ hbase_install ()
       PKG="mapr-hbase-${MAPR_HBASE_VERSION}"
     fi
 
-    ${INSTALL_CMD} ${PKG}
+    ${INSTALL_CMD} ${PKG} mapr-hbasethrift
   fi
 }
 
@@ -288,6 +288,7 @@ maprcli acl edit -type cluster -user mapr:fc
 maprcli volume create -name tables -replication 1 -path /tables
 maprcli acl edit -type volume -name tables -user mapr:fc
 
+yum install acpid
 install_packages
 
 # ${INSTALL_CMD} mapr-metrics
@@ -322,6 +323,9 @@ if [ $? -eq 0 ]; then
         <servlet-name>com.mapr.adminuiapp.http.hue_jsp</servlet-name>\
         <url-pattern>/hue/*</url-pattern>#" /opt/mapr/adminuiapp/webapp/WEB-INF/web.xml
   fi
+
+  sed -i -e "s/mapr.webui.https.port=8443/mapr.webui.http.port=8443/g" /opt/mapr/conf/web.conf
+  hadoop fs -mkdir /user/hive/warehouse
 fi
 
 for user in user01 user02 hbaseuser mruser; do
