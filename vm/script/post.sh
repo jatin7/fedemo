@@ -288,7 +288,7 @@ maprcli acl edit -type cluster -user mapr:fc
 maprcli volume create -name tables -replication 1 -path /tables
 maprcli acl edit -type volume -name tables -user mapr:fc
 
-yum install acpid
+yum install -y acpid
 install_packages
 
 # ${INSTALL_CMD} mapr-metrics
@@ -326,6 +326,7 @@ if [ $? -eq 0 ]; then
 
   sed -i -e "s/mapr.webui.https.port=8443/mapr.webui.http.port=8443/g" /opt/mapr/conf/web.conf
   hadoop fs -mkdir /user/hive/warehouse
+  sed -i -e 's/self == top/true/g' /opt/mapr/hue/hue-*/desktop/core/src/desktop/templates/common_header.mako
 fi
 
 for user in user01 user02 hbaseuser mruser; do
