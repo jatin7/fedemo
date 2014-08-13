@@ -299,7 +299,7 @@ oozie_enabled
 if [ $? -eq 0 ]; then
   hadoop fs -mkdir /oozie/share/lib
   hadoop fs -mkdir /oozie/examples
-  tar -xvzf /opt/mapr/oozie/oozie-*/oozie-sharelib-*-mapr.tar.gz -C /tmp
+  tar -xvzf /opt/mapr/oozie/oozie-*/oozie-sharelib-*-mapr-*.tar.gz -C /tmp
   hadoop fs -put /tmp/share/lib/* /oozie/share/lib/
   tar -xvzf /opt/mapr/oozie/oozie-*/oozie-examples.tar.gz -C /tmp
   hadoop fs -put /tmp/examples/* /oozie/examples/
