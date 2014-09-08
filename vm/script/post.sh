@@ -332,3 +332,5 @@ fi
 for user in user01 user02 hbaseuser mruser; do
   useradd -d /user/$user -p `openssl passwd -1 $user` -g mapr -m $user
 done
+
+chkconfig mapr-warden off

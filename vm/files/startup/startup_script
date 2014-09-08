@@ -25,6 +25,8 @@ start)
     sed -i 1i"nameserver 8.8.8.8" /etc/resolv.conf
     if [ -d "/opt/mapr" ]; then 
     printf "%-50s\n" "Bringing up VM..." | tee -a $LOG
+
+    service mapr-warden start
     
     echo 0 > /proc/sys/kernel/hung_task_timeout_secs
 
