@@ -52,5 +52,8 @@ wget -O /tmp/license.txt "http://ec2-107-22-211-26.compute-1.amazonaws.com:8080/
 maprcli license add -is_file true -license /tmp/license.txt
 service mapr-nfsserver restart
 
+yum install -y mysql-server
+yum install -y mapr-metrics
+
 #For somereason warden can't determine hostname
 sed -i 's|/bin/hostname --fqdn|echo `/bin/hostname --fqdn`|g' /etc/init.d/mapr-warden
