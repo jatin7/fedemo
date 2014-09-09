@@ -12,6 +12,7 @@
     "mapr_hcatalog_version" : null,
     "mapr_oozie_version"    : null,
     "mapr_mahout_version"   : null,
+    "mapr_drill_version"    : null,
     "mapr_core_repo_url"    : null,
     "mapr_eco_repo_url"     : null,
     "build_headless"        : false
@@ -90,6 +91,7 @@
       "MAPR_HCATALOG_VERSION={{ user `mapr_hcatalog_version`}}",
       "MAPR_OOZIE_VERSION={{ user `mapr_oozie_version`}}",
       "MAPR_MAHOUT_VERSION={{ user `mapr_mahout_version`}}",
+      "MAPR_DRILL_VERSION={{ user `mapr_drill_version`}}",
       "MAPR_CORE_REPO_URL={{ user `mapr_core_repo_url`}}",
       "MAPR_ECO_REPO_URL={{ user `mapr_eco_repo_url`}}"
     ],

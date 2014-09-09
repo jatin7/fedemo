@@ -11,6 +11,25 @@ enabled ()
   fi
 }
 
+drill_enabled ()
+{
+  enabled "${MAPR_DRILL_VERSION:-}"
+  return $?
+}
+
+drill_install ()
+{
+ drill_enabled
+ if [ $? -eq 0 ]; then
+   PKG="mapr-drill"
+   if [ ! -z "${MAPR_DRILL_VERSION}" ]; then
+     PKG="mapr-drill-${MAPR_DRILL_VERSION}"
+   fi
+
+   ${INSTALL_CMD} ${PKG}
+ fi
+}
+
 hive_enabled ()
 {
   enabled "${MAPR_HIVE_VERSION:-}"
@@ -187,6 +206,7 @@ install_packages ()
  hcatalog_install
  oozie_install
  mahout_install
+ drill_install
 }
 
 tar -xvzf /tmp/startup.tar.gz -C /opt
@@ -194,6 +214,7 @@ chown root:root /opt/startup -R
 
 cp /opt/startup/start-tty* /etc/init
 cp /opt/startup/etc_sysconfig_init /etc/sysconfig/init
+cp /opt/startup/yarn-site.xml /opt/mapr/hadoop/hadoop-2.4-1/etc/hadoop/yarn-site.xml
 rm /tmp/startup.tar.gz
 
 service mapr-warden stop
@@ -333,4 +354,5 @@ for user in user01 user02 hbaseuser mruser; do
   useradd -d /user/$user -p `openssl passwd -1 $user` -g mapr -m $user
 done
 
+#Mark this as off, to prevent Races
 chkconfig mapr-warden off

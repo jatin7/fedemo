@@ -25,7 +25,7 @@ def make_status_window():
     status_win = screen.subwin(Height / 2 - Width_Factor / 2, Width, Height / 2 - Width_Factor, 0)
     status_win.box()
     status_win.addstr(1,2,"MapR Sandbox for Hadoop installation finished successfully.", curses.A_BOLD)
-    status_win.addstr(3,2,"Please go to http://%s:8443 to begin your experience." % ip)
+    status_win.addstr(3,2,"Please go to https://%s:8443 to begin your experience." % ip)
     status_win.addstr(5,2,"Open a browser on your host machine ")
     status_win.addstr(6,2,"and enter the URL in the browser's address field.")
 	

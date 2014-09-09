@@ -1,7 +1,7 @@
 #!/bin/bash -eux
 
 # wget http://yum.qa.lab/mapr-installer-multi/mapr-setup -O /root/mapr-setup
-wget http://archive.mapr.com/releases/v3.0.3/redhat/mapr-setup -O /root/mapr-setup
+wget http://archive.mapr.com/releases/v4.0.1/redhat/mapr-setup -O /root/mapr-setup
 
 bash /root/mapr-setup
 
@@ -16,10 +16,10 @@ maprdemo
 [Data_Nodes]
 [Client_Nodes]
 [Options]
-MapReduce = true
-YARN = false
+MapReduce1 = false
+YARN = true
 HBase = false
-M7 = true
+MapR-DB = true
 ControlNodesAsDataNodes = true
 WirelevelSecurity = false
 LocalRepo = false
@@ -31,13 +31,15 @@ Password = mapr
 UID = 2000
 GID = 2000
 Disks = /dev/sdb
+StripeWidth = 3
+ForceFormat = false
 CoreRepoURL = ${MAPR_CORE_REPO_URL}
 EcoRepoURL = ${MAPR_ECO_REPO_URL}
 Version = ${MAPR_CORE_VERSION}
-MetricsDBHost
-MetricsDBUser
-MetricsDBPassword
-MetricsDBSchema
+MetricsDBHost = 
+MetricsDBUser =
+MetricsDBPassword =
+MetricsDBSchema =
 EOF
 
 cat /root/config.sandbox
