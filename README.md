@@ -15,3 +15,6 @@ You can also run bin/cleanup in order to remove all sym links
 There is finally a bin/setup file that copies all files over to the given source directory to prepare it for build. 
 
 IMPORTANT NOTE: DO NOT RUN COMMIT UNLESS YOU RUN CLEANUP FIRST. THIS CAN CAUSE VM FILES TO BE INSERTED INTO MAPR BUILDS. THIS IS DANGEROUS!!!
+
+!!For how to use `packer` to build the VM
+https://github.com/mapr/private-vmdemo/tree/pluggable-sandbox/vm
