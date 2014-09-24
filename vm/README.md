@@ -18,9 +18,9 @@ https://www.virtualbox.org/wiki/Downloads
 The VM generation is done in stages, so as to enable customization
 at any point.   The stages are:
 
-	1. Base : the operating system only
-	2. Sandbox-Base : Base plus the initial installation of MapR Software
-	3. Sandbox : Final VM version, with customizations
+  1. Base : the operating system only
+  2. Sandbox-Base : Base plus the initial installation of MapR Software
+  3. Sandbox : Final VM version, with customizations
 
 The input for the process is a packer definition file (usually a
 json document).  The different phases are defined there.
@@ -45,15 +45,21 @@ final sandbox step.
 
 Step 1. Generate a CentOS Base Image 
   
-```packer build --only=base --var 'mapr_hue_version=""' --var 'mapr_hbase_version=""' --var 'mapr_pig_version=""' --var 'mapr_oozie_version=0' --var 'mapr_hcatalog_version=0' --var 'mapr_flume_version=0' --var 'mapr_hive_version=0.12.24975-1' --var 'mapr_mahout_version=0' --var 'mapr_version=3.0.3' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem' mapr-sandbox.json```  
+```
+packer build --only=base --var 'mapr_hue_version=""' --var 'mapr_hbase_version=""' --var 'mapr_pig_version=""' --var 'mapr_oozie_version=0' --var 'mapr_hcatalog_version=0' --var 'mapr_flume_version=0' --var 'mapr_hive_version=0.12.24975-1' --var 'mapr_mahout_version=0' --var 'mapr_version=3.0.3' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem' mapr-sandbox.json
+```  
 
 Step 2. Add the MapR core software to the vm created in step 1  
   
-```packer build --only=sandbox-base --var 'mapr_hue_version=""' --var 'mapr_hbase_version=""' --var 'mapr_pig_version=""' --var 'mapr_oozie_version=0' --var 'mapr_hcatalog_version=0' --var 'mapr_flume_version=0' --var 'mapr_hive_version=0.12.24975-1' --var 'mapr_mahout_version=0' --var 'mapr_version=3.0.3' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem' mapr-sandbox.json```  
+```
+packer build --only=sandbox-base --var 'mapr_hue_version=""' --var 'mapr_hbase_version=""' --var 'mapr_pig_version=""' --var 'mapr_oozie_version=0' --var 'mapr_hcatalog_version=0' --var 'mapr_flume_version=0' --var 'mapr_hive_version=0.12.24975-1' --var 'mapr_mahout_version=0' --var 'mapr_version=3.0.3' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem' mapr-sandbox.json
+```  
 
 Step 3. Generate a fully functional Sandbox using the sandbox-base from step 2  
   
-```packer build --only=sandbox --var 'mapr_hue_version=""' --var 'mapr_hbase_version=""' --var 'mapr_pig_version=""' --var 'mapr_oozie_version=0' --var 'mapr_hcatalog_version=0' --var 'mapr_flume_version=0' --var 'mapr_hive_version=0.12.24975-1' --var 'mapr_mahout_version=0' --var 'mapr_version=3.0.3' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem' mapr-sandbox.json```  
+```
+packer build --only=sandbox --var 'mapr_hue_version=""' --var 'mapr_hbase_version=""' --var 'mapr_pig_version=""' --var 'mapr_oozie_version=0' --var 'mapr_hcatalog_version=0' --var 'mapr_flume_version=0' --var 'mapr_hive_version=0.12.24975-1' --var 'mapr_mahout_version=0' --var 'mapr_version=3.0.3' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem' mapr-sandbox.json
+```  
 
 
 Each step creates a new directory for the resultant Virtual Machine
