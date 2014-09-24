@@ -8,6 +8,11 @@
 Download and install appropriate flavor of "packer" package 
 from http://www.packer.io/.   Make sure the utility is in your PATH.
 
+If you are using OSX you can install via `homebrew`
+
+    brew tap homebrew/binary
+    brew install packer
+
 Download and install VirtualBox for your platform from  
 https://www.virtualbox.org/wiki/Downloads
 
