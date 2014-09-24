@@ -48,9 +48,9 @@ final sandbox step.
 #	Examples
 #	--------
 
-Step 1. Generate a CentOS Base Image 
+Step 1. Generate a CentOS Base Image with MapR 3.1.1 
   
-`packer build --only=base --var 'mapr_hue_version=""' --var 'mapr_hbase_version=""' --var 'mapr_pig_version=""' --var 'mapr_oozie_version=0' --var 'mapr_hcatalog_version=0' --var 'mapr_flume_version=0' --var 'mapr_hive_version=0.12.24975-1' --var 'mapr_mahout_version=0' --var 'mapr_version=3.0.3' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem' mapr-sandbox.json`
+`packer build --only=base --var 'mapr_drill_version=""' --var 'mapr_hue_version=""' --var 'mapr_hbase_version=""' --var 'mapr_pig_version=""' --var 'mapr_oozie_version=0' --var 'mapr_hcatalog_version=0' --var 'mapr_flume_version=0' --var 'mapr_hive_version=""' --var 'mapr_mahout_version=0' --var 'mapr_version=3.1.1' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem' mapr-sandbox.json`
 
 Step 2. Add the MapR core software to the vm created in step 1  
   
