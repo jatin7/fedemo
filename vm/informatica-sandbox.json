@@ -43,7 +43,7 @@
   },
   {
     "name"             : "sandbox-base",
-    "vm_name"          : "MapR-Sandbox-Base-For-Hadoop-{{ user `mapr_version` }}",
+    "vm_name"          : "MapR-Sandbox-Base-For-Informatica-{{ user `mapr_version` }}",
     "type"             : "virtualbox-ovf",
     "source_path"      : "output-base/MapR-Base.ova",
     "ssh_username"     : "root",
@@ -53,13 +53,13 @@
     "import_opts"      : "keepallmacs",
     "format"           : "ova",
     "vboxmanage"       : [
-      ["modifyvm", "{{.Name}}", "--memory", "4096"],
+      ["modifyvm", "{{.Name}}", "--memory", "10240"],
       ["modifyvm", "{{.Name}}", "--cpus", "2"]
     ]
   },
   {
     "name"             : "sandbox",
-    "vm_name"          : "MapR-Sandbox-For-Hadoop-{{ user `mapr_version` }}",
+    "vm_name"          : "MapR-Sandbox-For-Informatica-{{ user `mapr_version` }}",
     "type"             : "virtualbox-ovf",
     "source_path"      : "output-sandbox-base/MapR-Sandbox-Base-For-Hadoop-{{ user `mapr_version` }}.ova",
     "ssh_username"     : "root",
