@@ -17,15 +17,15 @@ def make_welcome_window():
     Height, Width = screen.getmaxyx()
     welcome_win = screen.subwin(Height / 2 - Width_Factor - 2, Width, 0, 0)
     welcome_win.box()
-    welcome_win.addstr(1,2,"=== MapR SandBox for Hadoop ===", curses.A_BOLD)
-    welcome_win.addstr(3,2,"Version: 1.0")
+    welcome_win.addstr(1,2,"=== _MAPR_BANNER_NAME_ ===", curses.A_BOLD)
+    welcome_win.addstr(3,2,"Version: _MAPR_VERSION_")
 
 def make_status_window():
     Height, Width = screen.getmaxyx()
     status_win = screen.subwin(Height / 2 - Width_Factor / 2, Width, Height / 2 - Width_Factor, 0)
     status_win.box()
-    status_win.addstr(1,2,"MapR Sandbox for Hadoop installation finished successfully.", curses.A_BOLD)
-    status_win.addstr(3,2,"Please go to https://%s:8443 to begin your experience." % ip)
+    status_win.addstr(1,2,"_MAPR_BANNER_NAME_ installation finished successfully.", curses.A_BOLD)
+    status_win.addstr(3,2,"Please go to _MAPR_BANNER_URL_ to begin your experience." % ip)
     status_win.addstr(5,2,"Open a browser on your host machine ")
     status_win.addstr(6,2,"and enter the URL in the browser's address field.")
 	

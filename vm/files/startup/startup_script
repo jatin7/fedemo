@@ -5,13 +5,17 @@
 # startup script
 
 SCRIPTS_PATH="/opt/startup"
-NAME="MapR's Sandbox for Hadoop"
+NAME="_MAPR_BANNER_NAME_"
 LOG="/var/log/startup_script.log"
-HADOOP_VERSION="0.20.2"
-OOZIE_VERSION="4.0.0"
-HUE_VERSION="2.5.0"
-HIVE_VERSION="0.13"
+HADOOP_VERSION="2.4.1"
+OOZIE_VERSION="_MAPR_OOZIE_VERSION_"
+HUE_VERSION="_MAPR_HUE_VERSION_"
+HIVE_VERSION="_MAPR_HIVE_VERSION_"
 HTTPFS_VERSION="1.0"
+
+#HIVE_VERSION=`echo "${HIVE_VERSION}" | awk -F. '{ printf("%s.%s", $1,$2); }`
+#HUE_VERSION=`echo "${HUE_VERSION}" | awk -F. '{ printf("%s.%s.%s",$1,$2,$3); }`
+#OOZIE_VERSION=`echo "${OOZIE_VERSION}" | awk -F. '{ printf("%s.%s.%s", $1,$2,$3); }`
 
 case "$1" in
 start)
@@ -30,9 +34,9 @@ start)
     
     echo 0 > /proc/sys/kernel/hung_task_timeout_secs
 
-    if [ -f "/opt/mapr/hadoop/hadoop-$HADOOP_VERSION/conf/core-site.xml" ]; then
-    cp -rf $SCRIPTS_PATH/core-site.xml /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/conf/core-site.xml
-    cp -rf $SCRIPTS_PATH/mapred-site.xml /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/conf/mapred-site.xml
+    if [ -f "/opt/mapr/hadoop/hadoop-$HADOOP_VERSION/etc/hadoop/core-site.xml" ]; then
+    cp -rf $SCRIPTS_PATH/core-site.xml /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/etc/hadoop/core-site.xml
+    #cp -rf $SCRIPTS_PATH/mapred-site.xml /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/etc/hadoop/mapred-site.xml
     fi
 
     if [ -f "/opt/mapr/oozie/oozie-$OOZIE_VERSION/conf/oozie-site.xml" ]; then

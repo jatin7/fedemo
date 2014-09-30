@@ -17,8 +17,8 @@ def make_welcome_window():
     Height, Width = screen.getmaxyx()
     welcome_win = screen.subwin(Width_Factor + 1 , Width, 0, 0)
     welcome_win.box()
-    welcome_win.addstr(1,2,"=== MapR SandBox for Hadoop ===", curses.A_BOLD)
-    welcome_win.addstr(2,2,"Version: 1.0")
+    welcome_win.addstr(1,2,"=== _MAPR_BANNER_NAME_ ===", curses.A_BOLD)
+    welcome_win.addstr(2,2,"Version: _MAPR_VERSION_")
 
 def make_status_window():
     Height, Width = screen.getmaxyx()
@@ -31,7 +31,7 @@ def make_status_window():
             raise NetworkMisconfiguredException()
 
     except sh.ErrorReturnCode:
-        status_win.addstr(1,2,"MapR Sandbox for Hadoop setup did not succseed.")
+        status_win.addstr(1,2,"_MAPR_BANNER_NAME_ setup did not succseed.")
    	raise ServiceFailedtoStartException()
 	make_error_window()
     except NetworkMisconfiguredException:

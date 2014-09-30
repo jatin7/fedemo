@@ -1,6 +1,6 @@
 #!/bin/bash -eux
-
 INSTALL_CMD="yum install -y"
+SCRIPTS_PATH=/opt/startup
 
 enabled ()
 {
@@ -26,7 +26,55 @@ drill_install ()
      PKG="mapr-drill-${MAPR_DRILL_VERSION}"
    fi
 
-   ${INSTALL_CMD} ${PKG}
+   service mapr-warden stop
+   sleep 5
+   service mapr-warden start
+   
+   i=0
+   while [ "$i" -le "180" ]
+   do
+     maprcli node cldbmaster 2> /dev/null
+     if [ $? -eq 0 ]; then
+        if [ -d /mapr/demo.mapr.com ]; then
+		break
+        else
+	   echo "waiting for /mapr to mount"
+	   mount
+        fi
+     fi
+
+     echo "Waiting for CLDB to start up ($i seconds elapsed)..."
+     sleep 5
+     i=$[i+5]
+   done
+
+   #If hue is enabled and drill is enabled, then we are building a second sandbox, where we don't care about the drill sample data. Install the default drill release.
+   #hue_enabled
+   #if [ $? -eq 0 ]; then
+   #	${INSTALL_CMD} ${PKG}
+   #	cp -f /opt/startup/drill-override.conf /opt/mapr/drill/drill-0.5.0/conf
+   #	sed -r -i 's/8G/2G/' /opt/mapr/drill/drill-0.5.0/conf/drill-env.sh
+   #	sed -r -i 's/4G/1G/' /opt/mapr/drill/drill-0.5.0/conf/drill-env.sh
+   #
+   #     return 0
+   #fi
+
+ 
+   ${INSTALL_CMD} http://yum.qa.lab/drill/mapr-drill-0.5.0.275270-1.noarch.rpm git
+   pushd .
+   cd /mapr/demo.mapr.com
+   #git clone https://github.com/andypern/drill-beta-demo
+   git clone https://github.com/supr/drill-beta-demo
+   cd drill-beta-demo
+   bash scripts/setup.sh
+   cd /opt/startup/
+   #jar uf /opt/mapr/drill/drill-0.5.0/jars/drill-java-exec-0.5.0-incubating-SNAPSHOT-rebuffed.jar bootstrap-storage-plugins.json
+   popd
+
+   cp -f /opt/startup/drill-override.conf /opt/mapr/drill/drill-0.5.0/conf
+
+   sed -r -i 's/8G/2G/' /opt/mapr/drill/drill-0.5.0/conf/drill-env.sh
+   sed -r -i 's/4G/1G/' /opt/mapr/drill/drill-0.5.0/conf/drill-env.sh
  fi
 }
 
@@ -47,6 +95,12 @@ hive_install ()
     fi
 
     ${INSTALL_CMD} ${PKG}
+
+    if [ -f "/opt/mapr/hive/hive-${MAPR_HIVE_VERSION_SU}/conf/hive-site.xml" ]; then
+	cp -rf $SCRIPTS_PATH/hive-site.xml /opt/mapr/hive/hive-${MAPR_HIVE_VERSION_SU}/conf/hive-site.xml
+    	cp /opt/mapr/hive/hive-${MAPR_HIVE_VERSION_SU}/conf/warden.hivemeta.conf /opt/mapr/conf/conf.d/warden.hivemeta.conf
+    fi
+
   fi
 }
 
@@ -65,7 +119,8 @@ hbase_install ()
       PKG="mapr-hbase-${MAPR_HBASE_VERSION}"
     fi
 
-    ${INSTALL_CMD} ${PKG} mapr-hbasethrift
+    ${INSTALL_CMD} http://package.qa.lab/releases/ecosystem/redhat/mapr-hbasethrift-0.94.21.26758-1.noarch.rpm 
+    #${INSTALL_CMD} ${PKG} mapr-hbasethrift
   fi
 }
 
@@ -84,7 +139,9 @@ pig_install ()
       PKG="mapr-pig-${MAPR_PIG_VERSION}"
     fi
 
-  ${INSTALL_CMD} ${PKG}
+  #${INSTALL_CMD} ${PKG}
+  #TODO: Remove when not needed.
+  ${INSTALL_CMD} http://package.mapr.com/releases/ecosystem-4.x/redhat/mapr-pig-0.12.27259-1.noarch.rpm
   fi
 }
 
@@ -103,7 +160,9 @@ hue_install ()
       PKG="mapr-hue-${MAPR_HUE_VERSION}"
     fi
 
-    ${INSTALL_CMD} ${PKG} mapr-httpfs
+    #${INSTALL_CMD} ${PKG} mapr-httpfs
+    ${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-httpfs-1.0.27200-1.noarch.rpm
+    ${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-hue-3.6.0.27507-1.noarch.rpm
 
     #Install Hue dependencies
     oozie_enabled
@@ -173,7 +232,10 @@ oozie_install ()
       PKG="mapr-oozie-${MAPR_OOZIE_VERSION}"
     fi
 
-  ${INSTALL_CMD} ${PKG}
+  #${INSTALL_CMD} ${PKG}
+  #TODO remove when not needed.
+  ${INSTALL_CMD} http://package.mapr.com/releases/ecosystem-4.x/redhat/mapr-oozie-internal-4.0.1.201409051943-1.noarch.rpm 
+  ${INSTALL_CMD} http://package.mapr.com/releases/ecosystem-4.x/redhat/mapr-oozie-4.0.1.201409051943-1.noarch.rpm
   fi
 }
 
@@ -196,6 +258,24 @@ mahout_install ()
   fi
 }
 
+if [ "${MAPR_OOZIE_VERSION}" = "0" ]; then
+ MAPR_OOZIE_VERSION_SU=4.0.0
+else
+ MAPR_OOZIE_VERSION_SU=`echo "${MAPR_OOZIE_VERSION:-4.0.0}" | awk -F. '{ printf("%s.%s.%s", $1,$2,$3); }'`
+fi
+
+if [ "${MAPR_HUE_VERSION}" = "0" ]; then
+ MAPR_HUE_VERSION_SU=2.5.0
+else
+ MAPR_HUE_VERSION_SU=`echo "${MAPR_HUE_VERSION:-2.5.0}" | awk -F. '{ printf("%s.%s.%s", $1,$2,$3); }'`
+fi
+
+if [ "${MAPR_HIVE_VERSION}" = "0" ]; then
+ MAPR_HIVE_VERSION_SU=0.12
+else
+ MAPR_HIVE_VERSION_SU=`echo "${MAPR_HIVE_VERSION:-0.12}" | awk -F. '{ printf("%s.%s", $1,$2); }'`
+fi
+
 install_packages ()
 {
  hive_install
@@ -209,18 +289,34 @@ install_packages ()
  drill_install
 }
 
+yum --enablerepo=MapR_Ecosystem clean metadata
 tar -xvzf /tmp/startup.tar.gz -C /opt
 chown root:root /opt/startup -R
 
 cp /opt/startup/start-tty* /etc/init
 cp /opt/startup/etc_sysconfig_init /etc/sysconfig/init
-cp /opt/startup/yarn-site.xml /opt/mapr/hadoop/hadoop-2.4-1/etc/hadoop/yarn-site.xml
+cp /opt/startup/container-executor.cfg /opt/mapr/hadoop/hadoop-2.4.1/etc/hadoop
+#cp /opt/startup/yarn-site.xml /opt/mapr/hadoop/hadoop-2.4-1/etc/hadoop/yarn-site.xml
+
+sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/welcome.py
+sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/error.py
+sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/startup_script
+sed -i "s/_MAPR_OOZIE_VERSION_/${MAPR_OOZIE_VERSION_SU:-4.0.0}/g" /opt/startup/startup_script
+sed -i "s/_MAPR_HUE_VERSION_/${MAPR_HUE_VERSION_SU:-2.5.0}/g" /opt/startup/startup_script
+sed -i "s/_MAPR_HIVE_VERSION_/${MAPR_HIVE_VERSION_SU:-0.13}/g" /opt/startup/startup_script
+sed -i "s/_MAPR_VERSION_/${MAPR_CORE_VERSION}/g" /opt/startup/startup_script
+
+sed -i "s|_MAPR_BANNER_URL_|${MAPR_BANNER_URL}|g" /opt/startup/welcome.py
+
+sed -i "s/_MAPR_VERSION_/${MAPR_CORE_VERSION}/g" /opt/startup/welcome.py
+sed -i "s/_MAPR_VERSION_/${MAPR_CORE_VERSION}/g" /opt/startup/error.py
+
 rm /tmp/startup.tar.gz
 
 service mapr-warden stop
 service mapr-zookeeper stop
-[ -f /opt/mapr/initscripts/mapr-warden-patched ] && \
-	cp /opt/mapr/initscripts/mapr-warden-patched /etc/init.d/mapr-warden
+#[ -f /opt/mapr/initscripts/mapr-warden-patched ] && \
+#	cp /opt/mapr/initscripts/mapr-warden-patched /etc/init.d/mapr-warden
 
 rpm -iv /tmp/mapr-patch-*.rpm
 rm /tmp/mapr-patch-*.rpm
@@ -318,8 +414,8 @@ hadoop fs -mkdir /user/root
 
 oozie_enabled
 if [ $? -eq 0 ]; then
-  hadoop fs -mkdir /oozie/share/lib
-  hadoop fs -mkdir /oozie/examples
+  hadoop fs -mkdir -p /oozie/share/lib
+  hadoop fs -mkdir -p /oozie/examples
   tar -xvzf /opt/mapr/oozie/oozie-*/oozie-sharelib-*-mapr-*.tar.gz -C /tmp
   hadoop fs -put /tmp/share/lib/* /oozie/share/lib/
   tar -xvzf /opt/mapr/oozie/oozie-*/oozie-examples.tar.gz -C /tmp
@@ -346,8 +442,10 @@ if [ $? -eq 0 ]; then
   fi
 
   sed -i -e "s/mapr.webui.https.port=8443/mapr.webui.http.port=8443/g" /opt/mapr/conf/web.conf
-  hadoop fs -mkdir /user/hive/warehouse
+  hadoop fs -mkdir -p /user/hive/warehouse
+  hadoop fs -chmod -R 777 /user/hive/warehouse
   sed -i -e 's/self == top/true/g' /opt/mapr/hue/hue-*/desktop/core/src/desktop/templates/common_header.mako
+  rm -f /opt/mapr/roles/drill-bits
 fi
 
 for user in user01 user02 hbaseuser mruser; do

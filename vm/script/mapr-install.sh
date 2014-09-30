@@ -40,6 +40,12 @@ MetricsDBHost =
 MetricsDBUser =
 MetricsDBPassword =
 MetricsDBSchema =
+
+[Hive]
+HiveVersion = 0.12
+HiveServers = maprdemo
+HiveMetaStore = maprdemo
+HiveClients = maprdemo
 EOF
 
 cat /root/config.sandbox

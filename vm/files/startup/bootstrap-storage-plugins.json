@@ -1,0 +1,87 @@
+{
+  "storage":{
+    maprdb: {
+      type: "hbase",
+      "enabled": true,
+      "config": {
+        "hbase.table.namespace.mappings": "*:/tables"
+      }
+    },
+    dfs: {
+      type: "file",
+      connection: "maprfs:///",
+      workspaces: {
+        "root" : {
+          location: "/mapr/demo.mapr.com/data",
+          writable: false,
+          storageformat: null
+        },
+        "clicks": {
+          location: "/mapr/demo.mapr.com/data/nested",
+          writable: true,
+          storageformat: "parquet"
+        },
+        "logs": {
+          location: "/mapr/demo.mapr.com/data/flat",
+          writable: true,
+          storageformat: "parquet"
+        },
+        "views": {
+          location: "/mapr/demo.mapr.com/data/views",
+          writable: true,
+          storageformat: "parquet"
+        },
+        "tmp" : {
+          location: "/tmp",
+          writable: true,
+          storageformat: "csv"
+        }
+      },
+      formats: {
+        "psv" : {
+          type: "text",
+          extensions: [ "tbl" ],
+          delimiter: "|"
+        },
+        "csv" : {
+          type: "text",
+          extensions: [ "csv" ],
+          delimiter: ","
+        },
+        "tsv" : {
+          type: "text",
+          extensions: [ "tsv" ],
+          delimiter: "\t"
+        },
+        "parquet" : {
+          type: "parquet"
+        },
+        "json" : {
+          type: "json"
+        }
+      }
+    },
+
+    hive: {
+      type: "hive",
+      enabled: true,
+      "configProps": {
+        "hive.metastore.uris": "thrift://localhost:9083",
+        "hive.metastore.sasl.enabled": "false"
+      }
+    },
+
+    cp: {
+      type: "file",
+      connection: "classpath:///",
+      formats: {
+        "json" : {
+          type: "json"
+        },
+        "parquet" : {
+          type: "parquet"
+        }
+      }
+    }
+  }
+}

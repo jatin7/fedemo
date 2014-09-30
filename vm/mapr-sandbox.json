@@ -15,6 +15,8 @@
     "mapr_drill_version"    : null,
     "mapr_core_repo_url"    : null,
     "mapr_eco_repo_url"     : null,
+    "mapr_banner_url"       : "https://%s:8443",
+    "mapr_banner_name"      : "MapR-Sandbox-For-Hadoop",
     "build_headless"        : false
   },
   "builders": [{
@@ -62,7 +64,7 @@
   },
   {
     "name"             : "sandbox",
-    "vm_name"          : "MapR-Sandbox-For-Hadoop-{{ user `mapr_version` }}",
+    "vm_name"          : "{{ user `mapr_banner_name` }}-{{ user `mapr_version` }}",
     "type"             : "virtualbox-ovf",
     "source_path"      : "output-sandbox-base/MapR-Sandbox-Base-For-Hadoop-{{ user `mapr_version` }}.ova",
     "ssh_username"     : "root",
@@ -73,7 +75,12 @@
     "headless"         : "{{ user `build_headless` }}",
     "format"           : "ova"
   }],
-  "provisioners": [{
+  "provisioners": [
+  {
+    "type": "shell",
+    "inline": ["sleep 5;sync;echo 3 >/proc/sys/vm/drop_caches"]
+  },
+  {
     "type"        : "file",
     "source"      : "files/startup.tar.gz",
     "destination" : "/tmp/startup.tar.gz",
@@ -93,7 +100,9 @@
       "MAPR_MAHOUT_VERSION={{ user `mapr_mahout_version`}}",
       "MAPR_DRILL_VERSION={{ user `mapr_drill_version`}}",
       "MAPR_CORE_REPO_URL={{ user `mapr_core_repo_url`}}",
-      "MAPR_ECO_REPO_URL={{ user `mapr_eco_repo_url`}}"
+      "MAPR_ECO_REPO_URL={{ user `mapr_eco_repo_url`}}",
+      "MAPR_BANNER_URL={{ user `mapr_banner_url` }}",
+      "MAPR_BANNER_NAME={{ user `mapr_banner_name` }}"
     ],
     "execute_command": "{{ .Vars }} bash {{.Path}}",
     "scripts": [
