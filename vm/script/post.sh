@@ -2,6 +2,13 @@
 INSTALL_CMD="yum install -y"
 SCRIPTS_PATH=/opt/startup
 
+#Passwordless ssh
+ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa
+cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
+
+#Disable SELinux
+sed -i 's|SELINUX=enforcing|SELINUX=disabled|g' /etc/sysconfig/selinux
+
 enabled ()
 {
   if [ "$1" == "0" ]; then
@@ -59,8 +66,10 @@ drill_install ()
    #     return 0
    #fi
 
- 
-   ${INSTALL_CMD} http://yum.qa.lab/drill/mapr-drill-0.5.0.275270-1.noarch.rpm git
+   mkdir -p /opt/mapr/drill/drill-0.6.0/conf
+   cp /opt/startup/bootstrap-storage-plugins.json /opt/mapr/drill/drill-0.6.0/conf 
+   #${INSTALL_CMD} http://yum.qa.lab/drill/mapr-drill-0.6.0.278510-1.noarch.rpm git
+   ${INSTALL_CMD} ${PKG} git
    pushd .
    cd /mapr/demo.mapr.com
    #git clone https://github.com/andypern/drill-beta-demo
@@ -71,10 +80,10 @@ drill_install ()
    #jar uf /opt/mapr/drill/drill-0.5.0/jars/drill-java-exec-0.5.0-incubating-SNAPSHOT-rebuffed.jar bootstrap-storage-plugins.json
    popd
 
-   cp -f /opt/startup/drill-override.conf /opt/mapr/drill/drill-0.5.0/conf
+   cp -f /opt/startup/drill-override.conf /opt/mapr/drill/drill-0.6.0/conf
 
-   sed -r -i 's/8G/2G/' /opt/mapr/drill/drill-0.5.0/conf/drill-env.sh
-   sed -r -i 's/4G/1G/' /opt/mapr/drill/drill-0.5.0/conf/drill-env.sh
+   sed -r -i 's/8G/2G/' /opt/mapr/drill/drill-0.6.0/conf/drill-env.sh
+   sed -r -i 's/4G/1G/' /opt/mapr/drill/drill-0.6.0/conf/drill-env.sh
  fi
 }
 
@@ -157,12 +166,13 @@ hue_install ()
   if [ $? -eq 0 ]; then
     PKG="mapr-hue"
     if [ ! -z "${MAPR_HUE_VERSION:-}" ]; then
-      PKG="mapr-hue-${MAPR_HUE_VERSION}"
+      HUE_PKG_VERSION=`echo ${MAPR_HUE_VERSION} | awk -F. '{printf("%s.%s.%s", $1, $2, $3); }'`
+      PKG="mapr-hue-${HUE_PKG_VERSION}*"
     fi
 
-    #${INSTALL_CMD} ${PKG} mapr-httpfs
-    ${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-httpfs-1.0.27200-1.noarch.rpm
-    ${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-hue-3.6.0.27507-1.noarch.rpm
+    ${INSTALL_CMD} ${PKG} mapr-httpfs
+    #${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-httpfs-1.0.27200-1.noarch.rpm
+    #${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-hue-3.6.0.27507-1.noarch.rpm
 
     #Install Hue dependencies
     oozie_enabled
@@ -232,10 +242,10 @@ oozie_install ()
       PKG="mapr-oozie-${MAPR_OOZIE_VERSION}"
     fi
 
-  #${INSTALL_CMD} ${PKG}
+  ${INSTALL_CMD} ${PKG}
   #TODO remove when not needed.
-  ${INSTALL_CMD} http://package.mapr.com/releases/ecosystem-4.x/redhat/mapr-oozie-internal-4.0.1.201409051943-1.noarch.rpm 
-  ${INSTALL_CMD} http://package.mapr.com/releases/ecosystem-4.x/redhat/mapr-oozie-4.0.1.201409051943-1.noarch.rpm
+  #${INSTALL_CMD} http://package.mapr.com/releases/ecosystem-4.x/redhat/mapr-oozie-internal-4.0.1.201409051943-1.noarch.rpm 
+  #${INSTALL_CMD} http://package.mapr.com/releases/ecosystem-4.x/redhat/mapr-oozie-4.0.1.201409051943-1.noarch.rpm
   fi
 }
 
@@ -271,9 +281,9 @@ else
 fi
 
 if [ "${MAPR_HIVE_VERSION}" = "0" ]; then
- MAPR_HIVE_VERSION_SU=0.12
+ MAPR_HIVE_VERSION_SU=0.13
 else
- MAPR_HIVE_VERSION_SU=`echo "${MAPR_HIVE_VERSION:-0.12}" | awk -F. '{ printf("%s.%s", $1,$2); }'`
+ MAPR_HIVE_VERSION_SU=`echo "${MAPR_HIVE_VERSION:-0.13}" | awk -F. '{ printf("%s.%s", $1,$2); }'`
 fi
 
 install_packages ()
@@ -445,7 +455,9 @@ if [ $? -eq 0 ]; then
   hadoop fs -mkdir -p /user/hive/warehouse
   hadoop fs -chmod -R 777 /user/hive/warehouse
   sed -i -e 's/self == top/true/g' /opt/mapr/hue/hue-*/desktop/core/src/desktop/templates/common_header.mako
-  rm -f /opt/mapr/roles/drill-bits
+  #rm -f /opt/mapr/roles/drill-bits
+  # Uncomment the below line if we need to remove drill from the Hue(Traditional) Sandbox.
+  #rm -f /opt/mapr/conf/conf.d/warden.drill-bits.conf
 fi
 
 for user in user01 user02 hbaseuser mruser; do
