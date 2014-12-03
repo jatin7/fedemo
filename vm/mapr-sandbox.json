@@ -5,6 +5,7 @@
     "mapr_disk_size"        : "20480",
     "mapr_version"          : null,
     "mapr_hbase_version"    : null,
+    "mapr_sqoop_version"    : null,
     "mapr_pig_version"      : null,
     "mapr_hive_version"     : null,
     "mapr_hue_version"      : null,
@@ -102,7 +103,8 @@
       "MAPR_CORE_REPO_URL={{ user `mapr_core_repo_url`}}",
       "MAPR_ECO_REPO_URL={{ user `mapr_eco_repo_url`}}",
       "MAPR_BANNER_URL={{ user `mapr_banner_url` }}",
-      "MAPR_BANNER_NAME={{ user `mapr_banner_name` }}"
+      "MAPR_BANNER_NAME={{ user `mapr_banner_name` }}",
+      "MAPR_SQOOP_VERSION={{ user `mapr_sqoop_version` }}"
     ],
     "execute_command": "{{ .Vars }} bash {{.Path}}",
     "scripts": [

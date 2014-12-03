@@ -9,6 +9,8 @@ cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 #Disable SELinux
 sed -i 's|SELINUX=enforcing|SELINUX=disabled|g' /etc/sysconfig/selinux
 
+yum clean all
+
 enabled ()
 {
   if [ "$1" == "0" ]; then
@@ -68,8 +70,12 @@ drill_install ()
 
    mkdir -p /opt/mapr/drill/drill-0.6.0/conf
    cp /opt/startup/bootstrap-storage-plugins.json /opt/mapr/drill/drill-0.6.0/conf 
-   #${INSTALL_CMD} http://yum.qa.lab/drill/mapr-drill-0.6.0.278510-1.noarch.rpm git
+   #${INSTALL_CMD} git http://yum.qa.lab/opensource/mapr-drill-0.6.0.28642.r2-1.noarch.rpm
    ${INSTALL_CMD} ${PKG} git
+   chmod 755 -R /opt/mapr/drill/drill-0.6.0/logs
+   touch /opt/mapr/drill/drill-0.6.0/logs/sqlline.log
+   chmod 766 /opt/mapr/drill/drill-0.6.0/logs/sqlline.log
+   #${INSTALL_CMD} ${PKG} git
    pushd .
    cd /mapr/demo.mapr.com
    #git clone https://github.com/andypern/drill-beta-demo
@@ -113,6 +119,21 @@ hive_install ()
   fi
 }
 
+sqoop_enabled ()
+{
+ enabled "${MAPR_SQOOP_VERSION:-}"
+ return $?
+}
+
+sqoop_install ()
+{
+  sqoop_enabled
+  if [ $? -eq 0 ]; then
+	PKG="mapr-sqoop2-server mapr-sqoop2-client"
+	${INSTALL_CMD} ${PKG}
+  fi
+}
+
 hbase_enabled ()
 {
   enabled "${MAPR_HBASE_VERSION:-}"
@@ -128,8 +149,8 @@ hbase_install ()
       PKG="mapr-hbase-${MAPR_HBASE_VERSION}"
     fi
 
-    ${INSTALL_CMD} http://package.qa.lab/releases/ecosystem/redhat/mapr-hbasethrift-0.94.21.26758-1.noarch.rpm 
-    #${INSTALL_CMD} ${PKG} mapr-hbasethrift
+    #${INSTALL_CMD} http://package.qa.lab/releases/ecosystem/redhat/mapr-hbasethrift-0.94.21.26758-1.noarch.rpm 
+    ${INSTALL_CMD} ${PKG} mapr-hbasethrift
   fi
 }
 
@@ -148,9 +169,9 @@ pig_install ()
       PKG="mapr-pig-${MAPR_PIG_VERSION}"
     fi
 
-  #${INSTALL_CMD} ${PKG}
+  ${INSTALL_CMD} ${PKG}
   #TODO: Remove when not needed.
-  ${INSTALL_CMD} http://package.mapr.com/releases/ecosystem-4.x/redhat/mapr-pig-0.12.27259-1.noarch.rpm
+  #${INSTALL_CMD} http://package.mapr.com/releases/ecosystem-4.x/redhat/mapr-pig-0.12.27259-1.noarch.rpm
   fi
 }
 
@@ -277,7 +298,7 @@ fi
 if [ "${MAPR_HUE_VERSION}" = "0" ]; then
  MAPR_HUE_VERSION_SU=2.5.0
 else
- MAPR_HUE_VERSION_SU=`echo "${MAPR_HUE_VERSION:-2.5.0}" | awk -F. '{ printf("%s.%s.%s", $1,$2,$3); }'`
+ MAPR_HUE_VERSION_SU=`echo "${MAPR_HUE_VERSION:-3.6.0}" | awk -F. '{ printf("%s.%s.%s", $1,$2,$3); }'`
 fi
 
 if [ "${MAPR_HIVE_VERSION}" = "0" ]; then
@@ -297,6 +318,7 @@ install_packages ()
  oozie_install
  mahout_install
  drill_install
+ sqoop_install
 }
 
 yum --enablerepo=MapR_Ecosystem clean metadata
