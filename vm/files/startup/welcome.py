@@ -2,10 +2,21 @@
 import curses
 import sh
 import subprocess
+import os
 
 screen = None
 Width_Factor = 4
 ip = sh.head(sh.awk(sh.getent("ahosts", sh.hostname().strip()),"{print $1}"),n="1").strip()
+
+if not os.path.exists("/vmware"):
+	ip = "127.0.0.1"
+
+ssh_cmd = ""
+if ip == "127.0.0.1":
+	ssh_cmd = "ssh root@localhost -p 2222"
+else:
+	ssh_cmd = "ssh root@%s" % (ip)
+	
 
 class NetworkMisconfiguredException(Exception):
     pass
@@ -25,9 +36,10 @@ def make_status_window():
     status_win = screen.subwin(Height / 2 - Width_Factor / 2, Width, Height / 2 - Width_Factor, 0)
     status_win.box()
     status_win.addstr(1,2,"_MAPR_BANNER_NAME_ installation finished successfully.", curses.A_BOLD)
-    status_win.addstr(3,2,"Please go to _MAPR_BANNER_URL_ to begin your experience." % ip)
+    status_win.addstr(3,2,"Please go to _MAPR_BANNER_URL_ to begin your experience." % ip) #Fixme: Is there a way to detect, how networking is setup on a VM, nat, bridged etc?
     status_win.addstr(5,2,"Open a browser on your host machine ")
     status_win.addstr(6,2,"and enter the URL in the browser's address field.")
+    status_win.addstr(8,2,"You can access the host via SSH by %s" % (ssh_cmd))
 	
 def make_hint_window():
     Height, Width = screen.getmaxyx()
