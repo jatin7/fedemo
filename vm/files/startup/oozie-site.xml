@@ -367,5 +367,9 @@
         </description>
     </property>
 
-    
+    <property>
+	<name>mapreduce.framework.name</name>
+	<value>yarn-tez</value>
+    </property>
+
 </configuration>
