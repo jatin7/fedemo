@@ -59,4 +59,4 @@ yum install -y mysql-server
 yum install -y mapr-metrics
 
 #For somereason warden can't determine hostname
-sed -i 's|/bin/hostname --fqdn|echo `/bin/hostname --fqdn`|g' /etc/init.d/mapr-warden
+#sed -i 's|/bin/hostname --fqdn|echo `/bin/hostname --fqdn`|g' /etc/init.d/mapr-warden

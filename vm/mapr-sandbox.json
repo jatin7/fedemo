@@ -16,6 +16,7 @@
     "mapr_drill_version"    : null,
     "mapr_core_repo_url"    : null,
     "mapr_eco_repo_url"     : null,
+    "hadoop_version"        : "2.4.1",
     "mapr_banner_url"       : "https://%s:8443",
     "mapr_banner_name"      : "MapR-Sandbox-For-Hadoop",
     "build_headless"        : false
@@ -62,6 +63,18 @@
       ["modifyvm", "{{.Name}}", "--memory", "6144"],
       ["modifyvm", "{{.Name}}", "--cpus", "2"]
     ]
+  },
+  {
+    "name": "sandbox-vmware",
+    "vm_name": "{{ user `mapr_banner_name` }}-{{user `mapr_version` }}-vmware",
+    "type": "virtualbox-ovf",
+    "source_path": "output-sandbox/{{ user `mapr_banner_name` }}-{{user `mapr_version` }}.ova",
+    "ssh_username": "root",
+    "ssh_password": "mapr",
+    "ssh_wait_timeout": "300s",
+    "shutdown_command": "shutdown -P now",
+    "import_opts": "keepallmacs",
+    "format": "ova"
   },
   {
     "name"             : "sandbox",
@@ -144,7 +157,8 @@
       "MAPR_ECO_REPO_URL={{ user `mapr_eco_repo_url`}}",
       "MAPR_BANNER_URL={{ user `mapr_banner_url` }}",
       "MAPR_BANNER_NAME={{ user `mapr_banner_name` }}",
-      "MAPR_SQOOP_VERSION={{ user `mapr_sqoop_version` }}"
+      "MAPR_SQOOP_VERSION={{ user `mapr_sqoop_version` }}",
+      "HADOOP_VERSION={{ user `hadoop_version` }}"
     ],
     "execute_command": "{{ .Vars }} bash {{.Path}}",
     "scripts": [
@@ -169,10 +183,10 @@
       "script/mapr-install.sh"
     ],
     "only": ["sandbox-base"]
-  }],
-  "post-processors": [{
-    "type": "vagrant",
-    "keep_input_artifact": true,
-    "only": ["sandbox"]
+  },
+  {
+    "type": "shell",
+    "inline": ["touch /vmware"],
+    "only": ["sandbox-vmware"]
   }]
 }

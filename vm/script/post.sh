@@ -5,9 +5,10 @@ SCRIPTS_PATH=/opt/startup
 #Passwordless ssh
 ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa
 cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
+restorecon -R -v /root/.ssh
 
 #Disable SELinux
-sed -i 's|SELINUX=enforcing|SELINUX=disabled|g' /etc/sysconfig/selinux
+sed -i 's|SELINUX=enforcing|SELINUX=disabled|g' /etc/selinux/config
 
 yum clean all
 
@@ -68,13 +69,13 @@ drill_install ()
    #     return 0
    #fi
 
-   mkdir -p /opt/mapr/drill/drill-0.6.0/conf
-   cp /opt/startup/bootstrap-storage-plugins.json /opt/mapr/drill/drill-0.6.0/conf 
+   mkdir -p /opt/mapr/drill/drill-0.7.0/conf
+   cp /opt/startup/bootstrap-storage-plugins.json /opt/mapr/drill/drill-0.7.0/conf 
    #${INSTALL_CMD} git http://yum.qa.lab/opensource/mapr-drill-0.6.0.28642.r2-1.noarch.rpm
    ${INSTALL_CMD} ${PKG} git
-   chmod 755 -R /opt/mapr/drill/drill-0.6.0/logs
-   touch /opt/mapr/drill/drill-0.6.0/logs/sqlline.log
-   chmod 766 /opt/mapr/drill/drill-0.6.0/logs/sqlline.log
+   chmod 755 -R /opt/mapr/drill/drill-0.7.0/logs
+   touch /opt/mapr/drill/drill-0.7.0/logs/sqlline.log
+   chmod 766 /opt/mapr/drill/drill-0.7.0/logs/sqlline.log
    #${INSTALL_CMD} ${PKG} git
    pushd .
    cd /mapr/demo.mapr.com
@@ -86,10 +87,10 @@ drill_install ()
    #jar uf /opt/mapr/drill/drill-0.5.0/jars/drill-java-exec-0.5.0-incubating-SNAPSHOT-rebuffed.jar bootstrap-storage-plugins.json
    popd
 
-   cp -f /opt/startup/drill-override.conf /opt/mapr/drill/drill-0.6.0/conf
+   cp -f /opt/startup/drill-override.conf /opt/mapr/drill/drill-0.7.0/conf
 
-   sed -r -i 's/8G/2G/' /opt/mapr/drill/drill-0.6.0/conf/drill-env.sh
-   sed -r -i 's/4G/1G/' /opt/mapr/drill/drill-0.6.0/conf/drill-env.sh
+   sed -r -i 's/8G/2G/' /opt/mapr/drill/drill-0.7.0/conf/drill-env.sh
+   sed -r -i 's/4G/1G/' /opt/mapr/drill/drill-0.7.0/conf/drill-env.sh
  fi
 }
 
@@ -191,7 +192,8 @@ hue_install ()
       PKG="mapr-hue-${HUE_PKG_VERSION}*"
     fi
 
-    ${INSTALL_CMD} ${PKG} mapr-httpfs
+    ${INSTALL_CMD} mapr-httpfs http://yum.qa.lab/opensource/mapr-hue-3.6.0.201412190733-1.noarch.rpm
+    #${INSTALL_CMD} mapr-hue mapr-httpfs
     #${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-httpfs-1.0.27200-1.noarch.rpm
     #${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-hue-3.6.0.27507-1.noarch.rpm
 
@@ -337,6 +339,7 @@ sed -i "s/_MAPR_OOZIE_VERSION_/${MAPR_OOZIE_VERSION_SU:-4.0.0}/g" /opt/startup/s
 sed -i "s/_MAPR_HUE_VERSION_/${MAPR_HUE_VERSION_SU:-2.5.0}/g" /opt/startup/startup_script
 sed -i "s/_MAPR_HIVE_VERSION_/${MAPR_HIVE_VERSION_SU:-0.13}/g" /opt/startup/startup_script
 sed -i "s/_MAPR_VERSION_/${MAPR_CORE_VERSION}/g" /opt/startup/startup_script
+sed -i "s/_HADOOP_VERSION_/${HADOOP_VERSION:-2.4.1}/g" /opt/startup/startup_script
 
 sed -i "s|_MAPR_BANNER_URL_|${MAPR_BANNER_URL}|g" /opt/startup/welcome.py
 
@@ -460,17 +463,13 @@ fi
 hue_enabled
 if [ $? -eq 0 ]; then
   cp /opt/mapr/hue/hue-*/desktop/libs/hadoop/java-lib/hue-plugins-*.jar /opt/mapr/hadoop/hadoop*/lib/
-  grep "<url-pattern>/hue/\*</url-pattern>" /opt/mapr/adminuiapp/webapp/WEB-INF/web.xml > /dev/null 2>&1
+  grep "<url-pattern>/mcs/\*</url-pattern>" /opt/mapr/adminuiapp/webapp/WEB-INF/web.xml > /dev/null 2>&1
   if [ $? -ne 0 ]; then
     sed -i -e "s#<url-pattern>/index/\*</url-pattern>#<url-pattern>/mcs/*</url-pattern>\
-      </servlet-mapping>\
-      <servlet-mapping>\
-        <servlet-name>com.mapr.adminuiapp.http.vm_jsp</servlet-name>\
-        <url-pattern>/index/*</url-pattern>\
-      </servlet-mapping>\
-      <servlet-mapping>\
-        <servlet-name>com.mapr.adminuiapp.http.hue_jsp</servlet-name>\
-        <url-pattern>/hue/*</url-pattern>#" /opt/mapr/adminuiapp/webapp/WEB-INF/web.xml
+   </servlet-mapping>\
+   <servlet-mapping>\
+       <servlet-name>com.mapr.adminuiapp.http.vm_jsp</servlet-name>\
+       <url-pattern>/index/*</url-pattern>#" /opt/mapr/adminuiapp/webapp/WEB-INF/web.xml
   fi
 
   sed -i -e "s/mapr.webui.https.port=8443/mapr.webui.http.port=8443/g" /opt/mapr/conf/web.conf
@@ -488,3 +487,8 @@ done
 
 #Mark this as off, to prevent Races
 chkconfig mapr-warden off
+
+echo "Stopping Warden!!!!"
+service mapr-warden stop
+echo "Stopping Zookeeper!!!!"
+service mapr-zookeeper stop
