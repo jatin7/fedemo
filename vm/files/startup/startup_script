@@ -59,13 +59,13 @@ start)
 
     printf "%-50s\n" "Waiting for MapR services to come up..." | tee -a $LOG
     sleep 60 
-    jps | grep CommandServer
+    su - mapr -c "jps | grep CommandServer"
     if [ $? -ne 0 ];then
     printf "%-50s\n" "Still waiting for MapR services to come up..." | tee -a $LOG
     sleep 60  
     fi
     fi
-    jps | grep CommandServer
+    su - mapr -c "jps | grep CommandServer"
     if [ $? -ne 0 ];then
     python $SCRIPTS_PATH/error.py
     else

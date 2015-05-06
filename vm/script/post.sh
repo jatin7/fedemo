@@ -1,4 +1,7 @@
 #!/bin/bash -eux
+
+yum remove -y mapr-metrics
+
 INSTALL_CMD="yum install -y"
 SCRIPTS_PATH=/opt/startup
 
@@ -69,14 +72,12 @@ drill_install ()
    #     return 0
    #fi
 
-   mkdir -p /opt/mapr/drill/drill-0.7.0/conf
-   cp /opt/startup/bootstrap-storage-plugins.json /opt/mapr/drill/drill-0.7.0/conf 
-   #${INSTALL_CMD} git http://yum.qa.lab/opensource/mapr-drill-0.6.0.28642.r2-1.noarch.rpm
-   ${INSTALL_CMD} ${PKG} git
+   #mkdir -p /opt/mapr/drill/drill-0.7.0/conf
+   #cp /opt/startup/bootstrap-storage-plugins.json /opt/mapr/drill/drill-0.7.0/conf 
+   ${INSTALL_CMD} git mapr-drill
    chmod 755 -R /opt/mapr/drill/drill-0.7.0/logs
    touch /opt/mapr/drill/drill-0.7.0/logs/sqlline.log
    chmod 766 /opt/mapr/drill/drill-0.7.0/logs/sqlline.log
-   #${INSTALL_CMD} ${PKG} git
    pushd .
    cd /mapr/demo.mapr.com
    #git clone https://github.com/andypern/drill-beta-demo
@@ -91,6 +92,14 @@ drill_install ()
 
    sed -r -i 's/8G/2G/' /opt/mapr/drill/drill-0.7.0/conf/drill-env.sh
    sed -r -i 's/4G/1G/' /opt/mapr/drill/drill-0.7.0/conf/drill-env.sh
+
+   maprcli node services -name drill-bits -action start -filter '[csvc==drill-bits]'
+   while ! nc -vz localhost 8047; do sleep 1; done
+   echo "Drill Bit REST API UP!"
+   for cfg in hive maprdb cp dfs; do
+	curl -H "Content-Type: application/json" --data @/opt/startup/${cfg}.json http://localhost:8047/storage/${cfg}.json
+   done
+   true
  fi
 }
 
@@ -110,7 +119,8 @@ hive_install ()
       PKG="mapr-hive-${MAPR_HIVE_VERSION} mapr-hivemetastore-${MAPR_HIVE_VERSION} mapr-hiveserver2-${MAPR_HIVE_VERSION}"
     fi
 
-    ${INSTALL_CMD} ${PKG}
+    #${INSTALL_CMD} ${PKG}
+    ${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-hive-0.13.201505011621-1.noarch.rpm http://yum.qa.lab/opensource/mapr-hivemetastore-0.13.201505011621-1.noarch.rpm http://yum.qa.lab/opensource/mapr-hiveserver2-0.13.201505011621-1.noarch.rpm
 
     if [ -f "/opt/mapr/hive/hive-${MAPR_HIVE_VERSION_SU}/conf/hive-site.xml" ]; then
 	cp -rf $SCRIPTS_PATH/hive-site.xml /opt/mapr/hive/hive-${MAPR_HIVE_VERSION_SU}/conf/hive-site.xml
@@ -118,6 +128,27 @@ hive_install ()
     fi
 
   fi
+}
+
+spark_enabled ()
+{
+ enabled "${MAPR_SPARK_VERSION:-}"
+ return $?
+}
+
+spark_install ()
+{
+ spark_enabled
+ if [ $? -eq 0 ]; then
+    PKG="mapr-spark mapr-spark-historyserver"
+    if [ ! -z "${MAPR_SPARK_VERSION:-}" ]; then
+        PKG="mapr-spark-${MAPR_SPARK_VERSION} mapr-spark-historyserver-${MAPR_SPARK_VERSION}"
+    fi
+
+    ${INSTALL_CMD} ${PKG}
+
+    hadoop fs -mkdir /apps/spark && hadoop fs -chmod 777 /apps/spark
+ fi
 }
 
 sqoop_enabled ()
@@ -192,10 +223,7 @@ hue_install ()
       PKG="mapr-hue-${HUE_PKG_VERSION}*"
     fi
 
-    ${INSTALL_CMD} mapr-httpfs http://yum.qa.lab/opensource/mapr-hue-3.6.0.201412190733-1.noarch.rpm
-    #${INSTALL_CMD} mapr-hue mapr-httpfs
-    #${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-httpfs-1.0.27200-1.noarch.rpm
-    #${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-hue-3.6.0.27507-1.noarch.rpm
+    ${INSTALL_CMD} mapr-hue mapr-httpfs
 
     #Install Hue dependencies
     oozie_enabled
@@ -266,9 +294,6 @@ oozie_install ()
     fi
 
   ${INSTALL_CMD} ${PKG}
-  #TODO remove when not needed.
-  #${INSTALL_CMD} http://package.mapr.com/releases/ecosystem-4.x/redhat/mapr-oozie-internal-4.0.1.201409051943-1.noarch.rpm 
-  #${INSTALL_CMD} http://package.mapr.com/releases/ecosystem-4.x/redhat/mapr-oozie-4.0.1.201409051943-1.noarch.rpm
   fi
 }
 
@@ -320,6 +345,7 @@ install_packages ()
  oozie_install
  mahout_install
  drill_install
+ spark_install
  sqoop_install
 }
 
@@ -329,7 +355,7 @@ chown root:root /opt/startup -R
 
 cp /opt/startup/start-tty* /etc/init
 cp /opt/startup/etc_sysconfig_init /etc/sysconfig/init
-cp /opt/startup/container-executor.cfg /opt/mapr/hadoop/hadoop-2.4.1/etc/hadoop
+cp /opt/startup/container-executor.cfg /opt/mapr/hadoop/hadoop-${HADOOP_VERSION:-2.5.1}/etc/hadoop
 #cp /opt/startup/yarn-site.xml /opt/mapr/hadoop/hadoop-2.4-1/etc/hadoop/yarn-site.xml
 
 sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/welcome.py
@@ -458,6 +484,11 @@ if [ $? -eq 0 ]; then
 
   hadoop fs -chown -R mapr:mapr /oozie
   hadoop fs -chmod -R 777 /oozie
+
+  #The following is manadatory for Oozie to talk to RM's
+  for A in /mapr/demo.mapr.com/oozie/examples/apps/*; do
+	sed -i 's/jobTracker=.*/jobTracker=maprdemo:8032/' $A/job.properties
+  done 
 fi
 
 hue_enabled
@@ -482,7 +513,7 @@ if [ $? -eq 0 ]; then
 fi
 
 for user in user01 user02 hbaseuser mruser; do
-  useradd -d /user/$user -p `openssl passwd -1 $user` -g mapr -m $user
+  useradd -d /user/$user -p `openssl passwd -1 mapr` -g mapr -m $user
 done
 
 #Mark this as off, to prevent Races
