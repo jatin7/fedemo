@@ -1,0 +1,10 @@
+{
+ "name": "maprdb",
+ "config": {
+      type: "hbase",
+      "enabled": true,
+      "config": {
+        "hbase.table.namespace.mappings": "*:/tables"
+      }
+ }
+}

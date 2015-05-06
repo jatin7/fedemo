@@ -1,0 +1,16 @@
+{
+    "name": "cp",
+    "config": {
+      "type": "file",
+      "connection": "classpath:///",
+      "formats": {
+        "json" : {
+          "type": "json"
+        },
+        "parquet" : {
+          "type": "parquet"
+        }
+      }
+    }
+  }
+}

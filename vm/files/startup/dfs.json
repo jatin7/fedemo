@@ -1,0 +1,67 @@
+{
+    "name": "dfs",
+    config: {
+	  "type": "file",
+	  "enabled": true,
+	  "connection": "maprfs:///",
+	  "workspaces": {
+	    "root": {
+	      "location": "/mapr/demo.mapr.com/data",
+	      "writable": false,
+	      "storageformat": null
+	    },
+            "clicks": {
+              "location": "/mapr/demo.mapr.com/data/nested",
+              "writable": true,
+              "storageformat": "parquet"
+            },
+            "logs": {
+              "location": "/mapr/demo.mapr.com/data/flat",
+              "writable": true,
+              "storageformat": "parquet"
+            },
+            "views": {
+              "location": "/mapr/demo.mapr.com/data/views",
+              "writable": true,
+              "storageformat": "parquet"
+            },
+	    "tmp": {
+	      "location": "/tmp",
+	      "writable": true,
+	      "storageformat": "csv"
+	    }
+	  },
+	  "formats": {
+	    "psv": {
+	      "type": "text",
+	      "extensions": [
+		"tbl"
+	      ],
+	      "delimiter": "|"
+	    },
+	    "csv": {
+	      "type": "text",
+	      "extensions": [
+		"csv"
+	      ],
+	      "delimiter": ","
+	    },
+	    "tsv": {
+	      "type": "text",
+	      "extensions": [
+		"tsv"
+	      ],
+	      "delimiter": "\t"
+	    },
+	    "parquet": {
+	      "type": "parquet"
+	    },
+	    "json": {
+	      "type": "json"
+	    },
+	    "maprdb": {
+	      "type": "maprdb"
+	    }
+	  }
+    }
+}
