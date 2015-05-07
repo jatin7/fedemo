@@ -40,9 +40,8 @@ Example vmx file
     toolscripts.beforepoweroff = "true"
     toolscripts.beforesuspend = "true"
 
-guestos needs to be corrected for VMware
-
-ide* need to be corrected so that all IDE devices are on controller 0
+* guestos needs to be corrected for VMware
+* ide1:* need to be corrected to be on controller 0
 
 Convert the Virtualbox OVA to VMWare VMX
 
