@@ -41,7 +41,7 @@ Example vmx file
     toolscripts.beforesuspend = "true"
 
 * guestos needs to be corrected for VMware
-* ide1:* need to be corrected to be on controller 0
+* ide1:1 need to be corrected to be ide1:0 (on the same controller as ide0:0)
 
 Convert the Virtualbox OVA to VMWare VMX
 
