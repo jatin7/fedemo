@@ -72,28 +72,25 @@ drill_install ()
    #     return 0
    #fi
 
-   #mkdir -p /opt/mapr/drill/drill-0.7.0/conf
-   #cp /opt/startup/bootstrap-storage-plugins.json /opt/mapr/drill/drill-0.7.0/conf 
    ${INSTALL_CMD} git mapr-drill
-   chmod 755 -R /opt/mapr/drill/drill-0.7.0/logs
-   touch /opt/mapr/drill/drill-0.7.0/logs/sqlline.log
-   chmod 766 /opt/mapr/drill/drill-0.7.0/logs/sqlline.log
+   echo "Reducing Drill memory usage"
+   sed -r -i 's/8G/2G/' /opt/mapr/drill/drill-*/conf/drill-env.sh
+   sed -r -i 's/4G/1G/' /opt/mapr/drill/drill-*/conf/drill-env.sh
+
    pushd .
    cd /mapr/demo.mapr.com
-   #git clone https://github.com/andypern/drill-beta-demo
    git clone https://github.com/supr/drill-beta-demo
    cd drill-beta-demo
+   echo "running Drill beta demo setup script from github.com/supr/drill-beta-demo ..."
    bash scripts/setup.sh
    cd /opt/startup/
-   #jar uf /opt/mapr/drill/drill-0.5.0/jars/drill-java-exec-0.5.0-incubating-SNAPSHOT-rebuffed.jar bootstrap-storage-plugins.json
    popd
 
-   cp -f /opt/startup/drill-override.conf /opt/mapr/drill/drill-0.7.0/conf
+   cp -fv /opt/startup/drill-override.conf /opt/mapr/drill/drill-*/conf/.
 
-   sed -r -i 's/8G/2G/' /opt/mapr/drill/drill-0.7.0/conf/drill-env.sh
-   sed -r -i 's/4G/1G/' /opt/mapr/drill/drill-0.7.0/conf/drill-env.sh
-
+   echo "starting Drill..."
    maprcli node services -name drill-bits -action start -filter '[csvc==drill-bits]'
+   echo "checking for Drill REST API... with netcat..."
    while ! nc -vz localhost 8047; do sleep 1; done
    echo "Drill Bit REST API UP!"
    for cfg in hive maprdb cp dfs; do
