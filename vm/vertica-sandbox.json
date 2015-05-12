@@ -100,18 +100,6 @@
     "only"        : ["sandbox","vertica"]
   },
   {
-    "type"        : "file",
-    "source"      : "/var/packages/mapr-patch-3.0.2.22510.GA-25250.x86_64.rpm",
-    "destination" : "/tmp/mapr-patch-3.0.2.rpm",
-    "only"        : ["sandbox","vertica"]
-  },
-  {
-    "type":"file",
-    "source":"files/mapr-warden-302-patched",
-    "destination":"/opt/mapr/initscripts/mapr-warden-patched",
-    "only":[ "vertica" ]
-  },
-  {
     "type":"file",
     "source":"files/start_vertica_db.sh",
     "destination":"/opt/mapr/server/start_vertica_db.sh",
@@ -125,7 +113,7 @@
   },
   {
     "type":"file",
-    "source":"/var/packages/vertica-7.0.1-0.x86_64.RHEL5.rpm",
+    "source":"/tmp/vertica-{{ user `vertica_version`}}-0.x86_64.RHEL5.rpm",
     "destination":"/tmp/vertica.rpm",
     "only":[ "vertica" ]
   },
