@@ -116,8 +116,9 @@ hive_install ()
       PKG="mapr-hive-${MAPR_HIVE_VERSION} mapr-hivemetastore-${MAPR_HIVE_VERSION} mapr-hiveserver2-${MAPR_HIVE_VERSION}"
     fi
 
-    #${INSTALL_CMD} ${PKG}
-    ${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-hive-0.13.201505011621-1.noarch.rpm http://yum.qa.lab/opensource/mapr-hivemetastore-0.13.201505011621-1.noarch.rpm http://yum.qa.lab/opensource/mapr-hiveserver2-0.13.201505011621-1.noarch.rpm
+    ${INSTALL_CMD} ${PKG}
+    # Example of installing Hive from yum.qa.lab, but nothing else
+    #${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-hive-0.13.201505011621-1.noarch.rpm http://yum.qa.lab/opensource/mapr-hivemetastore-0.13.201505011621-1.noarch.rpm http://yum.qa.lab/opensource/mapr-hiveserver2-0.13.201505011621-1.noarch.rpm
 
     if [ -f "/opt/mapr/hive/hive-${MAPR_HIVE_VERSION_SU}/conf/hive-site.xml" ]; then
 	cp -rf $SCRIPTS_PATH/hive-site.xml /opt/mapr/hive/hive-${MAPR_HIVE_VERSION_SU}/conf/hive-site.xml
