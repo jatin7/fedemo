@@ -342,9 +342,9 @@ install_packages ()
  hcatalog_install
  oozie_install
  mahout_install
- drill_install
  spark_install
  sqoop_install
+ drill_install
 }
 
 yum --enablerepo=MapR_Ecosystem clean metadata
