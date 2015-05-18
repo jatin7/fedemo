@@ -32,13 +32,13 @@ drill_enabled ()
 
 drill_install ()
 {
+ ${INSTALL_CMD} lsof
  drill_enabled
  if [ $? -eq 0 ]; then
    PKG="mapr-drill"
    if [ ! -z "${MAPR_DRILL_VERSION}" ]; then
      PKG="mapr-drill-${MAPR_DRILL_VERSION}"
    fi
-
    service mapr-warden stop
    sleep 5
    service mapr-warden start
@@ -74,9 +74,40 @@ drill_install ()
 
    echo "Sleeping for 10 minutes to let Hive come up..."
    sleep 600s
+   echo "Running netstat -tulpn"
+   netstat -tulpn
+
+   echo "Running fuser to check RM ports..."
+   fuser 8030/tcp
+   fuser 8030/udp
+   fuser 8031/tcp
+   fuser 8031/udp
+   fuser 8032/tcp
+   fuser 8032/udp
+   fuser 8033/tcp
+   fuser 8033/udp
+   fuser 8090/tcp
+   fuser 8090/udp
+   echo "Running lsof to check RM ports..."
+   lsof -i :8030
+   lsof -i tcp:8030
+   lsof -i udp:8030
+   lsof -i :8031
+   lsof -i tcp:8031
+   lsof -i udp:8031
+   lsof -i :8032
+   lsof -i tcp:8032
+   lsof -i udp:8032
+   lsof -i :8033
+   lsof -i tcp:8033
+   lsof -i udp:8033
+   lsof -i :8090
+   lsof -i tcp:8090
+   lsof -i udp:8090
+   echo "Installing git and drill packages..."
    ${INSTALL_CMD} git
    #${INSTALL_CMD} ${PKG}
-   ${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-drill-1.0.0.31837-1.noarch.rpm
+   ${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-drill-1.0.0.31839-1.noarch.rpm
    echo "Reducing Drill memory usage"
    sed -r -i 's/8G/2G/' /opt/mapr/drill/drill-*/conf/drill-env.sh
    sed -r -i 's/4G/1G/' /opt/mapr/drill/drill-*/conf/drill-env.sh
