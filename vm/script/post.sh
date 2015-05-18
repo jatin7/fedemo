@@ -72,16 +72,20 @@ drill_install ()
    #     return 0
    #fi
 
-   ${INSTALL_CMD} git mapr-drill
+   echo "Sleeping for 10 minutes to let Hive come up..."
+   sleep 600s
+   ${INSTALL_CMD} git
+   #${INSTALL_CMD} ${PKG}
+   ${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-drill-1.0.0.31837-1.noarch.rpm
    echo "Reducing Drill memory usage"
    sed -r -i 's/8G/2G/' /opt/mapr/drill/drill-*/conf/drill-env.sh
    sed -r -i 's/4G/1G/' /opt/mapr/drill/drill-*/conf/drill-env.sh
 
    pushd .
    cd /mapr/demo.mapr.com
-   git clone https://github.com/supr/drill-beta-demo
+   git clone https://github.com/mapr/drill-beta-demo
    cd drill-beta-demo
-   echo "running Drill beta demo setup script from github.com/supr/drill-beta-demo ..."
+   echo "running Drill beta demo setup script from github.com/mapr/drill-beta-demo ..."
    bash scripts/setup.sh
    cd /opt/startup/
    popd
