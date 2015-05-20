@@ -547,6 +547,11 @@ fi
 
 for user in user01 user02 hbaseuser mruser; do
   useradd -d /user/$user -p `openssl passwd -1 mapr` -g mapr -m $user
+
+  # WARNING - HARDCODED VALUE RELATING TO SPARK 1.2.1
+  echo "SPARK_HOME=/opt/mapr/spark/spark-1.2.1" >> /user/$user/.bashrc
+  echo "PATH=\$PATH\:\$M2_HOME/bin\:\$SPARK_HOME/bin" >> /user/$user/.bashrc
+
 done
 
 #Mark this as off, to prevent Races
