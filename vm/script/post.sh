@@ -550,7 +550,7 @@ for user in user01 user02 hbaseuser mruser; do
 
   # WARNING - HARDCODED VALUE RELATING TO SPARK 1.2.1
   echo "SPARK_HOME=/opt/mapr/spark/spark-1.2.1" >> /user/$user/.bashrc
-  echo "PATH=\$PATH\:\$M2_HOME/bin\:\$SPARK_HOME/bin" >> /user/$user/.bashrc
+  echo "PATH=\$PATH:\$M2_HOME/bin:\$SPARK_HOME/bin" >> /user/$user/.bashrc
 
 done
 
