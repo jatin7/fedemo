@@ -106,8 +106,8 @@ drill_install ()
    lsof -i udp:8090
    echo "Installing git and drill packages..."
    ${INSTALL_CMD} git
-   #${INSTALL_CMD} ${PKG}
-   ${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-drill-1.0.0.31839-1.noarch.rpm
+   ${INSTALL_CMD} ${PKG}
+   #${INSTALL_CMD} http://yum.qa.lab/opensource/mapr-drill-1.0.0.31839-1.noarch.rpm
    echo "Reducing Drill memory usage"
    sed -r -i 's/8G/2G/' /opt/mapr/drill/drill-*/conf/drill-env.sh
    sed -r -i 's/4G/1G/' /opt/mapr/drill/drill-*/conf/drill-env.sh
