@@ -554,7 +554,8 @@ for user in user01 user02 hbaseuser mruser; do
 
 done
 
-chmod 1777 /user/hive/warehouse
+mkdir -pv /user/hive/warehouse
+chmod -Rv 1777 /user/hive/warehouse
 
 #Mark this as off, to prevent Races
 chkconfig mapr-warden off
