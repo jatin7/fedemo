@@ -459,7 +459,7 @@ done
 service mapr-zookeeper start
 service mapr-warden start
 
-mkdir /user
+mkdir -pv /user
 
 i=0
 while [ "$i" -le "180" ]
@@ -477,9 +477,14 @@ done
 #	Done automatically by latest installer 
 # echo "localhost:/mapr /mapr soft,intr,nolock" >> /opt/mapr/conf/mapr_fstab
 # mount localhost:/mapr /mapr
-mkdir -p /user
+mkdir -pv /user
 echo "localhost:/mapr/demo.mapr.com/user /user soft,intr,nolock" >> /opt/mapr/conf/mapr_fstab
 mount localhost:/mapr/demo.mapr.com/user /user
+
+hadoop fs -mkdir -p /user/hive/warehouse
+hadoop fs -chmod -R 1777 /user/hive/warehouse
+mkdir -pv /user/hive/warehouse
+chmod -Rv 1777 /user/hive/warehouse
 
 chmod a+r /opt/mapr/conf/mapr_fstab
 
@@ -537,8 +542,6 @@ if [ $? -eq 0 ]; then
   fi
 
   sed -i -e "s/mapr.webui.https.port=8443/mapr.webui.http.port=8443/g" /opt/mapr/conf/web.conf
-  hadoop fs -mkdir -p /user/hive/warehouse
-  hadoop fs -chmod -R 777 /user/hive/warehouse
   sed -i -e 's/self == top/true/g' /opt/mapr/hue/hue-*/desktop/core/src/desktop/templates/common_header.mako
   #rm -f /opt/mapr/roles/drill-bits
   # Uncomment the below line if we need to remove drill from the Hue(Traditional) Sandbox.
@@ -553,9 +556,6 @@ for user in user01 user02 hbaseuser mruser; do
   echo "PATH=\$PATH:\$M2_HOME/bin:\$SPARK_HOME/bin" >> /user/$user/.bashrc
 
 done
-
-mkdir -pv /user/hive/warehouse
-chmod -Rv 1777 /user/hive/warehouse
 
 #Mark this as off, to prevent Races
 chkconfig mapr-warden off
