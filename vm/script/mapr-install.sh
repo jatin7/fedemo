@@ -60,3 +60,6 @@ yum install -y mapr-metrics
 
 #For somereason warden can't determine hostname
 #sed -i 's|/bin/hostname --fqdn|echo `/bin/hostname --fqdn`|g' /etc/init.d/mapr-warden
+
+#MAPR-14418
+echo "CLDB_DEMO_VM=true" >> /opt/mapr/conf/cldb.conf
