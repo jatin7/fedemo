@@ -62,4 +62,4 @@ yum install -y mapr-metrics
 #sed -i 's|/bin/hostname --fqdn|echo `/bin/hostname --fqdn`|g' /etc/init.d/mapr-warden
 
 #MAPR-14418
-echo "CLDB_DEMO_VM=true" >> /opt/mapr/conf/cldb.conf
+echo "cldb.demo.vm=true" >> /opt/mapr/conf/cldb.conf
