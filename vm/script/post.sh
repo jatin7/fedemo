@@ -482,8 +482,12 @@ echo "localhost:/mapr/demo.mapr.com/user /user soft,intr,nolock" >> /opt/mapr/co
 mount localhost:/mapr/demo.mapr.com/user /user
 
 hadoop fs -mkdir -p /user/hive/warehouse
+hadoop fs -chown -R mapr:mapr /user/hive
+hadoop fs -chmod -R 755 /user/hive
 hadoop fs -chmod -R 1777 /user/hive/warehouse
 mkdir -pv /user/hive/warehouse
+chown -R mapr:mapr /user/hive
+chmod -Rv 755 /user/hive
 chmod -Rv 1777 /user/hive/warehouse
 
 chmod a+r /opt/mapr/conf/mapr_fstab
