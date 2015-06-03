@@ -43,9 +43,9 @@ start)
     cp -rf $SCRIPTS_PATH/oozie-site.xml /opt/mapr/oozie/oozie-$OOZIE_VERSION/conf/oozie-site.xml
     fi
     
-    if [ -f "/opt/mapr/hue/hue-$HUE_VERSION/desktop/conf/hue.ini" ]; then
+    if [ -d "/opt/mapr/hue/hue-$HUE_VERSION" ]; then
     cp -rf $SCRIPTS_PATH/hue.ini /opt/mapr/hue/hue-$HUE_VERSION/desktop/conf/hue.ini 
-    cp /opt/mapr/hue/hue-$HUE_VERSION/desktop/libs/hadoop/java-lib/hue-plugins-*.jar /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/lib/
+    cp -f /opt/mapr/hue/hue-$HUE_VERSION/desktop/libs/hadoop/java-lib/hue-plugins-*.jar /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/lib/
     fi 
 
     if [ -f "/opt/mapr/httpfs/httpfs-$HTTPFS_VERSION/etc/hadoop/httpfs-site.xml" ]; then

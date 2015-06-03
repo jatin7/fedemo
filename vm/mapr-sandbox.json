@@ -61,7 +61,7 @@
     "format"           : "ova",
     "headless"         : "{{ user `build_headless` }}",
     "vboxmanage"       : [
-      ["modifyvm", "{{.Name}}", "--memory", "8192"],
+      ["modifyvm", "{{.Name}}", "--memory", "6144"],
       ["modifyvm", "{{.Name}}", "--cpus", "2"]
     ]
   },
