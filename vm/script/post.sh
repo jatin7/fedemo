@@ -439,6 +439,7 @@ Conf[8]="service.command.webserver.heapsize.min"
 Conf[9]="service.command.webserver.heapsize.max"
 Conf[10]="service.command.mfs.heapsize.min"
 Conf[11]="service.command.mfs.heapsize.max"
+Conf[12]="service.command.mfs.heapsize.percent"
 
 Val[0]="64"
 Val[1]="64"
@@ -452,6 +453,7 @@ Val[8]="128"
 Val[9]="128"
 Val[10]="512"
 Val[11]="512"
+Val[12]="15"
 
 for i in "${!Conf[@]}"; do
   sed -i s/${Conf[$i]}=.*/${Conf[$i]}=${Val[$i]}/ /opt/mapr/conf/warden.conf
