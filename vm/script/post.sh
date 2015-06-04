@@ -387,10 +387,11 @@ yum --enablerepo=MapR_Ecosystem clean metadata
 tar -xvzf /tmp/startup.tar.gz -C /opt
 chown root:root /opt/startup -R
 
-cp /opt/startup/start-tty* /etc/init
-cp /opt/startup/etc_sysconfig_init /etc/sysconfig/init
-cp /opt/startup/container-executor.cfg /opt/mapr/hadoop/hadoop-${HADOOP_VERSION:-2.5.1}/etc/hadoop
-#cp /opt/startup/yarn-site.xml /opt/mapr/hadoop/hadoop-2.4-1/etc/hadoop/yarn-site.xml
+cp -v /opt/startup/start-tty* /etc/init
+cp -v /opt/startup/etc_sysconfig_init /etc/sysconfig/init
+cp -v /opt/startup/container-executor.cfg /opt/mapr/hadoop/hadoop-${HADOOP_VERSION:-2.5.1}/etc/hadoop
+#cp -v /opt/startup/yarn-site.xml /opt/mapr/hadoop/hadoop-2.4.1/etc/hadoop/yarn-site.xml
+cp -v /opt/startup/yarn-site-2.5.1-mapr-1503.xml /opt/mapr/hadoop/hadoop-2.5.1/etc/hadoop/yarn-site.xml
 
 sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/welcome.py
 sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/error.py
