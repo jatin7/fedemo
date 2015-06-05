@@ -39,6 +39,10 @@ start)
     #cp -rf $SCRIPTS_PATH/mapred-site.xml /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/etc/hadoop/mapred-site.xml
     fi
 
+    if [ -d "/opt/mapr/hadoop/hadoop-$HADOOP_VERSION/etc/hadoop" ]; then
+    cp -rf $SCRIPTS_PATH/yarn-site-2.5.1-mapr-1503.xml /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/etc/hadoop/yarn-site.xml
+    fi
+
     if [ -f "/opt/mapr/oozie/oozie-$OOZIE_VERSION/conf/oozie-site.xml" ]; then
     cp -rf $SCRIPTS_PATH/oozie-site.xml /opt/mapr/oozie/oozie-$OOZIE_VERSION/conf/oozie-site.xml
     fi
