@@ -35,6 +35,8 @@
     <name>yarn.scheduler.minimum-allocation-mb</name>
     <value>256</value>
   </property>
+  <property>
+  </property>
 </configuration>
 
 

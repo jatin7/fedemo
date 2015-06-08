@@ -30,10 +30,6 @@ start)
     if [ -d "/opt/mapr" ]; then 
     printf "%-50s\n" "Bringing up VM..." | tee -a $LOG
 
-    service mapr-warden start
-    
-    echo 0 > /proc/sys/kernel/hung_task_timeout_secs
-
     if [ -f "/opt/mapr/hadoop/hadoop-$HADOOP_VERSION/etc/hadoop/core-site.xml" ]; then
     cp -rf $SCRIPTS_PATH/core-site.xml /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/etc/hadoop/core-site.xml
     #cp -rf $SCRIPTS_PATH/mapred-site.xml /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/etc/hadoop/mapred-site.xml
@@ -42,6 +38,8 @@ start)
     if [ -d "/opt/mapr/hadoop/hadoop-$HADOOP_VERSION/etc/hadoop" ]; then
     cp -rf $SCRIPTS_PATH/yarn-site-2.5.1-mapr-1503.xml /opt/mapr/hadoop/hadoop-$HADOOP_VERSION/etc/hadoop/yarn-site.xml
     fi
+
+    echo 0 > /proc/sys/kernel/hung_task_timeout_secs
 
     if [ -f "/opt/mapr/oozie/oozie-$OOZIE_VERSION/conf/oozie-site.xml" ]; then
     cp -rf $SCRIPTS_PATH/oozie-site.xml /opt/mapr/oozie/oozie-$OOZIE_VERSION/conf/oozie-site.xml
@@ -61,6 +59,8 @@ start)
     cp /opt/mapr/hive/hive-$HIVE_VERSION/conf/warden.hivemeta.conf /opt/mapr/conf/conf.d/warden.hivemeta.conf
     fi
 
+    service mapr-warden start
+
     printf "%-50s\n" "Waiting for MapR services to come up..." | tee -a $LOG
     sleep 60 
     su - mapr -c "jps | grep CommandServer"
@@ -76,6 +76,7 @@ start)
     python $SCRIPTS_PATH/welcome.py
     maprcli volume create -name tables -path /tables
     fi
+
 ;;
 stop)
     date >> $LOG
