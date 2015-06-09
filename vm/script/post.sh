@@ -328,6 +328,8 @@ oozie_install ()
     fi
 
   ${INSTALL_CMD} ${PKG}
+  cp -fv /opt/startup/core-site.xml /opt/mapr/oozie/oozie-${MAPR_OOZIE_VERSION_SU:-4.1.0}/conf/hadoop-conf/core-site.xml
+  cp -fv /opt/startup/yarn-site-2.5.1-mapr-1503.xml /opt/mapr/oozie/oozie-${MAPR_OOZIE_VERSION_SU:-4.1.0}/conf/hadoop-conf/yarn-site.xml
   fi
 }
 
@@ -351,9 +353,9 @@ mahout_install ()
 }
 
 if [ "${MAPR_OOZIE_VERSION}" = "0" ]; then
- MAPR_OOZIE_VERSION_SU=4.0.0
+ MAPR_OOZIE_VERSION_SU=4.1.0
 else
- MAPR_OOZIE_VERSION_SU=`echo "${MAPR_OOZIE_VERSION:-4.0.0}" | awk -F. '{ printf("%s.%s.%s", $1,$2,$3); }'`
+ MAPR_OOZIE_VERSION_SU=`echo "${MAPR_OOZIE_VERSION:-4.1.0}" | awk -F. '{ printf("%s.%s.%s", $1,$2,$3); }'`
 fi
 
 if [ "${MAPR_HUE_VERSION}" = "0" ]; then
