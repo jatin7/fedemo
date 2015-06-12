@@ -3,7 +3,7 @@
 yum install -y vim-enhanced wget man gzip bzip2 tar zip unzip traceroute lynx elinks colordiff
 
 # wget http://yum.qa.lab/mapr-installer-multi/mapr-setup -O /root/mapr-setup
-wget http://archive.mapr.com/releases/v4.0.1/redhat/mapr-setup -O /root/mapr-setup
+wget http://archive.mapr.com/releases/v4.1.0/redhat/mapr-setup -O /root/mapr-setup
 
 bash /root/mapr-setup
 
@@ -49,7 +49,7 @@ cat /root/config.sandbox
 
 yum install -y http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 
-bash /opt/mapr-installer/bin/install --password mapr --cfg /root/config.sandbox --quiet --user root --debug new
+bash /opt/mapr-installer/bin/install --skip-checks --password mapr --cfg /root/config.sandbox --quiet --user root --debug new
 echo "Install Done!"
 
 ID=`maprcli license showid -noheader`

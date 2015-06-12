@@ -15,6 +15,46 @@ sed -i 's|SELINUX=enforcing|SELINUX=disabled|g' /etc/selinux/config
 
 yum clean all
 
+change_warden_conf ()
+{
+  echo "Changing /opt/mapr/warden.conf"
+  Conf[0]="service.command.nfs.heapsize.min"
+  Conf[1]="service.command.nfs.heapsize.max"
+  Conf[2]="service.command.hbmaster.heapsize.min"
+  Conf[3]="service.command.hbmaster.heapsize.max"
+  Conf[4]="service.command.hbregion.heapsize.min"
+  Conf[5]="service.command.hbregion.heapsize.max"
+  Conf[6]="service.command.cldb.heapsize.min"
+  Conf[7]="service.command.cldb.heapsize.max"
+  Conf[8]="service.command.webserver.heapsize.min"
+  Conf[9]="service.command.webserver.heapsize.max"
+  Conf[10]="service.command.mfs.heapsize.percent"
+  Conf[11]="service.command.mfs.heapsize.min"
+  Conf[12]="service.command.mfs.heapsize.max"
+  Conf[13]="isDB"
+
+  Val[0]="64"
+  Val[1]="64"
+  Val[2]="128"
+  Val[3]="128"
+  Val[4]="256"
+  Val[5]="256"
+  Val[6]="256"
+  Val[7]="256"
+  Val[8]="128"
+  Val[9]="128"
+  Val[10]="15"
+  Val[11]="512"
+  Val[12]="512"
+  Val[13]="false"
+
+  for i in "${!Conf[@]}"; do
+    sed -i s/${Conf[$i]}=.*/${Conf[$i]}=${Val[$i]}/ /opt/mapr/conf/warden.conf
+  done
+}
+
+change_warden_conf
+
 enabled ()
 {
   if [ "$1" == "0" ]; then
@@ -417,19 +457,24 @@ service mapr-zookeeper stop
 #[ -f /opt/mapr/initscripts/mapr-warden-patched ] && \
 #	cp /opt/mapr/initscripts/mapr-warden-patched /etc/init.d/mapr-warden
 
+change_warden_conf
+
 rpm -iv /tmp/mapr-patch-*.rpm
-rm /tmp/mapr-patch-*.rpm
+rm -fv /tmp/mapr-patch-*.rpm
 
 # Force a simple hostname ... we can't have a "*.local"
 hostname maprdemo
 sed -i "s/^HOSTNAME.*/HOSTNAME=maprdemo/" /etc/sysconfig/network
 
-/opt/mapr/server/configure.sh -N demo.mapr.com -Z maprdemo -C maprdemo \
-	-u mapr -g mapr -M7 --isvm 
+echo "Running configure.sh"
+memNeeded=512 /opt/mapr/server/configure.sh -N demo.mapr.com -Z maprdemo -C maprdemo \
+	-u mapr -g mapr --isvm -v -noDB
 
 /usr/sbin/makewhatis
 ${INSTALL_CMD}  lsof
 ${INSTALL_CMD}  python-sh
+
+change_warden_conf
 
 service mapr-zookeeper start
 service mapr-warden start
@@ -544,36 +589,4 @@ service mapr-warden stop
 echo "Stopping Zookeeper!!!!"
 service mapr-zookeeper stop
 
-Conf[0]="service.command.nfs.heapsize.min"
-Conf[1]="service.command.nfs.heapsize.max"
-Conf[2]="service.command.hbmaster.heapsize.min"
-Conf[3]="service.command.hbmaster.heapsize.max"
-Conf[4]="service.command.hbregion.heapsize.min"
-Conf[5]="service.command.hbregion.heapsize.max"
-Conf[6]="service.command.cldb.heapsize.min"
-Conf[7]="service.command.cldb.heapsize.max"
-Conf[8]="service.command.webserver.heapsize.min"
-Conf[9]="service.command.webserver.heapsize.max"
-Conf[10]="service.command.mfs.heapsize.percent"
-Conf[11]="service.command.mfs.heapsize.min"
-Conf[12]="service.command.mfs.heapsize.max"
-Conf[13]="isDB"
-
-Val[0]="64"
-Val[1]="64"
-Val[2]="128"
-Val[3]="128"
-Val[4]="256"
-Val[5]="256"
-Val[6]="256"
-Val[7]="256"
-Val[8]="128"
-Val[9]="128"
-Val[10]="15"
-Val[11]="512"
-Val[12]="512"
-Val[13]="false"
-
-for i in "${!Conf[@]}"; do
-  sed -i s/${Conf[$i]}=.*/${Conf[$i]}=${Val[$i]}/ /opt/mapr/conf/warden.conf
-done
+change_warden_conf
