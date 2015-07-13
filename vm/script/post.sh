@@ -219,7 +219,7 @@ spark_install ()
     fi
 
     ${INSTALL_CMD} ${PKG}
-
+    cp -fv ${SCRIPTS_PATH}/warden.spark-historyserver-1.3.1.conf /opt/mapr/conf/conf.d/warden.spark-historyserver.conf
     hadoop fs -mkdir /apps/spark && hadoop fs -chmod 777 /apps/spark
  fi
 }
