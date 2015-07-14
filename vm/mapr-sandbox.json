@@ -17,10 +17,10 @@
     "mapr_drill_version"    : null,
     "mapr_core_repo_url"    : null,
     "mapr_eco_repo_url"     : null,
-    "hadoop_version"        : "2.5.1",
+    "hadoop_version"        : null,
     "mapr_banner_url"       : "https://%s:8443",
     "mapr_banner_name"      : "MapR-Sandbox-For-Hadoop",
-    "build_headless"        : false
+    "build_headless"        : "false"
   },
   "builders": [{
     "name"                : "base",

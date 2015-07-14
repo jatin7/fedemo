@@ -431,19 +431,19 @@ chown root:root /opt/startup -R
 
 cp -v /opt/startup/start-tty* /etc/init
 cp -v /opt/startup/etc_sysconfig_init /etc/sysconfig/init
-cp -v /opt/startup/container-executor.cfg /opt/mapr/hadoop/hadoop-${HADOOP_VERSION:-2.5.1}/etc/hadoop
-cp -fv /opt/startup/core-site.xml /opt/mapr/hadoop/hadoop-${HADOOP_VERSION:-2.5.1}/etc/hadoop/core-site.xml
-cp -fv /opt/startup/core-site.xml /opt/mapr/hadoop/hadoop-${HADOOP_VERSION:-2.5.1}/share/hadoop/common/templates/core-site.xml
-cp -fv /opt/startup/yarn-site-2.5.1-mapr-1503.xml /opt/mapr/hadoop/hadoop-${HADOOP_VERSION:-2.5.1}/etc/hadoop/yarn-site.xml
+cp -v /opt/startup/container-executor.cfg /opt/mapr/hadoop/hadoop-${HADOOP_VERSION:-2.7.0}/etc/hadoop
+cp -fv /opt/startup/core-site.xml /opt/mapr/hadoop/hadoop-${HADOOP_VERSION:-2.7.0}/etc/hadoop/core-site.xml
+cp -fv /opt/startup/core-site.xml /opt/mapr/hadoop/hadoop-${HADOOP_VERSION:-2.7.0}/share/hadoop/common/templates/core-site.xml
+cp -fv /opt/startup/yarn-site-2.5.1-mapr-1503.xml /opt/mapr/hadoop/hadoop-${HADOOP_VERSION:-2.7.0}/etc/hadoop/yarn-site.xml
 
 sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/welcome.py
 sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/error.py
 sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/startup_script
 sed -i "s/_MAPR_OOZIE_VERSION_/${MAPR_OOZIE_VERSION_SU:-4.1.0}/g" /opt/startup/startup_script
 sed -i "s/_MAPR_HUE_VERSION_/${MAPR_HUE_VERSION_SU:-3.7.0}/g" /opt/startup/startup_script
-sed -i "s/_MAPR_HIVE_VERSION_/${MAPR_HIVE_VERSION_SU:-0.13}/g" /opt/startup/startup_script
+sed -i "s/_MAPR_HIVE_VERSION_/${MAPR_HIVE_VERSION_SU:-1.0}/g" /opt/startup/startup_script
 sed -i "s/_MAPR_VERSION_/${MAPR_CORE_VERSION}/g" /opt/startup/startup_script
-sed -i "s/_HADOOP_VERSION_/${HADOOP_VERSION:-2.5.1}/g" /opt/startup/startup_script
+sed -i "s/_HADOOP_VERSION_/${HADOOP_VERSION:-2.7.0}/g" /opt/startup/startup_script
 
 sed -i "s|_MAPR_BANNER_URL_|${MAPR_BANNER_URL}|g" /opt/startup/welcome.py
 
