@@ -56,7 +56,7 @@ start)
    
     if [ -f "/opt/mapr/hive/hive-$HIVE_VERSION/conf/hive-site.xml" ]; then
     cp -rf $SCRIPTS_PATH/hive-site.xml /opt/mapr/hive/hive-$HIVE_VERSION/conf/hive-site.xml
-    cp /opt/mapr/hive/hive-$HIVE_VERSION/conf/warden.hivemeta.conf /opt/mapr/conf/conf.d/warden.hivemeta.conf
+    cp -f /opt/mapr/hive/hive-$HIVE_VERSION/conf/warden.hivemeta.conf /opt/mapr/conf/conf.d/warden.hivemeta.conf
     fi
 
     service mapr-warden start
