@@ -18,6 +18,7 @@
     "mapr_core_repo_url"    : null,
     "mapr_eco_repo_url"     : null,
     "hadoop_version"        : null,
+    "aggressive_deletions"  : "false",
     "mapr_banner_url"       : "https://%s:8443",
     "mapr_banner_name"      : "MapR-Sandbox-For-Hadoop",
     "build_headless"        : "false"
@@ -160,7 +161,8 @@
       "MAPR_BANNER_NAME={{ user `mapr_banner_name` }}",
       "MAPR_SQOOP_VERSION={{ user `mapr_sqoop_version` }}",
       "MAPR_SPARK_VERSION={{ user `mapr_spark_version` }}", 
-      "HADOOP_VERSION={{ user `hadoop_version` }}"
+      "HADOOP_VERSION={{ user `hadoop_version` }}",
+      "AGGRESSIVE_DELETIONS={{ user `aggressive_deletions` }}"
     ],
     "execute_command": "{{ .Vars }} bash {{.Path}}",
     "scripts": [
