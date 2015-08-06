@@ -23,6 +23,8 @@ if [ "x${AGGRESSIVE_DELETIONS}" = "xtrue" ]; then
   service mapr-warden stop
   service mapr-zookeeper stop
   
+  yum remove -y mapr-resourcemanager mapr-nodemanager mapr-historyserver
+  
   rm -rf /opt/mapr/hadoop/hadoop-2.*/share/hadoop/common/jdiff/*
   rm -rf /opt/mapr/hadoop/hadoop-2.*/share/hadoop/common/sources/*
   rm -rf /opt/mapr/hadoop/hadoop-2.*/share/hadoop/hdfs/jdiff/*
