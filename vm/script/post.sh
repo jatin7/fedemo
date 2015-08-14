@@ -151,6 +151,8 @@ drill_install ()
    echo "Reducing Drill memory usage"
    sed -r -i 's/8G/2G/' /opt/mapr/drill/drill-*/conf/drill-env.sh
    sed -r -i 's/4G/1G/' /opt/mapr/drill/drill-*/conf/drill-env.sh
+   echo "MAPR-19952 - sandbox - make Drill start after Hive"
+   sed -i -e 's/services\=drill-bits\:all/services\=drill-bits\:all\:hivemeta/g' /opt/mapr/conf/conf.d/warden.drill-bits.conf
 
    pushd .
    cd /mapr/demo.mapr.com
