@@ -306,6 +306,7 @@ hue_install ()
     if [ $? -eq 0 ]; then
       MAPR_OOZIE_VERSION=""
       oozie_install
+      sed -i -e 's/services\=hue\:1/services\=hue\:1\:oozie/g' /opt/mapr/conf/conf.d/warden.hue.conf
     fi
 
     pig_enabled
@@ -373,6 +374,9 @@ oozie_install ()
   cp -fv /opt/startup/core-site.xml /opt/mapr/oozie/oozie-${MAPR_OOZIE_VERSION_SU:-4.1.0}/conf/hadoop-conf/core-site.xml
   cp -fv /opt/startup/yarn-site-2.5.1-mapr-1503.xml /opt/mapr/oozie/oozie-${MAPR_OOZIE_VERSION_SU:-4.1.0}/conf/hadoop-conf/yarn-site.xml
   fi
+
+  # MAPR-19836 - when oozie is enabled as an OS service, this severely impacts the bootup of VMWare sandboxes
+  chkconfig --del mapr-oozie
 }
 
 mahout_enabled ()
