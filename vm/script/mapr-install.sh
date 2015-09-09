@@ -19,9 +19,9 @@ maprdemo
 [Client_Nodes]
 [Options]
 MapReduce1 = false
-YARN = true
+YARN = ${INSTALL_YARN}
 HBase = false
-MapR-DB = true
+MapR-DB = ${INSTALL_MAPRDB}
 ControlNodesAsDataNodes = true
 WirelevelSecurity = false
 LocalRepo = false
