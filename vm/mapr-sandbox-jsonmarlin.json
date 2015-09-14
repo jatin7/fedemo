@@ -21,6 +21,7 @@
     "aggressive_deletions"  : "true",
     "install_yarn"          : "false",
     "install_maprdb"        : "false",
+    "has_two_nics"          : "true",
     "mapr_banner_url"       : "https://%s:8443",
     "mapr_banner_name"      : "MapR-Sandbox-For-Hadoop",
     "build_headless"        : "false"
@@ -40,7 +41,7 @@
     "ssh_password"        : "mapr",
     "ssh_wait_timeout"    : "20m",
     "boot_command"        : [
-      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg ksdevice=eth0<enter>"
     ],
     "shutdown_command"    : "shutdown -P now",
     "disk_size"           : 10140,
@@ -48,7 +49,10 @@
       ["modifyvm", "{{.Name}}", "--memory", "6144"],
       ["modifyvm", "{{.Name}}", "--cpus", "2"],
       ["createhd", "--filename", "output-virtualbox-iso/centos65-2.vdi", "--size", "{{ user `mapr_disk_size` }}", "--format", "VDI", "--variant", "Standard"],
-      ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "1", "--type", "hdd", "--medium", "output-virtualbox-iso/centos65-2.vdi"]
+      ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "1", "--type", "hdd", "--medium", "output-virtualbox-iso/centos65-2.vdi"],
+      ["modifyvm", "{{.Name}}", "--nic1", "nat"],
+      ["modifyvm", "{{.Name}}", "--nic2", "hostonly"],
+      ["modifyvm", "{{.Name}}", "--hostonlyadapter2", "vboxnet0"]
     ]
   },
   {
@@ -91,12 +95,7 @@
     "shutdown_command" : "shutdown -P now",
     "import_opts"      : "keepallmacs",
     "headless"         : "{{ user `build_headless` }}",
-    "format"           : "ova",
-    "vboxmanage_post"  : [
-        ["modifyvm", "{{.Name}}", "--nic1", "nat"],
-	["modifyvm", "{{.Name}}", "--nic2", "hostonly"],
-        ["modifyvm", "{{.Name}}", "--hostonlyadapter2", "vboxnet0"]
-    ]
+    "format"           : "ova"
   }
   ],
   "provisioners": [
@@ -104,6 +103,17 @@
     "type": "shell",
     "inline": ["sleep 5;sync;echo 3 >/proc/sys/vm/drop_caches"]
   },
+  {
+    "type": "shell",
+    "environment_vars": [
+      "HAS_TWO_NICS={{ user `has_two_nics`}}"
+    ],
+    "execute_command": "{{ .Vars }} bash {{.Path}}",
+    "scripts": [
+      "script/base.sh"
+    ],
+    "only": "base"
+  }
   {
     "type"        : "file",
     "source"      : "files/startup.tar.gz",
@@ -147,11 +157,11 @@
       "MAPR_CORE_REPO_URL={{ user `mapr_core_repo_url`}}",
       "MAPR_ECO_REPO_URL={{ user `mapr_eco_repo_url`}}",
       "INSTALL_YARN={{ user `install_yarn`}}",
-      "INSTALL_MAPRDB={{ user `install_maprdb`}}"
+      "INSTALL_MAPRDB={{ user `install_maprdb`}}",
+      "HAS_TWO_NICS={{ user `has_two_nics`}}"
     ],
     "execute_command": "{{ .Vars }} bash {{.Path}}",
     "scripts": [
-      "script/base.sh",
       "script/vagrant.sh",
       "script/sshd.sh",
       "script/mapr-install.sh"
