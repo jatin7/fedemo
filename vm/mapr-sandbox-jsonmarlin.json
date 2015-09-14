@@ -112,8 +112,10 @@
     "scripts": [
       "script/base.sh"
     ],
-    "only": "base"
-  }
+    "only": [
+      "base"
+    ]
+  },
   {
     "type"        : "file",
     "source"      : "files/startup.tar.gz",
