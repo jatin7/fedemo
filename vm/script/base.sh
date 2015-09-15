@@ -9,4 +9,5 @@ ntpdate 0.us.pool.ntp.org
 if [ "x${HAS_TWO_NICS}" = "xtrue" ]; then
   echo "enabling eth1..."
   sed -i "s/ONBOOT=\"no\"/ONBOOT=\"yes\"/g" /etc/sysconfig/network-scripts/ifcfg-eth1
+  touch /multi-nics
 fi

@@ -8,7 +8,7 @@ screen = None
 Width_Factor = 4
 ip = sh.head(sh.awk(sh.getent("ahosts", sh.hostname().strip()),"{print $1}"),n="1").strip()
 
-if not os.path.exists("/vmware"):
+if not (os.path.exists("/vmware") or os.path.exists("/multi-nics")):
 	ip = "127.0.0.1"
 
 ssh_cmd = ""
