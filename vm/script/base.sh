@@ -11,3 +11,8 @@ if [ "x${HAS_TWO_NICS}" = "xtrue" ]; then
   sed -i "s/ONBOOT=\"no\"/ONBOOT=\"yes\"/g" /etc/sysconfig/network-scripts/ifcfg-eth1
   touch /multi-nics
 fi
+
+if [ "x${MAPR_MINIMAL}" = "xtrue" ]; then
+  echo "MAPR_MINIMAL=true, placing file flag..."
+  touch /mapr-minimal
+fi

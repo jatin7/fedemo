@@ -37,12 +37,16 @@ def make_status_window():
     status_win.box()
     status_win.addstr(1,2,"_MAPR_BANNER_NAME_ installation finished successfully.", curses.A_BOLD)
     status_win.addstr(2,2,"Please go to _MAPR_BANNER_URL_ to begin your experience." % ip) #Fixme: Is there a way to detect, how networking is setup on a VM, nat, bridged etc?
+    # <maintainer #3> - No, there isn't. Instead, I used yet more file-flags to handle this. If the user changes the VM networking then it will probably break everything.
     status_win.addstr(4,2,"Open a browser on your host machine ")
     status_win.addstr(5,2,"and enter the URL in the browser's address field.")
     status_win.addstr(7,2,"You can access the host via SSH by %s" % (ssh_cmd))
 
     if os.path.exists("/opt/mapr/hue"):
 	status_win.addstr(8,2,"The following credentials should be used for MCS & HUE - mapr/mapr")
+
+    if os.path.exists("/mapr-minimal"):
+	status_win.addstr(8,2,"The following credentials should be used for MCS - mapr/mapr")
 	
 def make_hint_window():
     Height, Width = screen.getmaxyx()

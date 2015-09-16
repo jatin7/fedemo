@@ -22,6 +22,7 @@
     "install_yarn"          : "true",
     "install_maprdb"        : "true",
     "has_two_nics"          : "false",
+    "mapr_minimal"          : "false",
     "mapr_banner_url"       : "https://%s:8443",
     "mapr_banner_name"      : "MapR-Sandbox-For-Hadoop",
     "build_headless"        : "false"
@@ -183,7 +184,8 @@
       "MAPR_ECO_REPO_URL={{ user `mapr_eco_repo_url`}}",
       "INSTALL_YARN={{ user `install_yarn`}}",
       "INSTALL_MAPRDB={{ user `install_maprdb`}}",
-      "HAS_TWO_NICS={{ user `has_two_nics`}}"
+      "HAS_TWO_NICS={{ user `has_two_nics`}}",
+      "MAPR_MINIMAL={{ user `mapr_minimal`}}"
     ],
     "execute_command": "{{ .Vars }} bash {{.Path}}",
     "scripts": [
