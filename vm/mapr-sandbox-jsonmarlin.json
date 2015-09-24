@@ -21,6 +21,7 @@
     "aggressive_deletions"  : "true",
     "install_yarn"          : "false",
     "install_maprdb"        : "false",
+    "install_marlin"        : "false",
     "has_two_nics"          : "true",
     "mapr_minimal"          : "true",
     "mapr_banner_url"       : "https://%s:8443",
@@ -144,7 +145,8 @@
       "MAPR_SQOOP_VERSION={{ user `mapr_sqoop_version` }}",
       "MAPR_SPARK_VERSION={{ user `mapr_spark_version` }}", 
       "HADOOP_VERSION={{ user `hadoop_version` }}",
-      "AGGRESSIVE_DELETIONS={{ user `aggressive_deletions` }}"
+      "AGGRESSIVE_DELETIONS={{ user `aggressive_deletions` }}",
+      "INSTALL_MARLIN={{ user `install_marlin` }}"
     ],
     "execute_command": "{{ .Vars }} bash {{.Path}}",
     "scripts": [

@@ -4,7 +4,7 @@ SBPARAMS="--var mapr_spark_version=0 --var mapr_hue_version=0 --var mapr_hbase_v
 
 echo "SBPARAMS=${SBPARAMS}"
 
-packer build --only=base ${SBPARAMS} mapr-sandbox-jsonmarlin.json
+#packer build --only=base ${SBPARAMS} mapr-sandbox-jsonmarlin.json
 
 packer build --only=sandbox-base ${SBPARAMS} mapr-sandbox-jsonmarlin.json
 

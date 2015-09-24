@@ -596,3 +596,19 @@ echo "Stopping Zookeeper!!!!"
 service mapr-zookeeper stop
 
 change_warden_conf
+
+if [ "x${INSTALL_MARLIN}" = "xfalse" ]; then
+  echo "Deleting marlin..."
+  rm -fv /opt/mapr/lib/maprcli-marlin*.jar
+  rm -fv /opt/mapr/lib/marlin*.jar
+  rm -fv /opt/mapr/lib/libMarlinNative.so*
+
+  # This is because simply leaving an empty line will break maprcli
+  rm -fv /opt/mapr/conf/cliregistry
+  echo "com.mapr.cli.MapRCLIRegistry" >> /opt/mapr/conf/cliregistry
+  echo "com.mapr.cliframework.commands.CLIBaseCommandsRegistry" >> /opt/mapr/conf/cliregistry
+  chown mapr:mapr /opt/mapr/conf/cliregistry
+  chmod a+r /opt/mapr/conf/cliregistry
+else
+  echo "leaving marlin in place..."
+fi
