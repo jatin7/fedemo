@@ -599,6 +599,8 @@ change_warden_conf
 
 if [ "x${INSTALL_MARLIN}" = "xfalse" ]; then
   echo "Deleting marlin..."
+  rm -fv /opt/mapr/bin/marlin
+  rm -Rfv /opt/mapr/include/marlin
   rm -fv /opt/mapr/lib/maprcli-marlin*.jar
   rm -fv /opt/mapr/lib/marlin*.jar
   rm -fv /opt/mapr/lib/libMarlinNative.so*
