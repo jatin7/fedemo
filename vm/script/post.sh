@@ -411,9 +411,9 @@ else
 fi
 
 if [ "${MAPR_HIVE_VERSION}" = "0" ]; then
- MAPR_HIVE_VERSION_SU=0.13
+ MAPR_HIVE_VERSION_SU=1.2
 else
- MAPR_HIVE_VERSION_SU=`echo "${MAPR_HIVE_VERSION:-0.13}" | awk -F. '{ printf("%s.%s", $1,$2); }'`
+ MAPR_HIVE_VERSION_SU=`echo "${MAPR_HIVE_VERSION:-1.2}" | awk -F. '{ printf("%s.%s", $1,$2); }'`
 fi
 
 install_packages ()
@@ -447,7 +447,7 @@ sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/error.py
 sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/startup_script
 sed -i "s/_MAPR_OOZIE_VERSION_/${MAPR_OOZIE_VERSION_SU:-4.1.0}/g" /opt/startup/startup_script
 sed -i "s/_MAPR_HUE_VERSION_/${MAPR_HUE_VERSION_SU:-3.7.0}/g" /opt/startup/startup_script
-sed -i "s/_MAPR_HIVE_VERSION_/${MAPR_HIVE_VERSION_SU:-1.0}/g" /opt/startup/startup_script
+sed -i "s/_MAPR_HIVE_VERSION_/${MAPR_HIVE_VERSION_SU:-1.2}/g" /opt/startup/startup_script
 sed -i "s/_MAPR_VERSION_/${MAPR_CORE_VERSION}/g" /opt/startup/startup_script
 sed -i "s/_HADOOP_VERSION_/${HADOOP_VERSION:-2.7.0}/g" /opt/startup/startup_script
 
