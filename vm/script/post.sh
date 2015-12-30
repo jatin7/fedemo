@@ -241,6 +241,21 @@ sqoop_install ()
   fi
 }
 
+storm_enabled ()
+{
+  enabled "${MAPR_STORM_VERSION:-}"
+  return $?
+}
+
+storm_install ()
+{
+  storm_enabled
+  if [ $? -eq 0 ]; then
+        PKG="mapr-storm-${MAPR_STORM_VERSION}"
+        ${INSTALL_CMD} ${PKG}
+  fi
+}
+
 hbase_enabled ()
 {
   enabled "${MAPR_HBASE_VERSION:-}"
@@ -428,6 +443,7 @@ install_packages ()
  mahout_install
  spark_install
  sqoop_install
+ storm_install
  drill_install
 }
 
