@@ -52,16 +52,19 @@ yum install -y http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.no
 bash /opt/mapr-installer/bin/install --skip-checks --password mapr --cfg /root/config.sandbox --quiet --user root --debug new
 echo "Install Done!"
 
+echo "=== Getting license... ==="
 ID=`maprcli license showid -noheader`
-wget -O /tmp/license.txt "http://ec2-107-22-211-26.compute-1.amazonaws.com:8080/licensegenerator/api/license?type=m7&numnodes=1&grace=30&numdays=730&clusterid=${ID}&customerid=Mapr+Demo+VM&partnerName="
+wget --no-check-certificate -O /tmp/license.txt "http://ec2-54-161-85-25.compute-1.amazonaws.com:8080/licensegenerator/api/license?clusterid=${ID}&customerid=Mapr&downloadid=&issuer=&Email=&type=m5&partnerName=&numnodes=3&numdays=30&modules=hadoop,database,streams"
 maprcli license add -is_file true -license /tmp/license.txt
+echo "=== Finished getting license... ==="
 service mapr-nfsserver restart
 
 yum install -y mysql-server
 yum install -y mapr-metrics
 
-#For somereason warden can't determine hostname
-#sed -i 's|/bin/hostname --fqdn|echo `/bin/hostname --fqdn`|g' /etc/init.d/mapr-warden
+# For somereason warden can't determine hostname
+# sed -i 's|/bin/hostname --fqdn|echo `/bin/hostname --fqdn`|g' /etc/init.d/mapr-warden
 
-#MAPR-14418
+# MAPR-14418
 echo "cldb.demo.vm=true" >> /opt/mapr/conf/cldb.conf
+
