@@ -251,7 +251,11 @@ storm_install ()
 {
   storm_enabled
   if [ $? -eq 0 ]; then
-        PKG="mapr-storm-${MAPR_STORM_VERSION}"
+        if [ -z "${MAPR_STORM_VERSION}" ]; then
+          PKG="mapr-storm"
+        else
+          PKG="mapr-storm-${MAPR_STORM_VERSION}"
+        fi
         ${INSTALL_CMD} ${PKG}
   fi
 }

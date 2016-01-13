@@ -54,7 +54,7 @@ echo "Install Done!"
 
 echo "=== Getting license... ==="
 ID=`maprcli license showid -noheader`
-wget --no-check-certificate -O /tmp/license.txt "http://ec2-54-161-85-25.compute-1.amazonaws.com:8080/licensegenerator/api/license?clusterid=${ID}&customerid=Mapr&downloadid=&issuer=&Email=&type=m5&partnerName=&numnodes=3&numdays=30&modules=hadoop,database,streams"
+wget --no-check-certificate -O /tmp/license.txt "http://ec2-54-161-85-25.compute-1.amazonaws.com:8080/licensegenerator/api/license?clusterid=${ID}&customerid=Mapr&downloadid=&issuer=&Email=&type=m5&partnerName=&numnodes=3&numdays=731&modules=hadoop,database,streams"
 maprcli license add -is_file true -license /tmp/license.txt
 echo "=== Finished getting license... ==="
 service mapr-nfsserver restart
