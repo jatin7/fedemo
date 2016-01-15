@@ -215,13 +215,14 @@ spark_install ()
 {
  spark_enabled
  if [ $? -eq 0 ]; then
-    PKG="mapr-spark mapr-spark-historyserver"
+    PKG="mapr-spark mapr-spark-master mapr-spark-historyserver"
     if [ ! -z "${MAPR_SPARK_VERSION:-}" ]; then
-        PKG="mapr-spark-${MAPR_SPARK_VERSION} mapr-spark-historyserver-${MAPR_SPARK_VERSION}"
+        PKG="mapr-spark-${MAPR_SPARK_VERSION} mapr-spark-master-${MAPR_SPARK_VERSION} mapr-spark-historyserver-${MAPR_SPARK_VERSION}"
     fi
 
     ${INSTALL_CMD} ${PKG}
-    cp -fv ${SCRIPTS_PATH}/warden.spark-historyserver-1.3.1.conf /opt/mapr/conf/conf.d/warden.spark-historyserver.conf
+    # WARNING - HARDCODED VALUE RELATING TO SPARK 1.5.2
+    cp -fv ${SCRIPTS_PATH}/warden.spark-historyserver-1.5.2.conf /opt/mapr/conf/conf.d/warden.spark-historyserver.conf
     hadoop fs -mkdir /apps/spark && hadoop fs -chmod 777 /apps/spark
  fi
 }
@@ -252,11 +253,14 @@ storm_install ()
   storm_enabled
   if [ $? -eq 0 ]; then
         if [ -z "${MAPR_STORM_VERSION}" ]; then
-          PKG="mapr-storm"
+          PKG="mapr-storm mapr-storm-nimbus mapr-storm-supervisor mapr-storm-ui"
         else
-          PKG="mapr-storm-${MAPR_STORM_VERSION}"
+          PKG="mapr-storm-${MAPR_STORM_VERSION} mapr-storm-nimbus-${MAPR_STORM_VERSION} mapr-storm-supervisor-${MAPR_STORM_VERSION} mapr-storm-ui-${MAPR_STORM_VERSION}"
         fi
         ${INSTALL_CMD} ${PKG}
+        # Make sure Storm does not use port 8080
+        printf "\n\n ui.port: 9180" | tee -a /opt/mapr/storm/*/conf/storm.yaml
+        sed -i -e 's/8080/9180/g' /opt/mapr/conf/conf.d/warden.storm-ui.conf
   fi
 }
 
@@ -601,8 +605,8 @@ fi
 for user in user01 user02 hbaseuser mruser; do
   useradd -d /user/$user -p `openssl passwd -1 mapr` -g mapr -m $user
 
-  # WARNING - HARDCODED VALUE RELATING TO SPARK 1.3.1
-  echo "SPARK_HOME=/opt/mapr/spark/spark-1.3.1" >> /user/$user/.bashrc
+  # WARNING - HARDCODED VALUE RELATING TO SPARK 1.5.2
+  echo "SPARK_HOME=/opt/mapr/spark/spark-1.5.2" >> /user/$user/.bashrc
   echo "PATH=\$PATH:\$M2_HOME/bin:\$SPARK_HOME/bin" >> /user/$user/.bashrc
 
 done
