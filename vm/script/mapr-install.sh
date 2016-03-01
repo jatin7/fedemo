@@ -1,7 +1,5 @@
 #!/bin/bash -eux
 
-yum install -y vim-enhanced wget man gzip bzip2 tar zip unzip traceroute lynx elinks colordiff rsync
-
 # wget http://yum.qa.lab/mapr-installer-multi/mapr-setup -O /root/mapr-setup
 wget http://package.mapr.com/releases/v5.1.0/redhat/mapr-setup -O /root/mapr-setup
 
