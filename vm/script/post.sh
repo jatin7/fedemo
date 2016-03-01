@@ -205,6 +205,24 @@ hive_install ()
   fi
 }
 
+kafka_enabled ()
+{
+  enabled "${MAPR_KAFKA_VERSION:-}"
+  return $?
+}
+
+kafka_install ()
+{
+  kafka_enabled
+  if [ $? -eq 0 ]; then
+    PKG="mapr-kafka"
+    if [ -n "${MAPR_KAFKA_VERSION:-}" ]; then
+      PKG="mapr-kafka-${MAPR_KAFKA_VERSION}"
+    fi
+    ${INSTALL_CMD} ${PKG}
+  fi
+}
+
 spark_enabled ()
 {
  enabled "${MAPR_SPARK_VERSION:-}"
@@ -448,6 +466,7 @@ install_packages ()
  flume_install
  hcatalog_install
  oozie_install
+ kafka_install
  mahout_install
  spark_install
  sqoop_install
@@ -620,21 +639,3 @@ echo "Stopping Zookeeper!!!!"
 service mapr-zookeeper stop
 
 change_warden_conf
-
-if [ "x${INSTALL_MARLIN}" = "xfalse" ]; then
-  echo "Deleting marlin..."
-  rm -fv /opt/mapr/bin/marlin
-  rm -Rfv /opt/mapr/include/marlin
-  rm -fv /opt/mapr/lib/maprcli-marlin*.jar
-  rm -fv /opt/mapr/lib/marlin*.jar
-  rm -fv /opt/mapr/lib/libMarlinNative.so*
-
-  # This is because simply leaving an empty line will break maprcli
-  rm -fv /opt/mapr/conf/cliregistry
-  echo "com.mapr.cli.MapRCLIRegistry" >> /opt/mapr/conf/cliregistry
-  echo "com.mapr.cliframework.commands.CLIBaseCommandsRegistry" >> /opt/mapr/conf/cliregistry
-  chown mapr:mapr /opt/mapr/conf/cliregistry
-  chmod a+r /opt/mapr/conf/cliregistry
-else
-  echo "leaving marlin in place..."
-fi

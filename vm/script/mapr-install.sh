@@ -1,9 +1,9 @@
 #!/bin/bash -eux
 
-yum install -y vim-enhanced wget man gzip bzip2 tar zip unzip traceroute lynx elinks colordiff
+yum install -y vim-enhanced wget man gzip bzip2 tar zip unzip traceroute lynx elinks colordiff rsync
 
 # wget http://yum.qa.lab/mapr-installer-multi/mapr-setup -O /root/mapr-setup
-wget http://archive.mapr.com/releases/v5.0.0/redhat/mapr-setup -O /root/mapr-setup
+wget http://package.mapr.com/releases/v5.1.0/redhat/mapr-setup -O /root/mapr-setup
 
 bash /root/mapr-setup
 
@@ -47,7 +47,7 @@ EOF
 
 cat /root/config.sandbox
 
-yum install -y http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+yum install -y http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
 bash /opt/mapr-installer/bin/install --skip-checks --password mapr --cfg /root/config.sandbox --quiet --user root --debug new
 echo "Install Done!"
@@ -67,4 +67,3 @@ yum install -y mapr-metrics
 
 # MAPR-14418
 echo "cldb.demo.vm=true" >> /opt/mapr/conf/cldb.conf
-
