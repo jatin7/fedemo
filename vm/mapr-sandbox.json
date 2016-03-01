@@ -52,8 +52,8 @@
     "vboxmanage"          : [
       ["modifyvm", "{{.Name}}", "--memory", "6144"],
       ["modifyvm", "{{.Name}}", "--cpus", "2"],
-      ["createhd", "--filename", "output-virtualbox-iso/centos65-2.vdi", "--size", "{{ user `mapr_disk_size` }}", "--format", "VDI", "--variant", "Standard"],
-      ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "1", "--type", "hdd", "--medium", "output-virtualbox-iso/centos65-2.vdi"]
+      ["createhd", "--filename", "output-virtualbox-iso/centosdisk-2.vdi", "--size", "{{ user `mapr_disk_size` }}", "--format", "VDI", "--variant", "Standard"],
+      ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "1", "--type", "hdd", "--medium", "output-virtualbox-iso/centosdisk-2.vdi"]
     ]
   },
   {
