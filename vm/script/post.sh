@@ -412,8 +412,8 @@ oozie_install ()
     fi
 
   ${INSTALL_CMD} ${PKG}
-  cp -fv /opt/startup/core-site.xml /opt/mapr/oozie/oozie-${MAPR_OOZIE_VERSION_SU:-4.1.0}/conf/hadoop-conf/core-site.xml
-  cp -fv /opt/startup/yarn-site-2.5.1-mapr-1503.xml /opt/mapr/oozie/oozie-${MAPR_OOZIE_VERSION_SU:-4.1.0}/conf/hadoop-conf/yarn-site.xml
+  cp -fv /opt/startup/core-site.xml /opt/mapr/oozie/oozie-${MAPR_OOZIE_VERSION_SU:-4.2.0}/conf/hadoop-conf/core-site.xml
+  cp -fv /opt/startup/yarn-site-2.5.1-mapr-1503.xml /opt/mapr/oozie/oozie-${MAPR_OOZIE_VERSION_SU:-4.2.0}/conf/hadoop-conf/yarn-site.xml
   fi
 
   # MAPR-19836 - when oozie is enabled as an OS service, this severely impacts the bootup of VMWare sandboxes
@@ -440,15 +440,15 @@ mahout_install ()
 }
 
 if [ "${MAPR_OOZIE_VERSION}" = "0" ]; then
- MAPR_OOZIE_VERSION_SU=4.1.0
+ MAPR_OOZIE_VERSION_SU=4.2.0
 else
- MAPR_OOZIE_VERSION_SU=`echo "${MAPR_OOZIE_VERSION:-4.1.0}" | awk -F. '{ printf("%s.%s.%s", $1,$2,$3); }'`
+ MAPR_OOZIE_VERSION_SU=`echo "${MAPR_OOZIE_VERSION:-4.2.0}" | awk -F. '{ printf("%s.%s.%s", $1,$2,$3); }'`
 fi
 
 if [ "${MAPR_HUE_VERSION}" = "0" ]; then
- MAPR_HUE_VERSION_SU=2.5.0
+ MAPR_HUE_VERSION_SU=3.9.0
 else
- MAPR_HUE_VERSION_SU=`echo "${MAPR_HUE_VERSION:-3.7.0}" | awk -F. '{ printf("%s.%s.%s", $1,$2,$3); }'`
+ MAPR_HUE_VERSION_SU=`echo "${MAPR_HUE_VERSION:-3.9.0}" | awk -F. '{ printf("%s.%s.%s", $1,$2,$3); }'`
 fi
 
 if [ "${MAPR_HIVE_VERSION}" = "0" ]; then
@@ -488,8 +488,8 @@ cp -fv /opt/startup/yarn-site-2.5.1-mapr-1503.xml /opt/mapr/hadoop/hadoop-${HADO
 sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/welcome.py
 sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/error.py
 sed -i "s/_MAPR_BANNER_NAME_/${MAPR_BANNER_NAME}/g" /opt/startup/startup_script
-sed -i "s/_MAPR_OOZIE_VERSION_/${MAPR_OOZIE_VERSION_SU:-4.1.0}/g" /opt/startup/startup_script
-sed -i "s/_MAPR_HUE_VERSION_/${MAPR_HUE_VERSION_SU:-3.7.0}/g" /opt/startup/startup_script
+sed -i "s/_MAPR_OOZIE_VERSION_/${MAPR_OOZIE_VERSION_SU:-4.2.0}/g" /opt/startup/startup_script
+sed -i "s/_MAPR_HUE_VERSION_/${MAPR_HUE_VERSION_SU:-3.9.0}/g" /opt/startup/startup_script
 sed -i "s/_MAPR_HIVE_VERSION_/${MAPR_HIVE_VERSION_SU:-1.2}/g" /opt/startup/startup_script
 sed -i "s/_MAPR_VERSION_/${MAPR_CORE_VERSION}/g" /opt/startup/startup_script
 sed -i "s/_HADOOP_VERSION_/${HADOOP_VERSION:-2.7.0}/g" /opt/startup/startup_script

@@ -25,7 +25,7 @@ mapr-sandbox.json
 
 echo "SBPARAMS=${SBPARAMS}"
 
-#packer build --only=base ${SBPARAMS}
+packer build --only=base ${SBPARAMS}
 packer build --only=sandbox-base ${SBPARAMS}
 packer build --only=sandbox ${SBPARAMS}
 packer build --only=sandbox-vmware ${SBPARAMS}
