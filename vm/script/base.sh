@@ -31,11 +31,11 @@ yum install -y \
 ;
 
 # MAPR-22485 - use Python 3
-yum -y install scl-utils
-wget https://www.softwarecollections.org/en/scls/rhscl/rh-python34/epel-7-x86_64/download/rhscl-rh-python34-epel-7-x86_64.noarch.rpm
-yum -y install rhscl-rh-python34*.noarch.rpm
-yum -y install rh-python34
-scl enable rh-python34 bash
+# yum -y install scl-utils
+# wget https://www.softwarecollections.org/en/scls/rhscl/rh-python34/epel-7-x86_64/download/rhscl-rh-python34-epel-7-x86_64.noarch.rpm
+# yum -y install rhscl-rh-python34*.noarch.rpm
+# yum -y install rh-python34
+# scl enable rh-python34 bash
 yum -y install libselinux-python
 
 ntpdate 0.us.pool.ntp.org

@@ -80,13 +80,13 @@ start)
 ;;
 stop)
     date >> $LOG
-    /etc/init.d/mapr-warden stop >> $LOG 2>&1
-    /etc/init.d/mapr-zookeeper stop >> $LOG 2>&1
+    service mapr-warden stop >> $LOG 2>&1
+    service mapr-zookeeper stop >> $LOG 2>&1
 ;;
 
 restart)
-    /etc/init.d/mapr-zookeeper restart >> $LOG 2>&1
-    /etc/init.d/mapr-warden restart >> $LOG 2>&1
+    service mapr-zookeeper restart >> $LOG 2>&1
+    service mapr-warden restart >> $LOG 2>&1
 ;;
 
 *)

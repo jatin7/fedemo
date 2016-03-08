@@ -45,7 +45,8 @@ EOF
 
 cat /root/config.sandbox
 
-yum install -y http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+yum install -y http://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+#yum install -y http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
 bash /opt/mapr-installer/bin/install --skip-checks --password mapr --cfg /root/config.sandbox --quiet --user root --debug new
 echo "Install Done!"
