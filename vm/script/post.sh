@@ -233,14 +233,15 @@ spark_install ()
 {
  spark_enabled
  if [ $? -eq 0 ]; then
-    PKG="mapr-spark mapr-spark-master mapr-spark-historyserver"
+    PKG="mapr-spark mapr-spark-historyserver"
     if [ ! -z "${MAPR_SPARK_VERSION:-}" ]; then
-        PKG="mapr-spark-${MAPR_SPARK_VERSION} mapr-spark-master-${MAPR_SPARK_VERSION} mapr-spark-historyserver-${MAPR_SPARK_VERSION}"
+        PKG="mapr-spark-${MAPR_SPARK_VERSION} mapr-spark-historyserver-${MAPR_SPARK_VERSION}"
     fi
 
     ${INSTALL_CMD} ${PKG}
     # WARNING - HARDCODED VALUE RELATING TO SPARK 1.5.2
     cp -fv ${SCRIPTS_PATH}/warden.spark-historyserver-1.5.2.conf /opt/mapr/conf/conf.d/warden.spark-historyserver.conf
+    # cp -fv ${SCRIPTS_PATH}/spark-defaults-1.5.2.conf /opt/mapr/spark/spark-1.5.2/conf/spark-defaults.conf
     hadoop fs -mkdir /apps/spark && hadoop fs -chmod 777 /apps/spark
  fi
 }
