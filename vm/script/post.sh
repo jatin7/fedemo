@@ -241,7 +241,7 @@ spark_install ()
     ${INSTALL_CMD} ${PKG}
     # WARNING - HARDCODED VALUE RELATING TO SPARK 1.5.2
     cp -fv ${SCRIPTS_PATH}/warden.spark-historyserver-1.5.2.conf /opt/mapr/conf/conf.d/warden.spark-historyserver.conf
-    # cp -fv ${SCRIPTS_PATH}/spark-defaults-1.5.2.conf /opt/mapr/spark/spark-1.5.2/conf/spark-defaults.conf
+    cp -fv ${SCRIPTS_PATH}/spark-defaults-1.5.2.conf /opt/mapr/spark/spark-1.5.2/conf/spark-defaults.conf
     hadoop fs -mkdir /apps/spark && hadoop fs -chmod 777 /apps/spark
  fi
 }
