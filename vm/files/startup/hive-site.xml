@@ -34,4 +34,8 @@
  <name>oozie.service.WorkflowAppService.system.libpath</name>
  <value>/oozie/share/lib</value>
 </property>
+<property>
+ <name>datanucleus.schema.autoCreateTables</name>
+ <value>true</value>
+</property>
 </configuration>

@@ -112,8 +112,8 @@ drill_install ()
    #     return 0
    #fi
 
-   echo "Sleeping for 10 minutes to let Hive come up..."
-   sleep 600s
+   echo "Sleeping for 5 minutes to let Hive come up..."
+   sleep 300s
    echo "Running netstat -tulpn"
    netstat -tulpn
 
@@ -156,7 +156,7 @@ drill_install ()
 
    pushd .
    cd /mapr/demo.mapr.com
-   git clone https://github.com/mapr/drill-beta-demo
+   git clone https://github.com/mapr/drill-beta-demo.git drill-beta-demo
    cd drill-beta-demo
    echo "running Drill beta demo setup script from github.com/mapr/drill-beta-demo ..."
    bash scripts/setup.sh
