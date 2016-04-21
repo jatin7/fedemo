@@ -40,9 +40,9 @@ Example vmx file
     toolscripts.beforepoweroff = "true"
     toolscripts.beforesuspend = "true"
 
-* guestos needs to be corrected for VMware
-* virtualhw.version = "8"
-* ide1:1 need to be corrected to be ide1:0 (on the same controller as ide0:0)
+* guestos needs to be corrected for VMware. Set guestos to "rhel6-64"
+* Set virtualhw.version = "8"
+* All instances of "ide1:1" need to be corrected to be "ide1:0" (on the same controller as ide0:0)
 
 Convert the Virtualbox OVA to VMWare VMX
 
@@ -50,7 +50,7 @@ Convert the Virtualbox OVA to VMWare VMX
 
 The above command converts into a generic VMX Sandbox Image
 
-Fix the MapR-Sandbox-For-Hadoop-3.0.3.vmx file as noted above.
+Fix the VMX file as noted above.
 
 Convert the VMX back to OVA
 
