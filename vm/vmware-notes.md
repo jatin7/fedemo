@@ -1,3 +1,7 @@
+* Step 1: Unpack the OVA file
+* Step 2: Modify the VMX
+* Step 3: Pack the OVA again
+
 Example vmx file
 
     .encoding = "UTF-8"
