@@ -19,7 +19,7 @@ SBPARAMS="
 --var mapr_core_repo_url=http://package.mapr.com/releases
 --var mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem-5.x
 --var mapr_banner_url=http://%s:8443/
---var mapr_banner_name=MapR-Demo
+--var mapr_banner_name=MapR-Sandbox-Demo
 mapr-sandbox.json
 "
 
