@@ -47,66 +47,23 @@ final sandbox step.
 
 #	Examples
 #	--------
+Note: the mapr-sandbox.json script by default will not install any components except mapr-hbase and mapr-streams.  Use the --var switch to override
 
-Step 1. Generate a CentOS Base Image with MapR 3.1.1 
+Step 1. Generate a CentOS Base Image with MapR 5.1.0 
   
-`packer build --only=base --var 'mapr_drill_version=""' --var 'mapr_hue_version=""' --var 'mapr_hbase_version=""' --var 'mapr_pig_version=""' --var 'mapr_oozie_version=0' --var 'mapr_hcatalog_version=0' --var 'mapr_flume_version=0' --var 'mapr_hive_version=""' --var 'mapr_mahout_version=0' --var 'mapr_version=3.1.1' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem' mapr-sandbox.json`
+`packer build --only=base --var 'mapr_version=5.1.0' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem-5.x' mapr-sandbox.json`
 
 Step 2. Add the MapR core software to the vm created in step 1  
   
-`packer build --only=sandbox-base --var 'mapr_hue_version=""' --var 'mapr_hbase_version=""' --var 'mapr_pig_version=""' --var 'mapr_oozie_version=0' --var 'mapr_hcatalog_version=0' --var 'mapr_flume_version=0' --var 'mapr_hive_version=0.12.24975-1' --var 'mapr_mahout_version=0' --var 'mapr_version=3.0.3' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem' mapr-sandbox.json`
+`packer build --only=sandbox-base --var 'mapr_version=5.1.0' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem-5.x' mapr-sandbox.json`
 
 Step 3. Generate a fully functional Sandbox using the sandbox-base from step 2  
   
-`packer build --only=sandbox --var 'mapr_hue_version=""' --var 'mapr_hbase_version=""' --var 'mapr_pig_version=""' --var 'mapr_oozie_version=0' --var 'mapr_hcatalog_version=0' --var 'mapr_flume_version=0' --var 'mapr_hive_version=0.12.24975-1' --var 'mapr_mahout_version=0' --var 'mapr_version=3.0.3' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem' mapr-sandbox.json`
+`packer build --only=sandbox --var 'mapr_version=5.1.0' --var 'mapr_core_repo_url=http://package.mapr.com/releases' --var 'mapr_eco_repo_url=http://package.mapr.com/releases/ecosystem-5.x' mapr-sandbox.json`
 
+Each step creates a new directory for the resultant Virtual Machine image.
 
-Each step creates a new directory for the resultant Virtual Machine
-image.
-
-
-TBD : Document the Veritica Sandbox generation process more completely, 
-since it deviates slightly from the logic below.
-
-As of 11-May-2014, the process uses a modified packer file 
-(vertica-sandbox.json) and is executed simply  
-
-    packer build --only=base --var "mapr_version=3.0.2" vertica-sandbox.json
-    packer build --only=sandbox-base --var "mapr_version=3.0.2" vertica-sandbox.json
-    packer build --only=vertica --var "mapr_version=3.0.2" vertica-sandbox.json
-
-Two additional files are needed (default location /var/packages on
-the build system ... can be changed in the packer definition file  
-
-    mapr-patch-3.0.2.22510.GA-25250.x86_64.rpm
-    vertica-7.0.1-0.x86_64.RHEL5.rpm
-    
-
-VM Generation for Vertica
-* (Same as above) Install packer
-  Download and install appropriate package from http://www.packer.io/
-
-* (Same as above) Install VirtualBox
-  Download and install appropriate package from https://www.virtualbox.org/wiki/Downloads
-  
-* (Same as above) Generate a base image  
-  `packer build -only=base mapr-sandbox.json`
-
-* (Same as above) Download the core file. This is an optimization step so we do not need
-  to download it every time we build the package (Not needed for MapR 3.0.3)  
-`wget -O mapr-core-3.1.0.x86_64.rpm http://package.mapr.com/releases/v3.1.0/redhat/mapr-core-3.1.0.23703.GA-1.x86_64.rpm`
-
-* (Same as above) Generate a MapR Demo VM Image using the base image created in the first step  
-  `packer build -only=virtualbox-iso mapr-demovm.json`
-
-
-
-* Download the Vertica RPM. You will need to log in to get the binary.  
-  https://my.vertica.com/download-community-edition/
-
-* Name the binary vertica.rpm  
-
-* Generate a Vertica & MapR Demo VM Image using the base image created in the previous step  
-  `packer build -only=vertica mapr-vertica-demovm.json`
+Alternative:
+run the 'build_5.1.0-base.sh which will process the 3 steps above
 
   
