@@ -7,7 +7,7 @@
     /_/  /_/\__,_/ .___/_/ |_|     |___/_/  /_/  /_____/\___/_/ /_/ /_/\____/ 
                 /_/                                             
 
-The MapR VM Demo is used to provide a tutorial layer ontop of MCS and Hue.
+The MapR VM Demo is used to provide a base environment building block for SE Demo's.
 
 
 Run bin/localsetup in order to install it locally for debugging purposes. This symbolically links all the files to the source files in this project, so any changes you make will be reflected in both locations.
@@ -18,4 +18,4 @@ IMPORTANT NOTE: DO NOT RUN COMMIT UNLESS YOU RUN CLEANUP FIRST. THIS CAN CAUSE V
 
 ##How to use `packer` to build your VM
 
-https://github.com/mapr/private-vmdemo/tree/pluggable-sandbox/vm
+https://github.com/dschexna/fedemo/tree/master/vm
