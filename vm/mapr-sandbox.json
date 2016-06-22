@@ -1,8 +1,8 @@
 {
  "variables": {
-    "iso_url"               : "http://mirrors.kernel.org/centos/6.7/isos/x86_64/CentOS-6.7-x86_64-bin-DVD1.iso",
+    "iso_url"               : "http://mirrors.kernel.org/centos/6.8/isos/x86_64//CentOS-6.8-x86_64-bin-DVD1.iso",
     "iso_checksum_type"     : "sha256",
-    "iso_checksum"          : "c0c1a05d3d74fb093c6232003da4b22b0680f59d3b2fa2cb7da736bc40b3f2c5",
+    "iso_checksum"          : "1dda55622614a8b43b448a72f87d6cb7f79de1eff49ee8c5881a7d9db28d4e35",
     "mapr_disk_size"        : "20480",
     "mapr_drill_version"    : "0",
     "mapr_flume_version"    : "0",
@@ -20,7 +20,7 @@
     "mapr_version"          : null,
     "mapr_core_repo_url"    : null,
     "mapr_eco_repo_url"     : null,
-    "hadoop_version"        : null,
+    "hadoop_version"        : "2.7.0",
     "aggressive_deletions"  : "false",
     "install_yarn"          : "true",
     "install_maprdb"        : "true",
@@ -50,7 +50,7 @@
     "shutdown_command"    : "shutdown -P now",
     "disk_size"           : 10140,
     "vboxmanage"          : [
-      ["modifyvm", "{{.Name}}", "--memory", "6144"],
+      ["modifyvm", "{{.Name}}", "--memory", "8192"],
       ["modifyvm", "{{.Name}}", "--cpus", "2"],
       ["createhd", "--filename", "output-virtualbox-iso/centosdisk-2.vdi", "--size", "{{ user `mapr_disk_size` }}", "--format", "VDI", "--variant", "Standard"],
       ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "1", "--type", "hdd", "--medium", "output-virtualbox-iso/centosdisk-2.vdi"]
@@ -69,7 +69,7 @@
     "format"           : "ova",
     "headless"         : "{{ user `build_headless` }}",
     "vboxmanage"       : [
-      ["modifyvm", "{{.Name}}", "--memory", "6144"],
+      ["modifyvm", "{{.Name}}", "--memory", "8192"],
       ["modifyvm", "{{.Name}}", "--cpus", "2"]
     ]
   },
