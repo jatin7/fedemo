@@ -300,7 +300,7 @@ hbase_install ()
     fi
 
     #${INSTALL_CMD} http://package.qa.lab/releases/ecosystem/redhat/mapr-hbasethrift-0.94.21.26758-1.noarch.rpm 
-    ${INSTALL_CMD} ${PKG} mapr-hbasethrift
+    #${INSTALL_CMD} ${PKG} mapr-hbasethrift
   fi
 }
 
