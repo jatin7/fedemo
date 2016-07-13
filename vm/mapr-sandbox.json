@@ -24,7 +24,7 @@
     "aggressive_deletions"  : "false",
     "install_yarn"          : "false",
     "install_maprdb"        : "true",
-    "has_two_nics"          : "false",
+    "has_two_nics"          : "true",
     "mapr_minimal"          : "false",
     "mapr_banner_url"       : "https://%s:8443",
     "mapr_banner_name"      : "MapR-Sandbox-Demo",
@@ -98,6 +98,8 @@
     "headless"         : "{{ user `build_headless` }}",
     "format"           : "ova",
     "vboxmanage_post"  : [
+	["modifyvm", "{{.Name}}", "--nic2", "hostonly"],
+	["modifyvm", "{{.Name}}", "--hostonlyadapter2", "vboxnet0"],
 	["modifyvm", "{{.Name}}", "--nic1", "nat"],
 	["modifyvm", "{{.Name}}", "--natdnspassdomain1", "on"],
 	["modifyvm", "{{.Name}}", "--natdnsproxy1", "off"],
@@ -135,7 +137,7 @@
 	["modifyvm", "{{.Name}}", "--natpf1", "nfs,tcp,127.0.0.1,2049,,2049"],
 	["modifyvm", "{{.Name}}", "--natpf1", "YarnTimeline,tcp,127.0.0.1,8188,,8188"],
 	["modifyvm", "{{.Name}}", "--natpf1", "SparkApplication,tcp,127.0.0.1,7077,,7077"]
-    ]
+	]
   }
   ],
   "provisioners": [

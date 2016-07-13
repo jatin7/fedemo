@@ -40,9 +40,23 @@ yum -y install libselinux-python
 
 ntpdate 0.us.pool.ntp.org
 
+#if [ "x${HAS_TWO_NICS}" = "xtrue" ]; then
+#  echo "enabling eth1..."
+#  sed -i "s/ONBOOT=\"no\"/ONBOOT=\"yes\"/g" /etc/sysconfig/network-scripts/ifcfg-eth1
+#  touch /multi-nics
+#fi
+
 if [ "x${HAS_TWO_NICS}" = "xtrue" ]; then
   echo "enabling eth1..."
-  sed -i "s/ONBOOT=\"no\"/ONBOOT=\"yes\"/g" /etc/sysconfig/network-scripts/ifcfg-eth1
+  cat > /etc/sysconfig/network-scripts/ifcfg-eth1 << "EOF"
+  DEVICE="eth1"
+  BOOTPROTO="dhcp"
+  DHCP_HOSTNAME="maprdemo.local"
+  IPV6INIT="yes"
+  NM_CONTROLLED="yes"
+  ONBOOT="yes"
+  TYPE="Ethernet"
+EOF
   touch /multi-nics
 fi
 
