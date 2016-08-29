@@ -631,6 +631,8 @@ for user in user01 user02 hbaseuser mruser; do
   echo "PATH=\$PATH:\$M2_HOME/bin:\$SPARK_HOME/bin" >> /user/$user/.bashrc
 
 done
+# Add the osuser for file transfer
+useradd -d /user/osuser -p `openssl passwd -1 mapr` -u 1001 osuser
 
 #Mark this as off, to prevent Races
 chkconfig mapr-warden off
