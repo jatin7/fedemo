@@ -577,7 +577,7 @@ done
 
 maprcli acl edit -type cluster -user mapr:fc
 maprcli volume create -name tables -replication 1 -path /tables
-maprcli volume create -name osuser_home -replication 1 -path /user/osuser_home
+maprcli volume create -name osuser_home -replication 1 -path /user/osuser
 maprcli acl edit -type volume -name tables -user mapr:fc
 
 yum install -y acpid
@@ -635,6 +635,7 @@ done
 # Add the osuser for file transfer
 useradd -d /user/osuser -p `openssl passwd -1 mapr` -u 1001 osuser
 chown -R osuser:osuser /user/osuser
+chmod 777 /user/osuser
 
 #Mark this as off, to prevent Races
 chkconfig mapr-warden off
