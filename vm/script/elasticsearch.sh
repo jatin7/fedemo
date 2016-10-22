@@ -19,7 +19,7 @@ enabled=1
 
 EOF
 # Install Elasticsearch
-yum install elasticsearch-2.2.2 -y
+yum install elasticsearch -y
 
 # Configure Elasticsearch
 # (Source: https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration.html)
