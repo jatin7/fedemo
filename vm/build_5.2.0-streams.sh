@@ -1,5 +1,7 @@
 #!/bin/bash -ex
 
+rm -rf output-base output-sandbox*
+
 SBPARAMS="
 --var mapr_drill_version=0
 --var mapr_flume_version=0

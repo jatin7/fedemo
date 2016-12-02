@@ -49,7 +49,7 @@
       "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"
     ],
     "shutdown_command"    : "shutdown -P now",
-    "disk_size"           : 10140,
+    "disk_size"           : 20480,
     "vboxmanage"          : [
       ["modifyvm", "{{.Name}}", "--memory", "8192"],
       ["modifyvm", "{{.Name}}", "--cpus", "2"],

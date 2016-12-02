@@ -1,8 +1,9 @@
 {
  "variables": {
-    "iso_url"               : "http://mirrors.kernel.org/centos/6.8/isos/x86_64//CentOS-6.8-x86_64-bin-DVD1.iso",
+    "iso_url"               : "http://vault.centos.org/centos/6.7/isos/x86_64//CentOS-6.7-x86_64-bin-DVD1.iso",
+    "iso_url"               : "http://mirror.symnds.com/distributions/CentOS-vault/6.7/isos/x86_64/CentOS-6.7-x86_64-bin-DVD1.iso",
     "iso_checksum_type"     : "sha256",
-    "iso_checksum"          : "1dda55622614a8b43b448a72f87d6cb7f79de1eff49ee8c5881a7d9db28d4e35",
+    "iso_checksum"          : "c0c1a05d3d74fb093c6232003da4b22b0680f59d3b2fa2cb7da736bc40b3f2c5",
     "mapr_disk_size"        : "20480",
     "mapr_drill_version"    : "0",
     "mapr_flume_version"    : "0",
@@ -24,10 +25,10 @@
     "aggressive_deletions"  : "false",
     "install_yarn"          : "true",
     "install_maprdb"        : "true",
-    "has_two_nics"          : "false",
+    "has_two_nics"          : "true",
     "mapr_minimal"          : "false",
     "mapr_banner_url"       : "https://%s:8443",
-    "mapr_banner_name"      : "MapR-Sandbox-For-Hadoop",
+    "mapr_banner_name"      : "MapR-Realtime-Demo",
     "build_headless"        : "false"
   },
   "builders": [{
@@ -48,7 +49,7 @@
       "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"
     ],
     "shutdown_command"    : "shutdown -P now",
-    "disk_size"           : 10140,
+    "disk_size"           : 20480,
     "vboxmanage"          : [
       ["modifyvm", "{{.Name}}", "--memory", "8192"],
       ["modifyvm", "{{.Name}}", "--cpus", "2"],
@@ -98,6 +99,8 @@
     "headless"         : "{{ user `build_headless` }}",
     "format"           : "ova",
     "vboxmanage_post"  : [
+	["modifyvm", "{{.Name}}", "--nic2", "hostonly"],
+        ["modifyvm", "{{.Name}}", "--hostonlyadapter2", "vboxnet0"],
 	["modifyvm", "{{.Name}}", "--nic1", "nat"],
 	["modifyvm", "{{.Name}}", "--natdnspassdomain1", "on"],
 	["modifyvm", "{{.Name}}", "--natdnsproxy1", "off"],
@@ -178,7 +181,6 @@
     "execute_command": "{{ .Vars }} bash {{.Path}}",
     "scripts": [
       "script/post.sh",
-      "script/zeppelin.sh",
       "script/elasticsearch.sh",
       "script/kibana.sh",
       "script/cleanup.sh",
