@@ -20,6 +20,7 @@ yum install -y \
   nfs-utils \
   ntp \
   openssl \
+  python-pip \
   rsync \
   sdparm \
   tar \
