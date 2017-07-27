@@ -199,7 +199,7 @@
       "script/base.sh",
       "script/vagrant.sh",
       "script/sshd.sh",
-      "script/mapr-install.sh"
+      "script/mapr-install-6.0.0.sh"
     ],
     "only": ["sandbox-base"]
   },
