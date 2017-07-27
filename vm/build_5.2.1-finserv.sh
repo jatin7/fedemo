@@ -7,13 +7,14 @@ SBPARAMS="
 --var mapr_flume_version=0
 --var mapr_hbase_version=
 --var mapr_hcatalog_version=0
---var mapr_hive_version=0
+--var mapr_hive_version=
 --var mapr_hue_version=0
 --var mapr_kafka_version=
+--var mapr_kafka-rest_version=
 --var mapr_mahout_version=0
 --var mapr_oozie_version=0
 --var mapr_pig_version=0
---var mapr_spark_version=0
+--var mapr_spark_version=
 --var mapr_sqoop_version=0
 --var mapr_storm_version=0
 --var mapr_version=5.2.1
@@ -21,8 +22,8 @@ SBPARAMS="
 --var mapr_core_repo_url=http://package.mapr.com/releases
 --var mapr_eco_repo_url=http://package.mapr.com/releases/MEP/MEP-3.0.0
 --var mapr_banner_url=https://%s:8443/
---var mapr_banner_name=MapR-Enterprise-Demo
-mapr-sandbox.json
+--var mapr_banner_name=MapR-Finserv-Demo
+mapr-sandbox-streams.json
 "
 
 echo "SBPARAMS=${SBPARAMS}"
