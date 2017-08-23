@@ -1,0 +1,275 @@
+environment:
+  mapr_core_version: 6.0.0
+config:
+  admin_id: mapr
+  cluster_admin_create: false
+  cluster_admin_gid: 2000
+  cluster_admin_group: mapr
+  cluster_admin_id: mapr
+  cluster_admin_uid: 2000
+  cluster_id: '5965348453495967069'
+  cluster_name: beta.mapr.com
+  data:
+    diskStripeDefault: 3
+    licenseType: M5
+    licenseValidation: NONE
+    maprversion: 6.0.0
+    process_type: install
+    showAdvancedServiceConfig: false
+    showAdvancedServiceSelection: true
+    showLicenseValidation: false
+    showLogs: false
+    template: userdefined
+  dial_home_id: '86931691'
+  disk_format: true
+  disk_stripe: 3
+  disks:
+  - /dev/sdb
+  elasticsearch_path: ''
+  environment: ''
+  hosts:
+  - maprdemo
+  install_dir: /opt/mapr/installer
+  installer_version: 1.6.201707171801
+  license_modules:
+  - DATABASE
+  - HADOOP
+  - STREAMS
+  license_type: M5
+  links:
+    self: https://localhost:9443/api/config
+    services: https://localhost:9443/api/config/services
+  mapr_db: QS
+  mep_version: 4.0.0
+  no_internet: false
+  os_version: redhat_6.8
+  repo_core_url: http://mapr60beta:60beta4mapr%21@stage.mapr.com/beta/v6.0.0
+  repo_eco_url: http://mapr60beta:60beta4mapr%21@stage.mapr.com/beta/v6.0.0
+  services:
+    mapr-asynchbase:
+      enabled: true
+      version: 1.7.0
+    mapr-cldb:
+      enabled: true
+      version: 6.0.0
+    mapr-collectd:
+      enabled: true
+      version: 5.7.1
+    mapr-core:
+      enabled: true
+      version: 6.0.0
+    mapr-drill:
+      enabled: true
+      version: '1.11'
+    mapr-fileserver:
+      enabled: true
+      version: 6.0.0
+    mapr-gateway:
+      enabled: true
+      version: 6.0.0
+    mapr-grafana:
+      enabled: true
+      version: 4.1.2
+    mapr-hbase:
+      enabled: true
+      version: '1.1'
+    mapr-hbase-common:
+      enabled: true
+      version: '1.1'
+    mapr-hbase-rest:
+      enabled: true
+      version: '1.1'
+    mapr-hbasethrift:
+      enabled: true
+      version: '1.1'
+    mapr-kafka:
+      enabled: true
+      version: 0.9.0
+    mapr-librdkafka:
+      enabled: true
+      version: 0.9.0
+    mapr-nfs:
+      enabled: true
+      version: 6.0.0
+    mapr-opentsdb:
+      enabled: true
+      version: 2.3.0
+    mapr-streams-clients:
+      enabled: true
+      version: 0.9.0
+    mapr-webserver:
+      enabled: true
+      version: 6.0.0
+    mapr-webserver2:
+      enabled: true
+      version: 6.0.0
+    mapr-zookeeper:
+      enabled: true
+      version: 6.0.0
+  services_version: 1.6.201707171801
+  ssh_id: root
+  ssh_method: PASSWORD
+  ssh_port: 22
+  state: COMPLETED
+hosts:
+- completion: 100
+  disks:
+    /dev/sda1:
+      selected: false
+      size: 500 MB
+      unavailable: Disk mounted at /boot
+    /dev/sdb:
+      selected: true
+      size: 20 GB
+  id: maprdemo
+  installed: true
+  prereqs:
+    CPU:
+      required: x86_64
+      state: VALID
+      value: x86_64
+    Cluster Admin:
+      required: present
+      state: VALID
+      value: mapr
+    Disks:
+      required: /dev/sdb, /dev/sda1
+      state: VALID
+      value: /dev/sdb
+    Distribution:
+      required: SLES,Suse,CentOS,RedHat,Ubuntu
+      state: VALID
+      value: CentOS 6.8
+    Free /:
+      required: 10 GB
+      state: VALID
+      value: 15.9 GB
+    Free /opt/mapr:
+      required: 128 GB
+      state: WARN
+      value: 15.9 GB
+    Free /tmp:
+      required: 10 GB
+      state: VALID
+      value: 15.9 GB
+    GID:
+      required: '2000'
+      state: VALID
+      value: '2000'
+    Hadoop:
+      required: absent
+      state: VALID
+      value: absent
+    Home Dir:
+      required: present
+      state: VALID
+      value: /home/mapr
+    Hostname:
+      required: maprdemo
+      state: VALID
+      value: maprdemo
+    Internet:
+      required: present
+      state: VALID
+      value: present
+    Owner /dev/shm:
+      required: uid 0
+      state: VALID
+      value: uid 0
+    Owner /tmp:
+      required: uid 0
+      state: VALID
+      value: uid 0
+    Perm /dev/shm:
+      required: '1023'
+      state: VALID
+      value: '01777'
+    Perm /tmp:
+      required: '1023'
+      state: VALID
+      value: '01777'
+    RAM:
+      required: 8 GB
+      state: VALID
+      value: 8.0 GB
+    SWAP:
+      required: 0.8 GB
+      state: VALID
+      value: 1.0 GB
+    UID:
+      required: '2000'
+      state: VALID
+      value: '2000'
+    Yarn:
+      required: absent
+      state: VALID
+      value: absent
+  services:
+  - mapr-cldb-6.0.0
+  - mapr-nfs-6.0.0
+  - mapr-hbase-1.1
+  - mapr-webserver2-6.0.0
+  - mapr-hbase-rest-1.1
+  - mapr-fileserver-6.0.0
+  - mapr-opentsdb-2.3.0
+  - mapr-gateway-6.0.0
+  - mapr-asynchbase-1.7.0
+  - mapr-core-6.0.0
+  - mapr-drill-1.11
+  - mapr-librdkafka-0.9.0
+  - mapr-hbasethrift-1.1
+  - mapr-collectd-5.7.1
+  - mapr-zookeeper-6.0.0
+  - mapr-webserver-6.0.0
+  - mapr-grafana-4.1.2
+  - mapr-kafka-0.9.0
+  state: INSTALLED
+  status: Installed
+  valid: false
+groups:
+- hosts:
+  - maprdemo
+  label: CONTROL
+  services:
+  - mapr-cldb-6.0.0
+  - mapr-zookeeper-6.0.0
+- hosts:
+  - maprdemo
+  label: MULTI_MASTER
+  services:
+  - mapr-gateway-6.0.0
+  - mapr-webserver2-6.0.0
+  - mapr-webserver-6.0.0
+- hosts:
+  - maprdemo
+  label: MASTER
+  services:
+  - mapr-hbasethrift-1.1
+  - mapr-grafana-4.1.2
+- hosts:
+  - maprdemo
+  label: MONITORING_MASTER
+  services:
+  - mapr-opentsdb-2.3.0
+- hosts:
+  - maprdemo
+  label: DATA
+  services:
+  - mapr-hbase-rest-1.1
+  - mapr-drill-1.11
+- hosts:
+  - maprdemo
+  label: CLIENT
+  services:
+  - mapr-hbase-1.1
+  - mapr-asynchbase-1.7.0
+  - mapr-librdkafka-0.9.0
+  - mapr-kafka-0.9.0
+- hosts:
+  - maprdemo
+  label: DEFAULT
+  services:
+  - mapr-nfs-6.0.0
+  - mapr-fileserver-6.0.0
+  - mapr-core-6.0.0
+  - mapr-collectd-5.7.1

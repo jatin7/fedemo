@@ -1,14 +1,18 @@
 #!/bin/bash -eux
 
 # wget http://yum.qa.lab/mapr-installer-multi/mapr-setup -O /root/mapr-setup
-wget http://package.mapr.com/releases/v5.2.2/redhat/mapr-setup -O /root/mapr-setup
+#wget http://package.mapr.com/releases/v5.2.1/redhat/mapr-setup -O /root/mapr-setup
+wget http://mapr60beta:60beta4mapr%21@stage.mapr.com/beta/v6.0.0/installer/redhat/mapr-setup.sh -O /root/mapr-setup
 
-bash /root/mapr-setup 
+useradd -u 2000 mapr
+echo mapr | passwd mapr --stdin
+
+bash /root/mapr-setup -r http://mapr60beta:60beta4mapr%21@stage.mapr.com/beta/v6.0.0 -y
 
 echo "Modifying hosts file"
 sed -i 's/localhost/maprdemo maprdemo.local localhost/' /etc/hosts
 
-cd /opt/mapr-installer
+cd /opt/mapr/installer
 
 cat > /root/config.sandbox << EOF
 [Control_Nodes]

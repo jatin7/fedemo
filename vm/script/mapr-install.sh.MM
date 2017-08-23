@@ -1,9 +1,9 @@
 #!/bin/bash -eux
 
 # wget http://yum.qa.lab/mapr-installer-multi/mapr-setup -O /root/mapr-setup
-wget http://package.mapr.com/releases/v5.2.2/redhat/mapr-setup -O /root/mapr-setup
+wget http://package.mapr.com/releases/v5.2.1/redhat/mapr-setup -O /root/mapr-setup
 
-bash /root/mapr-setup 
+bash /root/mapr-setup
 
 echo "Modifying hosts file"
 sed -i 's/localhost/maprdemo maprdemo.local localhost/' /etc/hosts
@@ -24,7 +24,7 @@ ControlNodesAsDataNodes = true
 WirelevelSecurity = false
 LocalRepo = false
 [Defaults]
-ClusterName = demo.mapr.com
+ClusterName = cluster1.mapr.com
 User = mapr
 Group = mapr
 Password = mapr

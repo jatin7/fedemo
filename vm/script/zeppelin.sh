@@ -6,7 +6,7 @@
 yum install git npm -y
 
 # Install Apache Maven
-wget -O - http://www-us.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz | tar xvfz - -C /opt
+wget -O - http://www-us.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz | tar xvfz - -C /opt
 
 #
 # Install Zeppelin - current snapshot

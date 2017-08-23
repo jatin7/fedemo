@@ -16,13 +16,13 @@ SBPARAMS="
 --var mapr_spark_version=0
 --var mapr_sqoop_version=0
 --var mapr_storm_version=0
---var mapr_version=5.2.1
+--var mapr_version=6.0.0
 --var hadoop_version=2.7.0
---var mapr_core_repo_url=http://package.mapr.com/releases
---var mapr_eco_repo_url=http://package.mapr.com/releases/MEP/MEP-3.0.1
+--var mapr_core_repo_url=http://mapr60beta:60beta4mapr%21@stage.mapr.com/beta/v6.0.0
+--var mapr_eco_repo_url=http://mapr60beta:60beta4mapr%21@stage.mapr.com/beta/v6.0.0/MEP/MEP-4.0.0
 --var mapr_banner_url=https://%s:8443/
---var mapr_banner_name=MapR-Enterprise-Demo
-mapr-sandbox.json
+--var mapr_banner_name=MapR-Beta-Demo
+mapr-sandbox-6.0.0.json
 "
 
 echo "SBPARAMS=${SBPARAMS}"
