@@ -49,7 +49,7 @@ Note: the mapr-sandbox.json script by default will not install any components ex
 
 Step 1. Generate a CentOS Base Image with MapR 6.0.0 
 
-packer build --only=base --var 'mapr_version=6.0.0' --var 'mapr_core_repo_url=http://archive.mapr.com/releases/v6.0.0/redhat' --var 'mapr_eco_repo_url=http://archive.mapr.com/releases/MEP/MEP-5.0' mapr-sandbox-6.0.0.json
+packer build --only=base --var 'mapr_version=6.0.0' --var 'mapr_core_repo_url=http://archive.mapr.com/releases/v6.0.0/redhat' --var 'mapr_eco_repo_url=http://archive.mapr.com/releases/MEP/MEP-4.1.1/redhat' mapr-sandbox-6.0.0.json
 
 Step 2. Add the MapR core software to the vm created in step 1  
 
