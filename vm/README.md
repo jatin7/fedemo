@@ -1,5 +1,5 @@
-# A set of packer definition files (*.json) and some utility scripts to generate SE Demo VM's for MapR
-#
+A set of packer definition files (*.json) and some utility scripts to generate SE Demo VM's for MapR
+
 
 #	Prerequisites 
 #	-------------
