@@ -1,23 +1,19 @@
 A set of packer definition files (*.json) and some utility scripts to generate SE Demo VM's for MapR
 
+Prerequisites 
+------------
 
-#	Prerequisites 
-#	-------------
+Install and setup latest version of Packer from http://www.packer.io/. 
+Make sure the "packer" is in your PATH.
 
-Download and install appropriate flavor of "packer" package 
-from http://www.packer.io/.   Make sure the utility is in your PATH.
+    For Mac: you can install via `homebrew`
+        brew tap homebrew/binary
+        brew install packer
 
-If you are using OSX you can install via `homebrew`
+Install and Setup VirtualBox from https://www.virtualbox.org/
 
-    brew tap homebrew/binary
-    brew install packer
-
-Download and install VirtualBox for your platform from  
-https://www.virtualbox.org/wiki/Downloads
-
-
-#	Overview
-#	--------
+Overview
+--------
 
 The VM generation is done in stages, so as to enable customization
 at any point.   The stages are:
@@ -43,8 +39,8 @@ final sandbox step.
   * If the eco system package variable is set to a non-empty, 
     non-"0" value, that specific version of the package is installed
 
-#	Examples
-#	--------
+Examples
+--------
 Note: the mapr-sandbox.json script by default will not install any components except mapr-hbase and mapr-streams.  Use the --var switch to override
 
 Step 1. Generate a CentOS Base Image with MapR 6.0.0 
