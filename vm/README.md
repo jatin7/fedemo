@@ -43,6 +43,27 @@ final sandbox step.
   * If the eco system package variable is set to a non-empty, 
     non-"0" value, that specific version of the package is installed
 
+#	Examples
+#	--------
+Note: the mapr-sandbox.json script by default will not install any components except mapr-hbase and mapr-streams.  Use the --var switch to override
+
+Step 1. Generate a CentOS Base Image with MapR 6.0.0 
+
+packer build --only=base --var 'mapr_version=6.0.0' --var 'mapr_core_repo_url=http://archive.mapr.com/releases/v6.0.0/redhat' --var 'mapr_eco_repo_url=http://archive.mapr.com/releases/MEP/MEP-5.0' mapr-sandbox-6.0.0.json
+
+Step 2. Add the MapR core software to the vm created in step 1  
+
+packer build --only=sandbox-base --var 'mapr_version=6.0.0' --var 'mapr_core_repo_url=http://archive.mapr.com/releases/v6.0.0/redhat'' --var 'mapr_eco_repo_url=http://archive.mapr.com/releases/MEP/MEP-5.0' mapr-sandbox-6.0.0.json
+
+Step 3. Generate a fully functional Sandbox using the sandbox-base from step 2  
+  
+packer build --only=sandbox --var 'mapr_version=6.0.0' --var 'mapr_core_repo_url=http://archive.mapr.com/releases/v6.0.0/redhat'' --var 'mapr_eco_repo_url=http://archive.mapr.com/releases/MEP/MEP-5.0' mapr-sandbox-6.0.0.json
+
+Each step creates a new directory for the resultant Virtual Machine image.
+
+Alternative:
+run the 'build_6.0.0-base.sh which will process the 3 steps above
+
 
 #	Examples
 #	--------
