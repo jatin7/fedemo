@@ -18,10 +18,10 @@ SBPARAMS="
 --var mapr_storm_version=0
 --var mapr_version=6.0.0
 --var hadoop_version=2.7.0
---var mapr_core_repo_url=http://mapr60beta:60beta4mapr%21@stage.mapr.com/beta/v6.0.0
---var mapr_eco_repo_url=http://mapr60beta:60beta4mapr%21@stage.mapr.com/beta/v6.0.0/MEP/MEP-4.0.0
+--var mapr_core_repo_url=http://archive.mapr.com/releases/v6.0.0/redhat
+--var mapr_eco_repo_url=http://archive.mapr.com/releases/MEP/MEP-4.1.1
 --var mapr_banner_url=https://%s:8443/
---var mapr_banner_name=MapR-Beta-Demo
+--var mapr_banner_name=MapR-Demo-6.0
 mapr-sandbox-6.0.0.json
 "
 
